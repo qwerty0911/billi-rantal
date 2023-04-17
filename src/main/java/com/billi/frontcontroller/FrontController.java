@@ -29,6 +29,7 @@ public class FrontController extends HttpServlet {
 		Map<String, Object> data = new HashMap<>();
 		data.put("method", request.getMethod());
 		data.put("request", request);
+		data.put("response", response);
 
 		System.out.println("servletPath : " + request.getServletPath());
 
@@ -39,6 +40,12 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/signup.do":
 			controller = new SignupController();
+			break;
+		case "/auth/idDupCheck.do":
+			controller = new idDupCheckController();
+			break;
+		case "/auth/nicknameDupCheck.do":
+			controller = new nicknameDupCheckController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
@@ -65,13 +72,12 @@ public class FrontController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 
-		for (String key : data.keySet()) {
-			if (key.equals("loginUser")) {
-				session.setAttribute(key, data.get(key));
-			}
-		}
+		/*
+		 * for (String key : data.keySet()) { if (key.equals("loginUser")) {
+		 * session.setAttribute(key, data.get(key)); } }
+		 */
 		System.out.println(page);
 
 		if (page.indexOf("redirect:") >= 0) {
