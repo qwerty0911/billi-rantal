@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.billi.dbutil.OracleUtil;
+import com.billi.util.DateUtil;
 import com.billi.vo.BoardsVO;
 
 public class BoardsDAO {
@@ -111,7 +113,7 @@ public class BoardsDAO {
 		board.setBoard_id(rs.getInt("board_id"));
 		board.setBoard_title(rs.getString("board_title"));
 		board.setBoard_writer(rs.getString("board_writer"));
-		board.setBorad_date(rs.getDate("board_date"));
+		//board.setBoard_date(rs.getDate("board_date"));
 		board.setCategory(rs.getString("category"));
 		board.setPictures(rs.getString("pictures"));
 		board.setPrice(rs.getInt("price"));

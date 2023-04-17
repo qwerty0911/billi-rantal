@@ -16,7 +16,7 @@ public class BoardsVO {
 	private String board_title;
 	private String board_contents;
 	private String board_writer;
-	private Date borad_date;
+	private Date board_date;
 	private int price;
 	private String pictures;
 	private String address;
