@@ -7,6 +7,6 @@
 <title>boardList</title>
 </head>
 <body>
-
+<h1>board</h1>
 </body>
 </html>

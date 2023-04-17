@@ -40,7 +40,7 @@ public class FrontController extends HttpServlet {
 		case "/auth/signup.do":
 			controller = new SignupController();
 			break;
-		case "/board/boardList.do":
+		case "/board/boardlist.do":
 			controller = new BoradListController();
 			break;
 //		case "/emp/empList.do":
