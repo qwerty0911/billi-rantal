@@ -42,7 +42,7 @@ public class RentalController implements CommonControllerInterface {
 		//session.getParameter("userid");
 		String mem_id = request.getParameter("userid");
 		Date rental_date = DateUtil.convertToDate(request.getParameter("rental_date"));
-		Date exp_date = DateUtil.convertToDate(request.getParameter("rental_date"));;
+		Date exp_date = DateUtil.convertToDate(request.getParameter("exp_date"));;
 		int board_id = Integer.parseInt(request.getParameter("board_id")); 
 		
 		RentalVO vo = new RentalVO();
