@@ -16,7 +16,7 @@ import com.billi.controller.LoginController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignupController;
 
-/**
+/*
  * Servlet implementation class FrontController
  */
 @WebServlet("*.do")
