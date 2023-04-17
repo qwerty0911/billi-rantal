@@ -1,6 +1,7 @@
 package com.billi.frontcontroller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.billi.controller.LoginController;
+import com.billi.controller.RentalController;
 import com.billi.controller.SignupController;
 
 /**
@@ -39,6 +41,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/signup.do":
 			controller = new SignupController();
+			break;
+		case "/rental/rentalRegist.do":
+			controller = new RentalController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
