@@ -19,9 +19,10 @@ public class RentalController implements CommonControllerInterface {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		if(method.equals("GET")) {
 			//
+			
+		}else { 
 			//post
 			//렌탈정보 레코드 추가
-		}else { 
 			RentalVO vo = makeRentalVO(request);
 			RentalService rentalService = new RentalService();
 			rentalService.registRental(vo);
@@ -37,6 +38,8 @@ public class RentalController implements CommonControllerInterface {
 
 	private RentalVO makeRentalVO(HttpServletRequest request) {
 		//int rental_code ; //db에서 sequence로 처리함.
+		
+		//session.getParameter("userid");
 		String mem_id = request.getParameter("userid");
 		Date rental_date = DateUtil.convertToDate(request.getParameter("rental_date"));
 		Date exp_date = DateUtil.convertToDate(request.getParameter("rental_date"));;
