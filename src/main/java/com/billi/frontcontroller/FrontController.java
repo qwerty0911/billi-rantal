@@ -60,6 +60,12 @@ public class FrontController extends HttpServlet {
 			controller = new BoardsAjaxController();
 
 			break;
+		case "/auth/idDupCheck.do":
+			controller = new idDupCheckController();
+			break;
+		case "/auth/nicknameDupCheck.do":
+			controller = new nicknameDupCheckController();
+			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
 //			break;
