@@ -1,10 +1,11 @@
-package com.billi.frontcontroller;
+package com.billi.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
 

@@ -73,36 +73,27 @@ public class BoardsDAO {
 	
 	public List<BoardsVO> selectAll() {
 		String sql="""
-				select EMPLOYEE_ID,
-					FIRST_NAME,
-					LAST_NAME,
-					EMAIL,
-					PHONE_NUMBER,
-					HIRE_DATE,
-					JOB_ID,
-					SALARY,
-					COMMISSION_PCT,
-					MANAGER_ID,
-					DEPARTMENT_ID 
-				from employees 
-				order by 1
+				select BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY
+				from boards 
+				order by board_date desc
 				""";
-		List<String> emplist = new ArrayList<>();
+		List<BoardsVO> boardlist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
 		try {
 			st=conn.createStatement();
 			rs=st.executeQuery(sql);
 			
-			/*칼럼 이름 알아내기
-			ResultSetMetaData meta = rs.getMetaData();
-			int count = meta.getColumnCount();
-			for (int i=1;i<=count;i++) {
-				System.out.println("칼럼 이름: "+meta.getColumnName(i));
-			}*/
-			
 			while(rs.next()) {
-				BoardsVO emp = makeBoard(rs);
-				emplist.add(emp);
+				BoardsVO board = makeBoard(rs);
+				boardlist.add(board);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -110,6 +101,21 @@ public class BoardsDAO {
 		} finally {
 			OracleUtil.dbDisconnect(rs, st, conn);
 		}
-		return emplist;
+		return boardlist;
+	}
+	
+	private BoardsVO makeBoard(ResultSet rs) throws SQLException {
+		BoardsVO board=new BoardsVO();
+		board.setAddress(rs.getString("address"));
+		board.setBoard_contents(rs.getString("board_contents"));
+		board.setBoard_id(rs.getInt("board_id"));
+		board.setBoard_title(rs.getString("board_title"));
+		board.setBoard_writer(rs.getString("board_writer"));
+		board.setBorad_date(rs.getDate("board_date"));
+		board.setCategory(rs.getString("category"));
+		board.setPictures(rs.getString("pictures"));
+		board.setPrice(rs.getInt("price"));
+
+		return board;
 	}
 }

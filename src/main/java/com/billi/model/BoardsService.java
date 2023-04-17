@@ -14,4 +14,8 @@ public class BoardsService {
 	public int boardInsert(BoardsVO board) {
 		return dao.boardInsert(board);
 	}
+	
+	public List<BoardsVO> selectAll() {
+		return dao.selectAll();
+	}
 }
