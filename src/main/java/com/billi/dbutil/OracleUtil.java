@@ -18,7 +18,7 @@ public class OracleUtil {
 		try {
 			initContext = new InitialContext();
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource)envContext.lookup("jdbc/rental");
+			DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle2");
 			conn = ds.getConnection();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

@@ -1,6 +1,7 @@
 package com.billi.frontcontroller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import com.billi.controller.BoardListController;
 import com.billi.controller.BoardsAjaxController;
 import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginController;
+import com.billi.controller.RentalController;
 import com.billi.controller.SignupController;
 
 /**
@@ -51,6 +53,8 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/board/boardlistAjax.do": //게시판 목록
 			controller = new BoardsAjaxController();
+		case "/rental/rentalRegist.do":
+			controller = new RentalController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
