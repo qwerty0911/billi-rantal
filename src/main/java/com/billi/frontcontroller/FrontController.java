@@ -74,9 +74,11 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/logout.do":
 			controller = new LogoutController();
+/*=======
 			
 		case "/chat/chat.do": //채팅페이지
 			controller = new chattingController();
+>>>>>>> 36857aaa7c86528a00ece25856aeb840decb1f5a*/
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
