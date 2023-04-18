@@ -33,11 +33,10 @@ public class BoradwriteController implements CommonControllerInterface {
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("utf-8");
-		//int board_id= request.getParameter("board_title");
+		//board_id, board_date: 자동 입력
 		String board_title= request.getParameter("board_title");
 		String board_contents= request.getParameter("board_contents");
 		String board_writer=  request.getParameter("board_writer"); //세션에 저장된 회원 닉네임
-		//Date borad_date //자동 입력
 		int price= Integer.parseInt(request.getParameter("price"));
 		String pictures= request.getParameter("pictures"); //나중에..
 		String address= request.getParameter("address"); //로그인 구현 후
@@ -46,10 +45,8 @@ public class BoradwriteController implements CommonControllerInterface {
 		BoardsVO board = new BoardsVO();
 		board.setAddress(address);
 		board.setBoard_contents(board_contents);
-		//board.setBoard_id(id);
 		board.setBoard_title(board_title);
 		board.setBoard_writer(board_writer);
-		//board.setBorad_date(null);
 		board.setCategory(category);
 		board.setPictures(pictures);
 		board.setPrice(price);
