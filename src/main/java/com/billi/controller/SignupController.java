@@ -3,6 +3,7 @@ package com.billi.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.MembersService;
@@ -23,6 +24,8 @@ public class SignupController implements CommonControllerInterface {
 			MembersVO members = makeMembers(request);
 			MembersService service = new MembersService();
 			int result = service.membersInsert(members);
+			String path = request.getContextPath();
+			page = "redirect:"+ path + "/auth/logincheck.do";
 		}
 		return page;
 	}
