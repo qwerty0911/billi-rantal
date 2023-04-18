@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet {
 		case "/board/boardlist.do": //게시판 목록
 			controller = new BoardListController();
 			break;
-		case "/board/boardlistAjax.do": //게시판 목록
+		case "/board/boardlistAjax.do": //게시판 목록 ajax
 			controller = new BoardAjaxController();
 			break;
 		case "/board/boarddetail.do": //게시판 페이지
