@@ -18,6 +18,7 @@ import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignupController;
+import com.billi.controller.chattingController;
 
 /*
  * Servlet implementation class FrontController
@@ -65,6 +66,10 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/nicknameDupCheck.do":
 			controller = new nicknameDupCheckController();
+			break;
+			
+		case "/chat/chat.do": //채팅페이지
+			controller = new chattingController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
