@@ -9,7 +9,6 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
-			//data:"",
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -18,7 +17,9 @@
 				var arr = datas.boardlist;
 				var output="<ul>";
 				$.each(arr, function(index, item){
-					output+=`<li>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</li>`;
+					var b = item['board_title'];
+					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
+							
 				});
 				$("#list").html(output+"</ul>");
 				
@@ -32,6 +33,7 @@
 </head>
 <body>
 <h1>board</h1>
+<h2>카테고리</h2>
 <div id="list">
 
 </div>

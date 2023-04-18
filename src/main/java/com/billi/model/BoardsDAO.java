@@ -85,7 +85,7 @@ public class BoardsDAO {
 					ADDRESS,
 					CATEGORY
 				from boards 
-				order by board_date desc
+				order by board_date desc, board_id desc
 				""";
 		List<BoardsVO> boardlist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
@@ -106,6 +106,38 @@ public class BoardsDAO {
 		return boardlist;
 	}
 	
+	public BoardsVO selectById(int board_id) {
+		String sql="""
+				select BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY
+				from boards 
+				where board_id=?
+				""";
+		BoardsVO board = new BoardsVO();
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, board_id);
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				board = makeBoard(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return board;
+	}
+	
 	private BoardsVO makeBoard(ResultSet rs) throws SQLException {
 		BoardsVO board=new BoardsVO();
 		board.setAddress(rs.getString("address"));
@@ -113,7 +145,6 @@ public class BoardsDAO {
 		board.setBoard_id(rs.getInt("board_id"));
 		board.setBoard_title(rs.getString("board_title"));
 		board.setBoard_writer(rs.getString("board_writer"));
-		//board.setBoard_date(rs.getDate("board_date"));
 		board.setCategory(rs.getString("category"));
 		board.setPictures(rs.getString("pictures"));
 		board.setPrice(rs.getInt("price"));

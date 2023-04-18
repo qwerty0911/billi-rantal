@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.billi.controller.BoardListController;
-import com.billi.controller.BoardsAjaxController;
+import com.billi.controller.BoardAjaxController;
+import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignUpController;
+import com.billi.controller.chattingController;
 
 /*
  * Servlet implementation class FrontController
@@ -56,7 +58,10 @@ public class FrontController extends HttpServlet {
 			controller = new BoardListController();
 			break;
 		case "/board/boardlistAjax.do": //게시판 목록
-			controller = new BoardsAjaxController();
+			controller = new BoardAjaxController();
+			break;
+		case "/board/boarddetail.do": //게시판 페이지
+			controller = new BoardDetailController();
 			break;
 		case "/auth/idDupCheck.do":
 			controller = new idDupCheckController();
@@ -69,6 +74,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/logout.do":
 			controller = new LogoutController();
+			
+		case "/chat/chat.do": //채팅페이지
+			controller = new chattingController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
@@ -106,6 +114,7 @@ public class FrontController extends HttpServlet {
 		if (page.indexOf("redirect:") >= 0) {
 			response.sendRedirect(page.substring(9));
 		}else if(page.indexOf("responseBody:")>=0) {
+			response.setCharacterEncoding("utf-8");
 			response.getWriter().append(page.substring( 13) );
 		}else {
 			RequestDispatcher rd;

@@ -54,7 +54,7 @@ public class LoginCheckController implements CommonControllerInterface {
 				session.setAttribute("loginUser", member);
 				session.setAttribute("message", "");
 				String path = request.getContextPath();
-				page = "redirect:"+ path + "/auth/signUp.do";
+				page = "redirect:"+ path + "/board/boardlist.do";
 			} else {
 				//로그인 실패
 				session.setAttribute("message", "잘못된 ID 또는 비밀번호입니다.");
