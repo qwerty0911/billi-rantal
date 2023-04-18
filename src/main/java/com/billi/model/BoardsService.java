@@ -18,4 +18,8 @@ public class BoardsService {
 	public List<BoardsVO> selectAll() {
 		return dao.selectAll();
 	}
+	
+	public BoardsVO selectById(int board_id) {
+		return dao.selectById(board_id);
+	}
 }

@@ -106,6 +106,38 @@ public class BoardsDAO {
 		return boardlist;
 	}
 	
+	public BoardsVO selectById(int board_id) {
+		String sql="""
+				select BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY
+				from boards 
+				where board_id=?
+				""";
+		BoardsVO board = new BoardsVO();
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, board_id);
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				board = makeBoard(rs);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return board;
+	}
+	
 	private BoardsVO makeBoard(ResultSet rs) throws SQLException {
 		BoardsVO board=new BoardsVO();
 		board.setAddress(rs.getString("address"));

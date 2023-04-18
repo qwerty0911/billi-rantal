@@ -12,13 +12,12 @@ import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
 
-public class BoardsAjaxController implements CommonControllerInterface {
+public class BoardAjaxController implements CommonControllerInterface {
 
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		BoardsService service = new BoardsService();
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
-		request.setCharacterEncoding("utf-8");
 		List<BoardsVO> boardlist = service.selectAll();
 		request.setAttribute("boardlist", boardlist);
 

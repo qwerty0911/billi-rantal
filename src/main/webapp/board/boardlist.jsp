@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,6 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
-			//data:"",
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -18,7 +18,9 @@
 				var arr = datas.boardlist;
 				var output="<ul>";
 				$.each(arr, function(index, item){
-					output+=`<li>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</li>`;
+					var b = item['board_title'];
+					//var a=item["board_id"];
+					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
 				});
 				$("#list").html(output+"</ul>");
 				
