@@ -23,7 +23,7 @@ public class MembersDAO {
 	//회원가입
 	public int membersInsert(MembersVO members) {
 		String sql = """
-				insert into members(mem_id, pw, mem_name, phone, address, nickname, grade) values(?, ?, ?, ?, ?, ?, ?)
+				insert into members(mem_id, pw, mem_name, phone, address, nickname) values(?, ?, ?, ?, ?, ?)
 				""";
 		conn = OracleUtil.getConnection();
 		
@@ -37,7 +37,6 @@ public class MembersDAO {
 			pst.setString(4, members.getPhone());
 			pst.setString(5, members.getAddress());
 			pst.setString(6, members.getNickname());
-			pst.setString(7, members.getGrade());
 			
 			resultCount = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -113,8 +112,6 @@ public class MembersDAO {
 				user.setPhone(rs.getString("phone"));
 				user.setAddress(rs.getString("address"));						
 				user.setNickname(rs.getString("nickname"));
-				user.setBalance(rs.getInt("balance"));
-				user.setGrade(rs.getString("grade"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,9 +149,7 @@ public class MembersDAO {
 				mem_name=?, 
 				phone=?, 
 				address = ?, 
-				nickname =?,
-				balance = ?,
-				grade = ? 
+				nickname =? 
 				where mem_id = ?
 				""";
 		conn = OracleUtil.getConnection();
@@ -167,9 +162,7 @@ public class MembersDAO {
 			pst.setString(3, members.getPhone());
 			pst.setString(4, members.getAddress());
 			pst.setString(5, members.getNickname());
-			pst.setInt(6, members.getBalance());
-			pst.setString(7, members.getGrade());
-			pst.setString(8, members.getMem_id());
+			pst.setString(6, members.getMem_id());
 						
 			resultCount =  pst.executeUpdate(); //DML 문장 실행한다, 영향을 받은 건수가 리턴됨
 			System.out.println(resultCount);
@@ -192,8 +185,6 @@ public class MembersDAO {
 		members.setPhone(rs.getString("phone"));
 		members.setAddress(rs.getString("address"));
 		members.setNickname(rs.getString("nickname"));
-		members.setBalance(rs.getInt("balance"));
-		members.setGrade(rs.getString("grade"));
 		
 		System.out.println(members);
 		

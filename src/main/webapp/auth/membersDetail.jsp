@@ -43,19 +43,7 @@
 				<td> <input type="text" name="nickname" value="${loginUser.nickname}" id="nickname"> </td>
 				<td> <input type="button" id="nicknameDupCheck" value="중복체크"> </td>
 					<td> <span id="nicknameMessage"></span> </td>
-			</tr>
-			
-			<tr>
-				<td>잔고</td>
-				<td> <span>${loginUser.balance}</span> </td>
-				<td> <input type="hidden" name="balance" value="${loginUser.balance}"> </td>
-			</tr>
-			
-			<tr>
-				<td>등급</td>
-				<td> <span>${loginUser.grade}</span> </td>
-				<td> <input type="hidden" name="grade" value="${loginUser.grade}"> </td>
-			</tr>
+			</tr>			
 			
 			<tr style="text-align: center;">
 				<td colspan="2"> <input type="submit" value="회원정보수정"> </td>

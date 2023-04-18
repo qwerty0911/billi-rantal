@@ -23,7 +23,7 @@
 			$.ajax({
 				url:"../auth/logout.do",
 				success:function(responseData){
-					alert(responseData+"로그아웃되었습니다.");
+					alert(responseData+"로그아웃 되었습니다.");
 					location.href="../auth/loginCheck.do"
 				},
 				error:function(message){

@@ -138,6 +138,32 @@ public class BoardsDAO {
 		return board;
 	}
 	
+	//내가 쓴 글 조회
+		public List<BoardsVO> selectByWriter(String board_writer) {
+			String sql ="""
+					select board_id, board_title, borad_date
+					from boards
+					where board_writer = ?
+					""";
+			List<BoardsVO> boardlist = new ArrayList<>();
+			conn = OracleUtil.getConnection();
+			try {
+				pst = conn.prepareStatement(sql);
+				pst.setString(1, board_writer);
+				rs = pst.executeQuery();
+				while(rs.next()) {
+					BoardsVO board = makeBoard(rs);
+					boardlist.add(board);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(rs, pst, conn);
+			}
+			return boardlist;
+		}
+	
 	private BoardsVO makeBoard(ResultSet rs) throws SQLException {
 		BoardsVO board=new BoardsVO();
 		board.setAddress(rs.getString("address"));

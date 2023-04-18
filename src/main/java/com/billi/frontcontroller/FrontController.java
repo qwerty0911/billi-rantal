@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet {
 		case "/board/boardlist.do": //게시판 목록
 			controller = new BoardListController();
 			break;
-		case "/board/boardlistAjax.do": //게시판 목록
+		case "/board/boardlistAjax.do": //게시판 목록 ajax
 			controller = new BoardAjaxController();
 			break;
 		case "/board/boarddetail.do": //게시판 페이지
@@ -79,6 +79,7 @@ public class FrontController extends HttpServlet {
 		case "/chat/chat.do": //채팅페이지 호출
 			controller = new ChattingController();
 			break;
+			
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
 //			break;

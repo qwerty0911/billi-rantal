@@ -34,7 +34,7 @@ var message = "${sessionScope.message}";
             <div id="form-controls">
               <button type="submit">로그인하기</button>
               <br>
-              <button type="button" onclick="location.href='../auth/signup.do'">회원가입</button>
+              <button type="button" onclick="location.href='../auth/signUp.do'">회원가입</button>
             </div>
             
             <input type="checkbox" name="terms" id="terms">

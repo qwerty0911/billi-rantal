@@ -37,7 +37,6 @@ public class SignUpController implements CommonControllerInterface {
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		String nickname = request.getParameter("nickname");
-		String grade = request.getParameter("grade");
 		
 		MembersVO members = new MembersVO();
 		members.setMem_id(mem_id);
@@ -46,7 +45,6 @@ public class SignUpController implements CommonControllerInterface {
 		members.setPhone(phone);
 		members.setAddress(address);
 		members.setNickname(nickname);
-		members.setGrade(grade);
 		
 		return members;
 	}
