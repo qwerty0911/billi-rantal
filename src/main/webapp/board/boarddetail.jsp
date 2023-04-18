@@ -13,9 +13,9 @@
 			<tr>
 				<td name="제목">${board.board_title}</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td name="내용">${board.mem_id}</td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<td name="내용">${board.board_contents}</td>
 			</tr>
@@ -29,7 +29,7 @@
 			<td name="사진">${board.pictures}</td>
 			</tr>
 		</table>
-<button id="btnchat">채팅</button>
+<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
 <button id="btnrental">대여신청</button>
 <hr>
 <h2>후기</h2>

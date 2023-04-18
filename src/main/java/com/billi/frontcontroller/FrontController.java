@@ -19,7 +19,7 @@ import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignUpController;
-import com.billi.controller.chattingController;
+import com.billi.controller.ChattingController;
 
 /*
  * Servlet implementation class FrontController
@@ -74,11 +74,10 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/auth/logout.do":
 			controller = new LogoutController();
-/*=======
+			break;
 			
 		case "/chat/chat.do": //채팅페이지 호출
-			controller = new chattingController();
->>>>>>> 36857aaa7c86528a00ece25856aeb840decb1f5a*/
+			controller = new ChattingController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
