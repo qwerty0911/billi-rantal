@@ -18,7 +18,7 @@ public class RentalController implements CommonControllerInterface {
 		String page = "/";
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		if(method.equals("GET")) {
-			//
+			page = "/rental/rentalform.jsp";
 			
 		}else { 
 			//post

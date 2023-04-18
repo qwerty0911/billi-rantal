@@ -19,7 +19,7 @@ import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignUpController;
-import com.billi.controller.chattingController;
+import com.billi.controller.ChattingController;
 
 /*
  * Servlet implementation class FrontController
@@ -57,7 +57,7 @@ public class FrontController extends HttpServlet {
 		case "/board/boardlist.do": //게시판 목록
 			controller = new BoardListController();
 			break;
-		case "/board/boardlistAjax.do": //게시판 목록
+		case "/board/boardlistAjax.do": //게시판 목록 ajax
 			controller = new BoardAjaxController();
 			break;
 		case "/board/boarddetail.do": //게시판 페이지
@@ -75,11 +75,9 @@ public class FrontController extends HttpServlet {
 		case "/auth/logout.do":
 			controller = new LogoutController();
 			break;
-/*=======
-			
-		case "/chat/chat.do": //채팅페이지
-			controller = new chattingController();
->>>>>>> 36857aaa7c86528a00ece25856aeb840decb1f5a*/
+		case "/chat/chat555.do": //채팅페이지 호출
+			controller = new ChattingController();
+			break;
 			
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
