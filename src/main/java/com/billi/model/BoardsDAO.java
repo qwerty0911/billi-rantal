@@ -85,7 +85,7 @@ public class BoardsDAO {
 					ADDRESS,
 					CATEGORY
 				from boards 
-				order by board_date desc
+				order by board_date desc, board_id desc
 				""";
 		List<BoardsVO> boardlist = new ArrayList<>();
 		conn = OracleUtil.getConnection();

@@ -40,9 +40,9 @@
 			<td><input type="text" name="board_pictures"
 					 placeholder="내용을 입력해주세요" value="pictures"></td>
 			</tr>
-			<input type="hidden" name="board_writer" value="se"/>
-			<input type="hidden" name="address" value="서울"/>
 		</table>
+		<input type="hidden" name="board_writer" value="${loginUser.mem_id}"/>
+		<input type="hidden" name="address" value="${loginUser.address}"/>
 		<button id="btnWriteBoard">작성</button>
 
 	</form>

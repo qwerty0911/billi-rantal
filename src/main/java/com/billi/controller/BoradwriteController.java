@@ -27,7 +27,6 @@ public class BoradwriteController implements CommonControllerInterface {
 			BoardsVO board = makeBoard(request);
 			BoardsService service = new BoardsService();
 			int result = service.boardInsert(board);
-			//재요청하기: Browser로 내려가서 새로운 요청
 			page="redirect:boardwrite.do";
 		}
 		return page;
@@ -37,10 +36,10 @@ public class BoradwriteController implements CommonControllerInterface {
 		//board_id, board_date: 자동 입력
 		String board_title= request.getParameter("board_title");
 		String board_contents= request.getParameter("board_contents");
-		String board_writer=  request.getParameter("board_writer"); //세션에 저장된 회원 닉네임
+		String board_writer=  request.getParameter("board_writer");
 		int price= Integer.parseInt(request.getParameter("price"));
 		String pictures= request.getParameter("pictures"); //나중에..
-		String address= request.getParameter("address"); //로그인 구현 후
+		String address= request.getParameter("address");
 		String category= request.getParameter("category_id");
 		
 		BoardsVO board = new BoardsVO();
