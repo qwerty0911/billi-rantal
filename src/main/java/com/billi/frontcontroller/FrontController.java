@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.billi.controller.BoardListController;
-import com.billi.controller.BoardsAjaxController;
+import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginController;
 import com.billi.controller.RentalController;
@@ -57,8 +57,10 @@ public class FrontController extends HttpServlet {
 			controller = new BoardListController();
 			break;
 		case "/board/boardlistAjax.do": //게시판 목록
-			controller = new BoardsAjaxController();
-
+			controller = new BoardAjaxController();
+			break;
+		case "/board/boarddetail.do": //게시판 페이지
+			controller = new BoardDetailController();
 			break;
 		case "/auth/idDupCheck.do":
 			controller = new idDupCheckController();
