@@ -20,8 +20,7 @@
 			</tr>
 			<tr>
 				<td>글 내용</td>
-				<td><input type="text" name="board_contents"
-					required="required" placeholder="내용을 입력해주세요"></td>
+				<td><textarea name="board_contents"></textarea></td>
 			</tr>
 			<tr>
 				<td>가격</td>

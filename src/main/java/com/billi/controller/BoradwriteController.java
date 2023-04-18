@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
@@ -16,6 +17,7 @@ public class BoradwriteController implements CommonControllerInterface {
 		String method = (String)data.get("method");
 		String page="";
 		HttpServletRequest request = (HttpServletRequest)data.get("request");
+		HttpSession session = request.getSession();
 		if(method.equals("GET")) { //글 작성 입력 폼
 			page = "boardwrite.jsp";
 			
@@ -32,7 +34,6 @@ public class BoradwriteController implements CommonControllerInterface {
 	}
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8");
 		//board_id, board_date: 자동 입력
 		String board_title= request.getParameter("board_title");
 		String board_contents= request.getParameter("board_contents");
