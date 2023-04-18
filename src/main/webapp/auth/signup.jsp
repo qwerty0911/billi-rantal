@@ -113,7 +113,7 @@ $(function () {
 </script>
 <body>
 	<h1>회원가입</h1>
-		<form action="#" method="post">
+		<form action="../auth/signUp.do" method="post">
 			<table>
 				<tr>
 					<td>아이디</td>

@@ -16,9 +16,9 @@ import com.billi.controller.BoardListController;
 import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoradwriteController;
-import com.billi.controller.LoginController;
+import com.billi.controller.LoginCheckController;
 import com.billi.controller.RentalController;
-import com.billi.controller.SignupController;
+import com.billi.controller.SignUpController;
 import com.billi.controller.chattingController;
 
 /*
@@ -42,13 +42,12 @@ public class FrontController extends HttpServlet {
 
 		switch (path) {
 		
-		case "/auth/logincheck.do":
-			controller = new LoginController();
+		case "/auth/loginCheck.do":
+			controller = new LoginCheckController();
 			break;
-		case "/auth/signup.do":
-			controller = new SignupController();
+		case "/auth/signUp.do":
+			controller = new SignUpController();
 			break;
-
 		case "/rental/rentalRegist.do":
 			controller = new RentalController();
 			break;
@@ -70,9 +69,16 @@ public class FrontController extends HttpServlet {
 		case "/auth/nicknameDupCheck.do":
 			controller = new nicknameDupCheckController();
 			break;
+		case "/auth/membersDetail.do":
+			controller = new membersDetailController();
+			break;
+		case "/auth/logout.do":
+			controller = new LogoutController();
+/*=======
 			
 		case "/chat/chat.do": //채팅페이지 호출
 			controller = new chattingController();
+>>>>>>> 36857aaa7c86528a00ece25856aeb840decb1f5a*/
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();

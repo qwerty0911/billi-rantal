@@ -17,4 +17,11 @@ public class MembersService {
 	public MembersVO loginCheck(String mem_id, String pw) {
 		return dao.loginCheck(mem_id, pw);
 	}
+	public MembersVO selectByid(String mem_id) {
+		return dao.selectByid(mem_id);
+	}
+	public String membersUpdate(MembersVO members) {
+		int result = dao.membersUpdate(members);
+		return result > 0?"수정성공":"수정실패";
+	}
 }
