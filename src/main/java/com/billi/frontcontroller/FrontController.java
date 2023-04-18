@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.billi.controller.BoardListController;
 import com.billi.controller.BoardAjaxController;
+import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoradwriteController;
 import com.billi.controller.LoginController;
 import com.billi.controller.RentalController;

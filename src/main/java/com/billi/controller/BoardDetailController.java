@@ -1,9 +1,10 @@
-package com.billi.frontcontroller;
+package com.billi.controller;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
 
@@ -24,11 +25,11 @@ public class BoardDetailController implements CommonControllerInterface {
 
 		} else {
 //			//수정
-//			EmpVO emp = makeEmp(request);
-//			EmpService service = new EmpService();
-//			String message = service.empUpdate(emp);
-
-			page="redirect:emplist.do";
+//			BoardsVO  board = makeBoard(request);
+//			BoardsService service = new BoardsService();
+//			String message = service.boardUpdate( board);
+//
+//			page="redirect:boarddetail.do";
 		}
 		return page;
 	}

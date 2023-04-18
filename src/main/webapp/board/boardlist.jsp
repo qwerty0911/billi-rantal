@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
@@ -19,8 +18,8 @@
 				var output="<ul>";
 				$.each(arr, function(index, item){
 					var b = item['board_title'];
-					//var a=item["board_id"];
 					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
+							
 				});
 				$("#list").html(output+"</ul>");
 				
@@ -34,6 +33,7 @@
 </head>
 <body>
 <h1>board</h1>
+<h2>카테고리</h2>
 <div id="list">
 
 </div>

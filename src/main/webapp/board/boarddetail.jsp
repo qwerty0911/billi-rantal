@@ -26,5 +26,10 @@
 			<td name="사진">${board.pictures}</td>
 			</tr>
 		</table>
+<button id="btnchat">채팅</button>
+<button id="btnrental">대여신청</button>
+<hr>
+<h2>후기</h2>
+
 </body>
 </html>
