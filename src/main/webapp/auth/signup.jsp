@@ -163,9 +163,6 @@ $(function () {
 					<td> <span id="nicknameMessage"></span> </td>
 				</tr>
 			</table>
-			<input type="radio" name="grade" value="personal"> 개인 회원
-			<input type="radio" name="grade" value="company"> 전문 업체
-			<br>
 			<input type="submit" value="회원가입">
 			
 		</form>

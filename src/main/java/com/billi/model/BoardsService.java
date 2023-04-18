@@ -22,4 +22,7 @@ public class BoardsService {
 	public BoardsVO selectById(int board_id) {
 		return dao.selectById(board_id);
 	}
+	public List<BoardsVO> selectByWriter(String board_writer) {
+		return dao.selectByWriter(board_writer);
+	}
 }

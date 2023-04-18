@@ -13,9 +13,9 @@
 			<tr>
 				<td name="제목">${board.board_title}</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<td name="내용">${board.mem_id}</td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<td name="내용">${board.board_contents}</td>
 			</tr>
