@@ -35,6 +35,7 @@ public class BoardAjaxController implements CommonControllerInterface {
 			obj.put("pictures", board.getPictures());
 			arr.add(obj);
 		}
+		if(arr==null) return "";
 		JSONObject boardsObject = new JSONObject();
 		boardsObject.put("boardlist", arr);
 		return "responseBody:" + boardsObject.toJSONString();
