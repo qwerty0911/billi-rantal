@@ -70,7 +70,7 @@ public class FrontController extends HttpServlet {
 			controller = new nicknameDupCheckController();
 			break;
 			
-		case "/chat/chat.do": //채팅페이지
+		case "/chat/chat.do": //채팅페이지 호출
 			controller = new chattingController();
 			break;
 //		case "/emp/empList.do":
