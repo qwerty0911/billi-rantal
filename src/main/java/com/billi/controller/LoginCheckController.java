@@ -16,7 +16,7 @@ import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.MembersService;
 import com.billi.vo.MembersVO;
 
-public class LoginController implements CommonControllerInterface {
+public class LoginCheckController implements CommonControllerInterface {
 
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
@@ -54,11 +54,11 @@ public class LoginController implements CommonControllerInterface {
 				session.setAttribute("loginUser", member);
 				session.setAttribute("message", "");
 				String path = request.getContextPath();
-				page = "redirect:"+ path + "/auth/signup.do";
+				page = "redirect:"+ path + "/auth/signUp.do";
 			} else {
 				//로그인 실패
 				session.setAttribute("message", "잘못된 ID 또는 비밀번호입니다.");
-				page = "redirect:logincheck.do";
+				page = "redirect:loginCheck.do";
 			}
 			
 		}

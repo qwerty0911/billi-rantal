@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 import com.billi.controller.BoardListController;
 import com.billi.controller.BoardsAjaxController;
 import com.billi.controller.BoradwriteController;
-import com.billi.controller.LoginController;
+import com.billi.controller.LoginCheckController;
 import com.billi.controller.RentalController;
-import com.billi.controller.SignupController;
+import com.billi.controller.SignUpController;
 
 /*
  * Servlet implementation class FrontController
@@ -40,13 +40,12 @@ public class FrontController extends HttpServlet {
 
 		switch (path) {
 		
-		case "/auth/logincheck.do":
-			controller = new LoginController();
+		case "/auth/loginCheck.do":
+			controller = new LoginCheckController();
 			break;
-		case "/auth/signup.do":
-			controller = new SignupController();
+		case "/auth/signUp.do":
+			controller = new SignUpController();
 			break;
-
 		case "/rental/rentalRegist.do":
 			controller = new RentalController();
 			break;
@@ -58,13 +57,18 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/board/boardlistAjax.do": //게시판 목록
 			controller = new BoardsAjaxController();
-
 			break;
 		case "/auth/idDupCheck.do":
 			controller = new idDupCheckController();
 			break;
 		case "/auth/nicknameDupCheck.do":
 			controller = new nicknameDupCheckController();
+			break;
+		case "/auth/membersDetail.do":
+			controller = new membersDetailController();
+			break;
+		case "/auth/logout.do":
+			controller = new LogoutController();
 			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();

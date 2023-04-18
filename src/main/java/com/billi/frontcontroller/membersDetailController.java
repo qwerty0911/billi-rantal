@@ -1,35 +1,35 @@
-package com.billi.controller;
+package com.billi.frontcontroller;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.MembersService;
 import com.billi.vo.MembersVO;
 
-public class SignupController implements CommonControllerInterface {
+public class membersDetailController implements CommonControllerInterface {
 
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
-		String page="";
 		String method = (String)data.get("method");
+		String page = "membersDetail.jsp";
 		HttpServletRequest request = (HttpServletRequest)data.get("request");
-		System.out.println(request);
 		
 		if(method.equals("GET")) {
-			page = "signup.jsp";
-		}else { //db에 유저 정보 저장
+			String mem_id = request.getParameter("mem_id");
+			MembersService service = new MembersService();
+			MembersVO members = service.selectByid(mem_id);
+			request.setAttribute("members", members); 
+			
+		} else {
 			MembersVO members = makeMembers(request);
 			MembersService service = new MembersService();
-			int result = service.membersInsert(members);
-			String path = request.getContextPath();
-			page = "redirect:"+ path + "/auth/logincheck.do";
+			String message = service.membersUpdate(members);
+			page = "redirect:loginCheck.do";
 		}
 		return page;
 	}
-
+	
 	private MembersVO makeMembers(HttpServletRequest request) {
 		String mem_id = request.getParameter("mem_id");
 		String pw = request.getParameter("pw");
@@ -37,6 +37,7 @@ public class SignupController implements CommonControllerInterface {
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		String nickname = request.getParameter("nickname");
+		int balance = Integer.parseInt(request.getParameter("balance"));
 		String grade = request.getParameter("grade");
 		
 		MembersVO members = new MembersVO();
@@ -46,9 +47,9 @@ public class SignupController implements CommonControllerInterface {
 		members.setPhone(phone);
 		members.setAddress(address);
 		members.setNickname(nickname);
+		members.setBalance(balance);
 		members.setGrade(grade);
 		
 		return members;
 	}
-
 }

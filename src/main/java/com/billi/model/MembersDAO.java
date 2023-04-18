@@ -147,8 +147,7 @@ public class MembersDAO {
 	public int membersUpdate(MembersVO members) {
 		String sql ="""
 				update members
-				set 
-				mem_id = ?, 
+				set 	 
 				pw =?, 
 				mem_name=?, 
 				phone=?, 
@@ -163,17 +162,17 @@ public class MembersDAO {
 		try {
 			pst = conn.prepareStatement(sql);
 			
-			pst.setString(1, members.getMem_id());
-			pst.setString(2, members.getPw());
-			pst.setString(3, members.getMem_name());
-			pst.setString(4, members.getPhone());
-			pst.setString(5, members.getAddress());
-			pst.setString(6, members.getNickname());
-			pst.setInt(7, members.getBalance());
-			pst.setString(8, members.getGrade());
-			
-			
+			pst.setString(1, members.getPw());
+			pst.setString(2, members.getMem_name());
+			pst.setString(3, members.getPhone());
+			pst.setString(4, members.getAddress());
+			pst.setString(5, members.getNickname());
+			pst.setInt(6, members.getBalance());
+			pst.setString(7, members.getGrade());
+			pst.setString(8, members.getMem_id());
+						
 			resultCount =  pst.executeUpdate(); //DML 문장 실행한다, 영향을 받은 건수가 리턴됨
+			System.out.println(resultCount);
 			
 		} catch (SQLException e) {
 			resultCount = -1;
@@ -195,6 +194,8 @@ public class MembersDAO {
 		members.setNickname(rs.getString("nickname"));
 		members.setBalance(rs.getInt("balance"));
 		members.setGrade(rs.getString("grade"));
+		
+		System.out.println(members);
 		
 		return members;
 	}

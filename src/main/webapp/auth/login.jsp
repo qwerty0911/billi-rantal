@@ -24,7 +24,7 @@ var message = "${sessionScope.message}";
         <!-- Sign up form -->
         <div id="sign-up-container">
           <h3>로그인</h3>
-          <form action="../auth/logincheck.do" method="post">
+          <form action="../auth/loginCheck.do" method="post">
             <label for="mem_id">아이디</label>
             <input type="text" name="mem_id" id="mem_id" placeholder="아이디">
 
