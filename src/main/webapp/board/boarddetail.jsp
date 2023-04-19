@@ -13,18 +13,18 @@
 			<tr>
 				<td name="제목">${board.board_title}</td>
 			</tr>
-<<<<<<< HEAD
+
 			<%-- <tr>
 				<td name="내용">${board.mem_id}</td>
 			</tr> --%>
-=======
+
 			<tr>
 				<td name="작성자">${board.board_writer}</td>
 			</tr>
 			<tr>
 				<td name="작성일">${board.board_date}</td>
 			</tr>
->>>>>>> 0952b5f03efecff2800349ab4b1aec3aa93a1f34
+
 			<tr>
 				<td name="내용">${board.board_contents}</td>
 			</tr>

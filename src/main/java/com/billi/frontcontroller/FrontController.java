@@ -1,25 +1,25 @@
 package com.billi.frontcontroller;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.billi.controller.BoardListController;
 import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoardDetailController;
+import com.billi.controller.BoardListController;
 import com.billi.controller.BoradwriteController;
+import com.billi.controller.ChattingController;
 import com.billi.controller.LoginCheckController;
+import com.billi.controller.MypageController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignUpController;
-import com.billi.controller.ChattingController;
 
 /*
  * Servlet implementation class FrontController
@@ -78,7 +78,13 @@ public class FrontController extends HttpServlet {
 		case "/chat/chat555.do": //채팅페이지 호출
 			controller = new ChattingController();
 			break;
-			
+		case "/user/myboardlist.do": //마이페이지 호출
+			controller = new SelectbynicknameController();
+			break;
+		case "/user/mypage.do": //마이페이지 호출
+			controller = new MypageController();
+			break;
+		
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
 //			break;

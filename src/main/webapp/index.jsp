@@ -12,5 +12,6 @@
 <button onclick="location.href='<%=request.getContextPath() %>/auth/signUp.do'">회원가입</button>
 <button onclick="location.href='<%=request.getContextPath() %>/board/boardwrite.do'">게시판 글 작성</button>
 <button onclick="location.href='<%=request.getContextPath() %>/board/boardlist.do'">게시판 목록</button>
+<button onclick="location.href='<%=request.getContextPath() %>/user/mypage.do'">마이페이지</button>
 </body>
 </html>
