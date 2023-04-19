@@ -21,7 +21,6 @@ public class BoardDetailController implements CommonControllerInterface {
 			BoardsService service = new BoardsService();
 			BoardsVO board = service.selectById(id);
 			request.setAttribute("board", board);
-			
 
 		} else {
 //			//수정

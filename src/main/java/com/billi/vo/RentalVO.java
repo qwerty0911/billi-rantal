@@ -19,5 +19,5 @@ public class RentalVO {
 	Date rental_date;   
 	Date exp_date;
 	int board_id;
-	String owner;
+	String owner_nick;
 }
