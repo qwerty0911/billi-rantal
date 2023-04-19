@@ -36,5 +36,6 @@
 <div id="list">
 
 </div>
+<button onclick="location.href='<%=request.getContextPath() %>/board/boardwrite.do'">글 작성</button>
 </body>
 </html>
