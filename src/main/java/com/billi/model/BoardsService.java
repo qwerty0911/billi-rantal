@@ -34,12 +34,12 @@ public class BoardsService {
 	}
 	
 	//게시판 페이지번호 출력
-	public String readList(int page, HttpServletRequest request) throws Exception {
-		return dao.readList(page, request);
+	public String readList(int page, HttpServletRequest request, String category) throws Exception {
+		return dao.readList(page, request, category);
 	}
 	
 	//페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request) {
-		dao.printBoard(page, request);
+	public void printBoard(int page, HttpServletRequest request, String categoryParam) {
+		dao.printBoard(page, request, categoryParam);
 	}
 }

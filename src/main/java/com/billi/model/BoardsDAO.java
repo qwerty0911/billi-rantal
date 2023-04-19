@@ -173,60 +173,20 @@ public class BoardsDAO {
 		}
 		
 	/*게시판 목록 페이지 처리*/
-	//1. 페이지 개수 구하기
-	public int[] paging(int page) throws Exception {
-
-		String sql ="select count(*) count from boards";
-		int totalContent=0;
-		int totalPage = 0;
-		conn = OracleUtil.getConnection();
-		try {
-			st=conn.createStatement();
-			rs=st.executeQuery(sql);
-			
-			while(rs.next()) {
-				totalContent = rs.getInt("count");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (totalContent == 0) {
-			return null;
-		}
-		totalPage = totalContent / PAGEPERLIST; // 최종 전체 페이지 갯수
-		if (totalContent % PAGEPERLIST > 0) {
-			totalPage++;	// 나머지가 있다면 1을 더해줌
-		}
-		
-		// 페이징 범위 계산
-		int startPage, endPage; // 시작과 끝 페이지
-		startPage = ((page - 1) / PAGEPERLIST) * PAGEPERLIST + 1;
-		endPage = startPage + PAGEPERLIST - 1;
-		if (endPage > totalPage) {
-			endPage = totalPage;
-		}
-		int[] startEnd = new int[2]; // 결과를 전달해줄 배열
-		startEnd[0] = startPage;
-		startEnd[1] = endPage;
-
-		return startEnd;
-	}
-	
-	//2. 게시판 페이지번호 출력
-	public String readList(int page, HttpServletRequest request) throws Exception {
+	//게시판 페이지번호 출력
+	public String readList(int page, HttpServletRequest request, String categoryParam) throws Exception {
 		String listUrl="/billi/board/boardlist.do";
 		StringBuffer strList = new StringBuffer();
 		try {
 
-			// 페이징 범위 산출 (null값은 게시물이 하나도 없을 경우)
-			int[] paging = paging(page);
+			// 페이징 범위 산출
+			int[] paging = paging(page, categoryParam);
 			
-			for(int i=0;i<paging.length;i++) {
-				if(paging[i]==page)
-					strList.append("<span style='color:orange; front-weight:bolad;'>"+paging[i]+"</span>");
+			for(int i=paging[0];i<=paging[1];i++) {
+				if(i==page)
+					strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
 				else
-					strList.append("<a href='"+listUrl+"?pageNum="+paging[i]+"'>"+paging[i]+"</a>");
+					strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
 			}
 
 		} catch (SQLException e) {
@@ -238,16 +198,70 @@ public class BoardsDAO {
 
 		return strList.toString();
 	}
-	//3.페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request) {
+	//페이지번호에 따른 게시물 출력
+	public void printBoard(int page, HttpServletRequest request, String category) {
+		if(category.equals("all")) printBoardAll(page,request);
+		else printBoardCategory(page, request, category);
+	}
+	//1. 페이지 개수 구하기
+	public int[] paging(int page, String categoryParam) throws Exception {
+		String sql="";
+		String category = convertCategory(categoryParam);
+		if(category.equals("all")) {
+			sql ="select count(*) count from boards";
+		} else {
+			sql ="select count(*) count from boards where category=?";
+		}
+		int totalContent=0;
+		int totalPage = 0;
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			if(category.equals("all")!=true) {
+				pst.setString(1, category);
+			}
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				totalContent = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (totalContent == 0) {
+			return null;
+		}
+		totalPage = totalContent / PAGEPERLIST;
+		if (totalContent % PAGEPERLIST > 0) {
+			totalPage++;
+		}
+		
+		// 페이징 범위 계산
+		int startPage, endPage; // 시작과 끝 페이지
+		startPage = ((page - 1) / PAGEPERLIST) * PAGEPERLIST + 1;
+		endPage = startPage + PAGEPERLIST - 1;
+		if (endPage > totalPage) {
+			endPage = totalPage;
+		}
+		int[] startEnd = new int[2];
+		startEnd[0] = startPage;
+		startEnd[1] = endPage;
+
+		return startEnd;
+	}
+	
+	//카테고리 상관 없이 전체 게시글 조회
+	public void printBoardAll(int page, HttpServletRequest request) {
 		conn = OracleUtil.getConnection();
 		// 리스트 정보 가져오기
-		String query = """
-				select * from
-				(select ROWNUM as rnum, A.* from
-				(select * from boards order by board_date desc, board_id desc)A ) 
-				where rnum >= ? and rnum <= ?
-				""";
+			String query = """
+					select * from
+					(select ROWNUM as rnum, A.* from
+					(select * from boards
+					order by board_date desc, board_id desc)A ) 
+					where rnum >= ? and rnum <= ?
+					""";
 		try {
 			pst = conn.prepareStatement(query);
 			// 요청된 페이지에 따른 게시물 범위 지정
@@ -273,6 +287,60 @@ public class BoardsDAO {
 		}
 	}
 	
+	//카테고리별 게시글 조회
+	public void printBoardCategory(int page, HttpServletRequest request, String categoryParam) {
+		conn = OracleUtil.getConnection();
+		// 리스트 정보 가져오기
+		//카테고리별 출력
+		String category = convertCategory(categoryParam);
+		String query = """
+				select * from
+				(select ROWNUM as rnum, A.* from
+				(select * from boards
+				where category=?
+				order by board_date desc, board_id desc)A ) 
+				where rnum >= ? and rnum <= ?
+				""";
+		try {
+			pst = conn.prepareStatement(query);
+			// 요청된 페이지에 따른 게시물 범위 지정
+			int startPage = (page - 1) * PAGEPERLIST + 1; // 시작 게시물
+			int endPage = startPage + PAGEPERLIST - 1; // 끝 게시물
+			pst.setString(1, category);
+			pst.setInt(2, startPage);
+			pst.setInt(3, endPage);
+			rs = pst.executeQuery();
+			
+			// 결과를 ArrayList에 추가
+			ArrayList<BoardsVO> list = new ArrayList<>(); // 리스트 정보 담아줄 객체
+			while (rs.next()) {
+				BoardsVO board = new BoardsVO();
+				board=makeBoard(rs);
+				list.add(board);
+			}
+			request.setAttribute("boardlist", list); // 리스트 전달
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+	}
+	
+	//카테고리 이름 변환
+	private String convertCategory(String cateNum) {
+		String category="";
+		switch(cateNum) {
+		case "toy": category="유아동/완구"; break;
+		case "digital": category="디지털/가전"; break;
+		case "sports": category="레저/스포츠"; break;
+		case "life": category="주방/생활용품"; break;
+		case "interior": category="가구/인테리어"; break;
+		case "hobby": category="취미/악기/게임"; break;
+		default: category="all";
+		}
+		return category;
+	}
 	
 	private BoardsVO makeBoard(ResultSet rs) throws SQLException {
 		BoardsVO board=new BoardsVO();

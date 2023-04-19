@@ -9,7 +9,7 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
-			data:{"pageNum":${param.pageNum}},
+			data:{"pageNum":${param.pageNum}, "category":"${param.category}"},
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -32,7 +32,8 @@
 </head>
 <body>
 <h1>board</h1>
-<h2>카테고리</h2>
+
+<h2>${category }</h2>
 <div id="list">
 
 </div>
