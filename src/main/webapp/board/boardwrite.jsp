@@ -37,8 +37,8 @@
 			</tr>
 			<tr>
 			<td>사진</td>
-			<td><input type="text" name="board_pictures"
-					 placeholder="내용을 입력해주세요" value="pictures"></td>
+			<td><input type="file" name="file" multiple>
+			</td>
 			</tr>
 		</table>
 		<input type="hidden" name="board_writer" value="${loginUser.nickname}"/>
