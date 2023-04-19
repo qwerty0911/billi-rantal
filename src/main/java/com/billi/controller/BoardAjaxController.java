@@ -28,14 +28,14 @@ public class BoardAjaxController implements CommonControllerInterface {
 			obj.put("board_title", board.getBoard_title());
 			obj.put("address", board.getAddress());
 			obj.put("price", board.getPrice());
-			obj.put("board_date", board.getBoard_date());
+			obj.put("board_date", board.getBoard_date().toString());
 			obj.put("board_contents", board.getBoard_contents());
 			obj.put("board_writer", board.getBoard_writer());
 			obj.put("category", board.getCategory());
 			obj.put("pictures", board.getPictures());
 			arr.add(obj);
 		}
-		if(arr==null) return "";
+		//if(arr==null) return "";
 		JSONObject boardsObject = new JSONObject();
 		boardsObject.put("boardlist", arr);
 		return "responseBody:" + boardsObject.toJSONString();
