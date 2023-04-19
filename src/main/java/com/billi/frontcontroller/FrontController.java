@@ -85,6 +85,7 @@ public class FrontController extends HttpServlet {
 		case "/user/mypage.do": //마이페이지 호출
 			controller = new MypageController();
 			break;
+			
 		
 //		case "/emp/empList.do":
 //			controller = new EmpListController();

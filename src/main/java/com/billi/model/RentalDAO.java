@@ -21,16 +21,17 @@ public class RentalDAO {
 	
 	public int registRental(RentalVO rentalvo) {
 		int result = 0;
-		String sql = "insert into rental(rental_code,MEM_ID,RENTAL_DATE,EXP_DATE,BOARD_ID)"
-				+ " values(rental_id_seq.nextval ,?, ?, ?, ?)";
+		String sql = "insert into rental(rental_code,nickname,RENTAL_DATE,EXP_DATE,BOARD_ID,owner)"
+				+ " values(rental_id_seq.nextval,? ,?, ?, ?, ?)";
 		//
 		conn = OracleUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, rentalvo.getMem_id());
+			pst.setString(1, rentalvo.getNickname());
 			pst.setDate(2, rentalvo.getRental_date());
 			pst.setDate(3, rentalvo.getExp_date());
 			pst.setInt(4, rentalvo.getBoard_id());
+			pst.setString(5, rentalvo.getOwner_nick());
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
