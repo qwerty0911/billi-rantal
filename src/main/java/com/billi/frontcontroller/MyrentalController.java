@@ -21,9 +21,11 @@ public class MyrentalController implements CommonControllerInterface {
 		String user_nick = user_vo.getNickname();
 		
 		RentalService service = new RentalService();
-		List<Board_RentalVO> rentallist = service.myRental(user_nick);
+		List<Board_RentalVO> borrowlist = service.myRental(user_nick);
+		List<Board_RentalVO> lentList = service.myLentList(user_nick);
 		
-		request.setAttribute("rentallist", rentallist);
+		request.setAttribute("borrowllist", borrowlist);
+		request.setAttribute("lentList", lentList);
 		
 		return "myrentallist.jsp";
 	}

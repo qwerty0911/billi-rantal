@@ -20,11 +20,33 @@
 		</thead>
 		
 		<tbody>
-		<c:forEach items="${rentallist}" var="rental">
+		
+		<c:forEach items="${borrowllist}" var="borrow">
 			<tr>
-				<td><a href="../board/boarddetail.do?num=${rental.board_id}"> ${rental.board_title}</a></td>
-				<td>${rental.rental_date}</td>
-				<td>${rental.exp_date}</td>
+				<td><a href="../board/boarddetail.do?num=${borrow.board_id}"> ${borrow.board_title}</a></td>
+				<td>${borrow.rental_date}</td>
+				<td>${borrow.exp_date}</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+	<hr>
+	<h2>빌려준 내역</h2>
+		<table>
+		<thead>
+			<tr>
+				<th>글제목</th>
+				<th>대여일</th>
+				<th>반납일</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<c:forEach items="${lentList}" var="lent">
+			<tr>
+				<td><a href="../board/boarddetail.do?num=${lent.board_id}"> ${lent.board_title}</a></td>
+				<td>${lent.rental_date}</td>
+				<td>${lent.exp_date}</td>
 			</tr>
 		</c:forEach>
 		</tbody>
