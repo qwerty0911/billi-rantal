@@ -54,7 +54,7 @@ public class BoardsDAO {
 	//게시글 작성 및 저장
 	public int boardInsert(BoardsVO board) {
 		String sql="""
-				insert into boards 
+				insert into boards(board_id, board_title,board_contents,board_writer,board_date,price,pictures,address,category)
 				values(seq_board.nextval, ?, ?, ?, sysdate, ?, ?, ?, ?)
 				""";
 		conn=OracleUtil.getConnection();
