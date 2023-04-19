@@ -9,6 +9,7 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
+			data:{"pageNum":${param.pageNum}},
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -18,7 +19,6 @@
 				var output="<ul>";
 				$.each(arr, function(index, item){
 					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
-							
 				});
 				$("#list").html(output+"</ul>");
 				
@@ -36,6 +36,9 @@
 <div id="list">
 
 </div>
+<ul>
+${pagelist}
+</ul>
 <button onclick="location.href='<%=request.getContextPath() %>/board/boardwrite.do'">글 작성</button>
 </body>
 </html>

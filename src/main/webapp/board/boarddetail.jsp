@@ -29,6 +29,9 @@
 				<td name="카테고리">${board.category}</td>
 			</tr>
 			<tr>
+				<td name="주소">${board.address}</td>
+			</tr>
+			<tr>
 			<td name="사진">${board.pictures}</td>
 			</tr>
 		</table>
@@ -36,6 +39,5 @@
 <button id="btnrental">대여신청</button>
 <hr>
 <h2>후기</h2>
-
 </body>
 </html>

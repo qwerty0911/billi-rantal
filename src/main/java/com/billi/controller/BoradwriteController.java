@@ -27,7 +27,7 @@ public class BoradwriteController implements CommonControllerInterface {
 			BoardsVO board = makeBoard(request);
 			BoardsService service = new BoardsService();
 			int result = service.boardInsert(board);
-			page="redirect:boardwrite.do";
+			page="redirect:boardlist.do";
 		}
 		return page;
 	}
