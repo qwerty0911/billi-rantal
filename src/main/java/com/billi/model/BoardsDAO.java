@@ -171,6 +171,7 @@ public class BoardsDAO {
 		board.setBoard_id(rs.getInt("board_id"));
 		board.setBoard_title(rs.getString("board_title"));
 		board.setBoard_writer(rs.getString("board_writer"));
+		board.setBoard_date(rs.getDate("board_date"));
 		board.setCategory(rs.getString("category"));
 		board.setPictures(rs.getString("pictures"));
 		board.setPrice(rs.getInt("price"));

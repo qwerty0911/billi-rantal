@@ -17,7 +17,6 @@
 				var arr = datas.boardlist;
 				var output="<ul>";
 				$.each(arr, function(index, item){
-					var b = item['board_title'];
 					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
 							
 				});
