@@ -21,4 +21,8 @@ public class RentalService {
 	public List<Board_RentalVO> myRental(String nickname) {
 		return rentalDAO.myRental(nickname);
 	}
+	
+	public List<Board_RentalVO> myLentList(String nickname) {
+		return rentalDAO.myLentList(nickname);
+	}
 }

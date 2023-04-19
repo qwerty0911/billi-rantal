@@ -21,7 +21,34 @@ public class RentalDAO {
 	PreparedStatement pst;
 	ResultSet rs;
 	
-	//대여내역
+	
+	//빌려준 아이템
+	public List<Board_RentalVO> myLentList(String nickname) {
+		String sql ="""
+				select *
+				from boards join rental using (board_id)
+				where owner = ?
+				""";
+		List<Board_RentalVO> rentallist = new ArrayList<>();
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, nickname);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				Board_RentalVO rental = makeRental(rs);
+				rentallist.add(rental);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
+		}
+		return rentallist;
+	}
+	
+	//빌린 아이템
 	public List<Board_RentalVO> myRental(String nickname) {
 		String sql ="""
 				select *
