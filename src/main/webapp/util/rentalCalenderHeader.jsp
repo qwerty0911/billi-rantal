@@ -37,7 +37,7 @@ jQuery(function($){
         showOn:"both",
 		buttonImage:"cal.jpg",
         buttonImageOnly:true,
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'yy/mm/dd',
         showOtherMonths: true,
         selectOtherMonths: true,
         showMonthAfterYear: true,

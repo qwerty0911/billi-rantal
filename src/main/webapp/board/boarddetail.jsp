@@ -7,6 +7,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>boarddetail</title>
+<%@ include file="../util/rentalCalenderHeader.jsp" %>
+<p>${board} </p>
 </head>
 <body>
 <table>
@@ -36,7 +38,8 @@
 			</tr>
 		</table>
 <button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
-<button id="btnrental">대여신청</button>
+<%@ include file="../util/rentalCalenderBody.jsp" %>
+
 <hr>
 <h2>후기</h2>
 </body>
