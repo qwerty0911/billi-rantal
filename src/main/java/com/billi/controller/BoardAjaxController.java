@@ -21,8 +21,11 @@ public class BoardAjaxController implements CommonControllerInterface {
 		
 		//현재의 페이지 번호 받아오기
 		int currentPage = Integer.parseInt(request.getParameter("pageNum"));
+		//카테고리 받아오기
+		String category = request.getParameter("category");
+		System.out.println(category);
 		//페이지번호에 해당하는 게시글 목록 보여주기
-		service.printBoard(currentPage, request);
+		service.printBoard(currentPage, request, category);
 		List<BoardsVO> boardlist = (List<BoardsVO>) request.getAttribute("boardlist");
 		
 		JSONArray arr = new JSONArray();
