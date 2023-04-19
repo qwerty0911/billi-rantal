@@ -79,12 +79,19 @@ public class FrontController extends HttpServlet {
 		case "/chat/chat.do": //채팅페이지 호출
 			controller = new ChattingController();
 			break;
-		case "/user/myboardlist.do": //마이페이지 호출
+		case "/user/myboardlist.do": //내가 쓴 글 호출
 			controller = new SelectbynicknameController();
 			break;
 		case "/user/mypage.do": //마이페이지 호출
 			controller = new MypageController();
 			break;
+		case "/user/myreview.do": //내가 쓴 리뷰 호출
+			controller = new MyreviewController();
+			break;
+		case "/user/myrental.do": //내가 빌린 내역 호출
+			controller = new MyrentalController();
+			break;
+		
 		
 //		case "/emp/empList.do":
 //			controller = new EmpListController();

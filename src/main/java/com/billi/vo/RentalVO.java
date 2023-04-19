@@ -15,8 +15,9 @@ import lombok.ToString;
 public class RentalVO {
 	
 	int rental_code;
-	String mem_id;
+	String nickname;
 	Date rental_date;   
 	Date exp_date;
 	int board_id;
+	String owner;
 }

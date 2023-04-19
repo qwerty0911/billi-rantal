@@ -2,7 +2,9 @@ package com.billi.model;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 
+import com.billi.vo.Board_RentalVO;
 import com.billi.vo.RentalVO;
 
 public class RentalService {
@@ -15,5 +17,8 @@ public class RentalService {
 	
 	public HashSet<Date> extractDisabledDates(int num){
 		return rentalDAO.extractDisabledDates(num);
+	}
+	public List<Board_RentalVO> myRental(String nickname) {
+		return rentalDAO.myRental(nickname);
 	}
 }
