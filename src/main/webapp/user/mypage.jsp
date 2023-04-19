@@ -13,8 +13,8 @@
 	<h1>마이페이지</h1>
 	<button onclick="location.href='../auth/membersDetail.do'">회원정보 확인 및 수정</button> <br>
 	<button id="btnLogout">로그아웃</button> <br>
-	<button onclick="location.href='#'">대여내역</button> <br>
-	<button onclick="location.href='#'">내가 쓴 후기</button> <br>
+	<button onclick="location.href='../user/myrental.do'">대여내역</button> <br>
+	<button onclick="location.href='../user/myreview.do'">내가 쓴 후기</button> <br>
 	<button onclick="location.href='../user/myboardlist.do'">내가 쓴 글</button> <br>
 </body>
 <script>
