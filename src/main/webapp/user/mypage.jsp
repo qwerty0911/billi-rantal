@@ -15,7 +15,7 @@
 	<button id="btnLogout">로그아웃</button> <br>
 	<button onclick="location.href='#'">대여내역</button> <br>
 	<button onclick="location.href='#'">내가 쓴 후기</button> <br>
-	<button onclick="location.href='#'">내가 쓴 글</button> <br>
+	<button onclick="location.href='../user/myboardlist.do'">내가 쓴 글</button> <br>
 </body>
 <script>
 	$(function () {
