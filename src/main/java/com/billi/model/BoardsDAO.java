@@ -27,7 +27,7 @@ public class BoardsDAO {
 	CallableStatement cst; //SP지원
 	public static final int PAGEPERLIST = 8;
 	
-	//가까운 물건만 리스트 생성
+	//가까운 물건만 리스트 
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		String sql="""
 				select BOARD_ID,
