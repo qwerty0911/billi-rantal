@@ -19,4 +19,7 @@ public class ReviewsService {
 	public int countReview(int board_id) {
 		return dao.countReview(board_id);
 	}
+	public double avgRating(int board_id) {
+		return dao.avgRating(board_id);
+	}
 }

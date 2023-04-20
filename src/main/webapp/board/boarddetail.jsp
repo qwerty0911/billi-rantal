@@ -11,6 +11,10 @@
 <%-- <%@ include file="../util/rentalCalenderBody.jsp" %> --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <p>${board} </p>
+<style>
+.rate{background: url(https://aldo814.github.io/jobcloud/html/images/user/star_bg02.png) no-repeat;width: 121px;height: 20px;position: relative;}
+.rate span{position: absolute;background: url(https://aldo814.github.io/jobcloud/html/images/user/star02.png);width: auto;height: 20px;}
+</style>
 </head>
 <body>
 <table>
@@ -44,6 +48,10 @@
 
 <hr>
 <h2>후기 (${reviewcount})</h2>
+<h2>평균평점 : ${ratingavg}</h2><br> 
+	<div class="rate">
+        <span style="width: ${(ratingavg/5)*100}%"></span>
+    </div>
 	<hr>
 	
 		<c:forEach items="${boardreviewlist}" var="review">

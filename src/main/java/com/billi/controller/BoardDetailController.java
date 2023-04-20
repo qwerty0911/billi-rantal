@@ -32,6 +32,9 @@ public class BoardDetailController implements CommonControllerInterface {
 			int reviewcount = reviewservice.countReview(id);
 			request.setAttribute("reviewcount", reviewcount);
 			System.out.println("reviewcount : " + reviewcount);
+			
+			double ratingavg = reviewservice.avgRating(id);
+			request.setAttribute("ratingavg", ratingavg);
 		} else {
 //			//수정
 //			BoardsVO  board = makeBoard(request);

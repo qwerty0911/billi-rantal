@@ -23,6 +23,30 @@ public class ReviewsDAO {
 	int resultCount; //insert,update,delete 건수
 	CallableStatement cst;
 	
+	//게시글의 평균 별점 불러오기
+		public double avgRating(int board_id) {
+			String sql ="""
+					select trunc(avg(rating), 2) ratingavg
+					from reviews
+					where board_id = ?
+					""";
+			double ratingavg = 0;
+			conn = OracleUtil.getConnection();
+			try {
+				pst = conn.prepareStatement(sql);
+				pst.setInt(1, board_id);
+				rs = pst.executeQuery();
+				while(rs.next()) {
+					ratingavg = rs.getDouble("ratingavg");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(rs, pst, conn);
+			}
+			return ratingavg;
+		}
 	//후기 개수 불러오기
 	public int countReview(int board_id) {
 		String sql ="""
