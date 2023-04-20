@@ -17,6 +17,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class BoradwriteController implements CommonControllerInterface {
 
@@ -41,26 +43,53 @@ public class BoradwriteController implements CommonControllerInterface {
 	}
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
-		//board_id, board_date: 자동 입력
-		String board_title= request.getParameter("board_title");
-		String board_contents= request.getParameter("board_contents");
-		String board_writer=  request.getParameter("board_writer");
-		int price= Integer.parseInt(request.getParameter("price"));
-		String pictures= request.getParameter("pictures"); //나중에..
-		String address= request.getParameter("address");
-		String category= request.getParameter("category_id");
-		
 		BoardsVO board = new BoardsVO();
-		board.setAddress(address);
-		board.setBoard_contents(board_contents);
-		board.setBoard_title(board_title);
-		board.setBoard_writer(board_writer);
-		board.setCategory(category);
-		board.setPictures(pictures);
-		board.setPrice(price);
 		
-		System.out.println(board);
+		String encoding = "utf-8";
+		String currentPath = request.getServletContext().getRealPath("/uploadImg");
+		System.out.println(currentPath);
+		
+		File currentDirPath = new File(currentPath);
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setRepository(currentDirPath);
+		factory.setSizeThreshold(1024 * 1024);
+
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		try {
+			List items = upload.parseRequest(request);
+			for (int i = 0; i < items.size(); i++) {
+				FileItem fileItem = (FileItem) items.get(i);
+
+				if (fileItem.isFormField()) {
+					System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
+					String colName=fileItem.getFieldName();
+					String colValue=fileItem.getString(encoding);
+					if(colName.equals("board_title")) board.setBoard_title(colValue);
+					if(colName.equals("board_contents")) board.setBoard_contents(colValue);
+					if(colName.equals("board_writer")) board.setBoard_writer(colValue);
+					if(colName.equals("price")) board.setPrice(Integer.parseInt(colValue));
+					if(colName.equals("address")) board.setAddress(colValue);
+					if(colName.equals("category_id")) board.setCategory(colValue);
+				} else {
+					if (fileItem.getSize() > 0) {
+						int idx = fileItem.getName().lastIndexOf("\\");
+						if (idx == -1) {
+							idx = fileItem.getName().lastIndexOf("/");
+						}
+						String fileName = fileItem.getName().substring(idx + 1);
+						File uploadFile = new File(currentDirPath + "\\" + fileName);
+						fileItem.write(uploadFile);
+						
+						//이미지이름이 DB에 저장되어야 한다.
+						board.setPictures(fileName);
+						
+					} // end if
+				} // end if
+			} // end for
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("board: " +board);
 		return board;
 	}
-
 }
