@@ -150,9 +150,8 @@ $(function () {
 					value="우편번호 찾기"><br> </td> -->
 					
 				<tr>
-				<td></td>
-				<td> <input type="text" readOnly id="sample4_roadAddress" name="address" placeholder="도로명주소"> </td> 
-				 <td> <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> </td>
+				<td>주소</td>
+				<td> <input type="text" readOnly id="formattedAddress" name="formattedAddress" placeholder="주소 확인용"> </td> 
 				</tr>
 				
 				<tr>
@@ -170,8 +169,8 @@ $(function () {
 					</td>
 				</tr>
 				<tr>
-				<td><input type="text" value="" name="lat" id="myInputLat" readonly></td>
-				<td><input type="text" value="" name="lng" id="myInputLng" readonly></td>
+				<td><input type="text" value="" name="latitude" id="myInputLat" readonly></td>
+				<td><input type="text" value="" name="longitude" id="myInputLng" readonly></td>
 				</tr>
 			</table>
 			<input type="submit" value="회원가입">
