@@ -34,7 +34,8 @@ public class BoradwriteController implements CommonControllerInterface {
 			BoardsService service = new BoardsService();
 			request.setAttribute("clist", service.selectCategory());
 		}else { //글 작성 후 저장
-			BoardsVO board = makeBoard(request);
+			BoardsVO board=makeBoard(request);
+			
 			BoardsService service = new BoardsService();
 			int result = service.boardInsert(board);
 			page="redirect:boardlist.do?pageNum=1&category=all";
@@ -43,7 +44,7 @@ public class BoradwriteController implements CommonControllerInterface {
 	}
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
-		BoardsVO board = new BoardsVO();
+		BoardsVO board = new BoardsVO(0);
 		
 		String encoding = "utf-8";
 		String currentPath = request.getServletContext().getRealPath("/uploadImg");
@@ -78,10 +79,12 @@ public class BoradwriteController implements CommonControllerInterface {
 						}
 						String fileName = fileItem.getName().substring(idx + 1);
 						File uploadFile = new File(currentDirPath + "\\" + fileName);
+						File newFile = new File(currentDirPath+"\\b_"+board.getBoard_id()+".jpg");
+						uploadFile.renameTo(newFile);
 						fileItem.write(uploadFile);
 						
 						//이미지이름이 DB에 저장되어야 한다.
-						board.setPictures(fileName);
+						board.setPictures("b_"+board.getBoard_id()+".jpg");
 						
 					} // end if
 				} // end if

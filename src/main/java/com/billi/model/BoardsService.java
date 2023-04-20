@@ -42,4 +42,9 @@ public class BoardsService {
 	public void printBoard(int page, HttpServletRequest request, String categoryParam) {
 		dao.printBoard(page, request, categoryParam);
 	}
+
+	//board_id의 가장 큰 값 가져와서 board_id 설정
+	public int setBoardSeq() {
+		return dao.setBoardSeq();
+	}
 }
