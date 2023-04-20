@@ -149,7 +149,7 @@ public class BoardsDAO {
 	//내가 쓴 글 조회
 		public List<BoardsVO> selectByWriter(String board_writer) {
 			String sql ="""
-					select board_id, board_title, borad_date
+					select *
 					from boards
 					where board_writer = ?
 					""";
