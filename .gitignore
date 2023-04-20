@@ -1,3 +1,5 @@
 FrontController.*
 
-/build
+.env
+
+build/

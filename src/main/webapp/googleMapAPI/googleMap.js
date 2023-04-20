@@ -17,16 +17,37 @@
         });
         
         /* input 태그에 위도 경도 삽입하는 리스너 */
-        var myInputLat = document.getElementById("myInputLat");
-        var myInputLng = document.getElementById("myInputLng");
+       
         
         map.addListener('click', function(event) {
-    	    // 클릭한 위치의 위도와 경도 추출
+    	    var myInputLat = document.getElementById("myInputLat");
+	        var myInputLng = document.getElementById("myInputLng");
+	        var myInputAddress = document.getElementById("formattedAddress");
+	        
+	        // 클릭한 위치의 위도와 경도 추출
     	    var latitude = event.latLng.lat();
     	    var longitude = event.latLng.lng();
+    	    
     	    myInputLat.value = latitude;
     	    myInputLng.value = longitude;
-    	    console.log("위도: " + latitude + ", 경도: " + longitude);
+    	    
+    	    var geocoder = new google.maps.Geocoder();
+    	    geocoder.geocode({ 'location': event.latLng }, function(results, status) {
+				if (status === 'OK') {
+					if (results[0]) {
+						var formattedAddress = results[0].formatted_address;
+						console.log("위도: " + latitude + ", 경도: " + longitude + ", 주소: " + formattedAddress);
+						myInputAddress.value = formattedAddress;
+					}else {
+						console.log('No results found');
+					}
+				}else {
+					console.log('Geocoder failed due to: ' + status);
+				}
+			});
+    	    
+    	    
+    	    
     	  });
         
         geocoder = new google.maps.Geocoder();

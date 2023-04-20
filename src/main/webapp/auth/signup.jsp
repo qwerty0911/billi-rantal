@@ -149,11 +149,6 @@ $(function () {
 				<td> <input type="button" onclick="sample4_execDaumPostcode()"
 					value="우편번호 찾기"><br> </td> -->
 					
-				<tr>
-				<td></td>
-				<td> <input type="text" readOnly id="sample4_roadAddress" name="address" placeholder="도로명주소"> </td> 
-				 <td> <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> </td>
-				</tr>
 				
 				<tr>
 				<td> <span id="hidden" style="color: #999; display: none"></span> </td>
@@ -170,13 +165,15 @@ $(function () {
 					</td>
 				</tr>
 				<tr>
-				<td><input type="text" value="" name="lat" id="myInputLat" readonly></td>
-				<td><input type="text" value="" name="lng" id="myInputLng" readonly></td>
+				<td><input type="text" value="" name="latitude" id="myInputLat" ></td>
+				<td><input type="text" value="" name="longitude" id="myInputLng" ></td>
+				<td> <input type="hidden" id="formattedAddress" name="formattedAddress" placeholder="주소 확인용"> </td> 
 				</tr>
 			</table>
 			<input type="submit" value="회원가입">
 		</form>
 		<div id="map" ></div>
+		
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0S8EfdDKR8QDgHXcR08Jel6_UJdGa198&callback=initMap&v=weekly" defer></script>
 		<!-- <input style="text-align: center" type="button" name="signupBtn" value="회원가입"> -->
 		

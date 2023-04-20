@@ -23,7 +23,7 @@ public class MembersDAO {
 	//회원가입
 	public int membersInsert(MembersVO members) {
 		String sql = """
-				insert into members(mem_id, pw, mem_name, phone, address, nickname) values(?, ?, ?, ?, ?, ?)
+				insert into members(mem_id, pw, mem_name, phone, address, nickname, latitude, longitude) values(?, ?, ?, ?, ?, ?, ? , ?)
 				""";
 		conn = OracleUtil.getConnection();
 		
@@ -37,6 +37,8 @@ public class MembersDAO {
 			pst.setString(4, members.getPhone());
 			pst.setString(5, members.getAddress());
 			pst.setString(6, members.getNickname());
+			pst.setFloat(7, members.getLatitude());
+			pst.setFloat(8, members.getLongitude());
 			
 			resultCount = pst.executeUpdate();
 		} catch (SQLException e) {
