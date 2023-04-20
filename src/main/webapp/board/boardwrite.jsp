@@ -37,7 +37,7 @@
 			</tr>
 			<tr>
 			<td>사진</td>
-			<td><input type="file" name="file">
+			<td><input type="file" name="file" multiple>
 			</td>
 			</tr>
 		</table>

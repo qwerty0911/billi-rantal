@@ -63,6 +63,7 @@ public class BoradwriteController implements CommonControllerInterface {
 				.withRegion(Regions.AP_NORTHEAST_2)
 				.build();
 		
+		//이미지 경로
 		String encoding = "utf-8";
 		String currentPath = request.getServletContext().getRealPath("/uploadImg");
 		System.out.println(currentPath);
@@ -73,6 +74,9 @@ public class BoradwriteController implements CommonControllerInterface {
 		factory.setSizeThreshold(1024 * 1024);
 
 		ServletFileUpload upload = new ServletFileUpload(factory);
+		
+		String imgPath=""; //DB에 저장할 이미지 경로
+		int imgCount=1; //img개수
 		try {
 			List items = upload.parseRequest(request);
 			for (int i = 0; i < items.size(); i++) {
@@ -97,23 +101,18 @@ public class BoradwriteController implements CommonControllerInterface {
 						
 						String fileName = fileItem.getName().substring(idx + 1);
 						File uploadFile = new File(currentDirPath + "\\" + fileName);
-						//File newFile = new File(currentDirPath+"\\b_"+board.getBoard_id()+".jpg");
-						//uploadFile.renameTo(newFile);
-						//fileItem.write(uploadFile);
-						
 						
 						//aws에 이미지 저장
-						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+".jpg", uploadFile);
-						String imgPath = s3Client.getUrl("billi-boards-img","board/b_"+board.getBoard_id()+".jpg").toString();
-//				        log.info(imgPath);
-//				        Assertions.assertThat(imgPath).isNotNull();
+						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+"_"+imgCount+".jpg", uploadFile);
+						imgPath += "b_"+board.getBoard_id()+"_"+imgCount+".jpg";
 						
-						//이미지이름이 DB에 저장되어야 한다.
+						//이미지이름이 DB에 저장
 						board.setPictures(imgPath);
+						imgCount++;
 						
-					} // end if
-				} // end if
-			} // end for
+					}
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

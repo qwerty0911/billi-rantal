@@ -34,7 +34,7 @@
 				<td name="주소">${board.address}</td>
 			</tr>
 			<tr>
-			<td name="사진"><img src="${board.pictures}" width="100"/></td>
+			<td name="사진"><img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/${board.picturess}" width="100"/></td>
 			</tr>
 		</table>
 <button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
