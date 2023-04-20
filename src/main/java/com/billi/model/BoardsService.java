@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.billi.vo.BoardsVO;
+import com.billi.vo.MembersVO;
 
 public class BoardsService {
 	BoardsDAO dao = new BoardsDAO();
@@ -41,5 +42,10 @@ public class BoardsService {
 	//페이지번호에 따른 게시물 출력
 	public void printBoard(int page, HttpServletRequest request, String categoryParam) {
 		dao.printBoard(page, request, categoryParam);
+	}
+	
+	//유저와 가까운 위치의 리스트 생성
+	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
+		return dao.selectCloseDistance(member, distance);
 	}
 }

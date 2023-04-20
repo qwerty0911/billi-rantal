@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.billi.dbutil.OracleUtil;
 import com.billi.util.DateUtil;
 import com.billi.vo.BoardsVO;
+import com.billi.vo.MembersVO;
 
 public class BoardsDAO {
 	Connection conn;
@@ -25,6 +26,48 @@ public class BoardsDAO {
 	int resultCount; //insert,update,delete 건수
 	CallableStatement cst; //SP지원
 	public static final int PAGEPERLIST = 8;
+	
+	//가까운 물건만 리스트 생성
+	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
+		String sql="""
+				select BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY
+				from boards 
+				where latitude between ? and ? and longitude between ? and ?
+				order by board_date desc, board_id desc
+				""";
+		float userLatitude = member.getLatitude();
+		float userLongitude = member.getLongitude();
+		
+		List<BoardsVO> boardlist = new ArrayList<>();
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setFloat(1, userLatitude-distance);
+			pst.setFloat(2, userLatitude+distance);
+			pst.setFloat(3, userLongitude-distance);
+			pst.setFloat(4, userLongitude+distance);
+			rs=pst.executeQuery();
+			
+			while(rs.next()) {
+				BoardsVO board = makeBoard(rs);
+				boardlist.add(board);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return boardlist;
+	}
 	
 	//카테고리 불러오기
 	public List<String> selectCategory() {
