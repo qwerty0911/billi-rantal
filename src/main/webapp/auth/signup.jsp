@@ -6,9 +6,14 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <title>SignUp Page</title>
-</head>
+<link rel="stylesheet" href="../css/googleMap.css" type="text/css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="../googleMapAPI/googleMap.js"></script>
+</head>
+
+<!-- 다음api -->
+<!-- <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function sample4_execDaumPostcode() {
         new daum.Postcode({
@@ -63,7 +68,7 @@
             }
         }).open();
     }
-</script>
+</script> -->
 <script>
 $(function () {
 	
@@ -138,11 +143,12 @@ $(function () {
 								placeholder="내용을 입력해주세요" > </td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<!-- <td>주소</td>
 				
 				<td> <input type="text" id="sample4_postcode" placeholder="우편번호"> </td>
 				<td> <input type="button" onclick="sample4_execDaumPostcode()"
-					value="우편번호 찾기"><br> </td>
+					value="우편번호 찾기"><br> </td> -->
+					
 				<tr>
 				<td></td>
 				<td> <input type="text" readOnly id="sample4_roadAddress" name="address" placeholder="도로명주소"> </td> 
@@ -152,7 +158,6 @@ $(function () {
 				<tr>
 				<td> <span id="hidden" style="color: #999; display: none"></span> </td>
 				<td> <input type="hidden" id="sample4_extraAddress" placeholder="참고항목"> </td>
-				</tr>
 				
 			</tr>
 				<tr>
@@ -161,12 +166,20 @@ $(function () {
 								placeholder="내용을 입력해주세요" > </td>
 					<td> <input type="button" id="nicknameDupCheck" value="중복체크"> </td>
 					<td> <span id="nicknameMessage"></span> </td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+				<td><input type="text" value="" name="lat" id="myInputLat" readonly></td>
+				<td><input type="text" value="" name="lng" id="myInputLng" readonly></td>
 				</tr>
 			</table>
 			<input type="submit" value="회원가입">
-			
 		</form>
+		<div id="map" ></div>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0S8EfdDKR8QDgHXcR08Jel6_UJdGa198&callback=initMap&v=weekly" defer></script>
 		<!-- <input style="text-align: center" type="button" name="signupBtn" value="회원가입"> -->
+		
 
 </body>
 </html>
