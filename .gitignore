@@ -1,5 +1,6 @@
 FrontController.*
-
 .env
-
 build/
+.classpath
+.project
+.settings/
