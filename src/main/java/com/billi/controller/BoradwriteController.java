@@ -1,12 +1,10 @@
 package com.billi.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,14 +12,20 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.CreateBucketRequest;
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class BoradwriteController implements CommonControllerInterface {
-
+	
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		String method = (String)data.get("method");
@@ -45,6 +49,19 @@ public class BoradwriteController implements CommonControllerInterface {
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
 		BoardsVO board = new BoardsVO(0);
+		
+		//aws s3 연결
+		String accesskey="AKIA4IJQX4ZU6A3PDOXA";
+		String secretKey="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";
+		
+		AWSCredentials credentials= new BasicAWSCredentials(accesskey, secretKey);
+		
+		//aws에 요청할 client 객체 생성
+		AmazonS3 s3Client = AmazonS3ClientBuilder
+				.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(Regions.AP_NORTHEAST_2)
+				.build();
 		
 		String encoding = "utf-8";
 		String currentPath = request.getServletContext().getRealPath("/uploadImg");
@@ -77,14 +94,22 @@ public class BoradwriteController implements CommonControllerInterface {
 						if (idx == -1) {
 							idx = fileItem.getName().lastIndexOf("/");
 						}
+						
 						String fileName = fileItem.getName().substring(idx + 1);
 						File uploadFile = new File(currentDirPath + "\\" + fileName);
-						File newFile = new File(currentDirPath+"\\b_"+board.getBoard_id()+".jpg");
-						uploadFile.renameTo(newFile);
-						fileItem.write(uploadFile);
+						//File newFile = new File(currentDirPath+"\\b_"+board.getBoard_id()+".jpg");
+						//uploadFile.renameTo(newFile);
+						//fileItem.write(uploadFile);
+						
+						
+						//aws에 이미지 저장
+						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+".jpg", uploadFile);
+						String imgPath = s3Client.getUrl("billi-boards-img","board/b_"+board.getBoard_id()+".jpg").toString();
+//				        log.info(imgPath);
+//				        Assertions.assertThat(imgPath).isNotNull();
 						
 						//이미지이름이 DB에 저장되어야 한다.
-						board.setPictures("b_"+board.getBoard_id()+".jpg");
+						board.setPictures(imgPath);
 						
 					} // end if
 				} // end if
