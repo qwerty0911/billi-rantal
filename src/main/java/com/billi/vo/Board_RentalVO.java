@@ -27,4 +27,10 @@ public class Board_RentalVO {
 	private String nickname;
 	private Date rental_date;   
 	private Date exp_date;
+	//review vo
+	private int review_id;
+	private String review_content;
+	private String review_writer;
+	private Date review_date;
+	private double rating;
 }

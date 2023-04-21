@@ -94,6 +94,9 @@ public class FrontController extends HttpServlet {
 		case "/user/reviewwrite.do": //리뷰 작성
 			controller = new ReviewwriteController();
 			break;
+		case "/user/reviewdelete.do": //리뷰 삭제
+			controller = new ReviewdeleteController();
+			break;
 		
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
