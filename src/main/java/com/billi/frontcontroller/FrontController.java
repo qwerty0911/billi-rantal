@@ -50,7 +50,7 @@ public class FrontController extends HttpServlet {
 		case "/auth/signUp.do":
 			controller = new SignUpController();
 			break;
-		case "/rental/rentalRegist.do":
+		case "/rental/rentalRegist.do": //예약 등록
 			controller = new RentalController();
 			break;
 		case "/board/boardwrite.do": //게시글 작성

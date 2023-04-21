@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.billi.dbutil.OracleUtil;
+import com.billi.vo.Board_RentalVO;
+import com.billi.vo.RentalManageVO;
 
 public class RentalManageDAO {
 	
@@ -55,5 +59,59 @@ public class RentalManageDAO {
 		}
 		
 		return resultCount;
+	}
+	
+	public List<Integer> confirmedRentalList(String nickName){
+		List<Integer> confirmedRentalList = new ArrayList<>();
+		String sql ="""
+				select rental_code
+				from rental join rental_confirm using (rental_code)
+				where owner = ?
+				""";
+		conn = OracleUtil.getConnection();
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, nickName);
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				confirmedRentalList.add(rs.getInt("rental_code"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return confirmedRentalList;
+	}
+	
+	public List<Integer> confirmedReturnList(String nickName){
+		List<Integer> confirmedReturnList = new ArrayList<>();
+		String sql ="""
+				select rental_code
+				from rental join return_confirm using (rental_code)
+				where owner = ?
+				""";
+		conn = OracleUtil.getConnection();
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, nickName);
+			rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				confirmedReturnList.add(rs.getInt("rental_code"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return confirmedReturnList;
 	}
 }

@@ -24,7 +24,7 @@ public class RentalConfirmController implements CommonControllerInterface {
 			RentalManageService rentalManageService= new RentalManageService();
 			rentalManageService.rentalConfirm(rental_code);
 			
-			page = "/";
+			page = "/user/myrental.do";
 
 		}
 		
