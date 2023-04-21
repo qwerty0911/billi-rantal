@@ -30,6 +30,7 @@ public class BoardsService {
 		return dao.selectById(board_id);
 	}
 	
+	//내가 쓴 글 조회
 	public List<BoardsVO> selectByWriter(String board_writer) {
 		return dao.selectByWriter(board_writer);
 	}

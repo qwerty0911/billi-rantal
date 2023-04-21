@@ -6,20 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰작성</title>
-<style>
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-       .rate { display: inline-block;border: 0;margin-right: 15px;}
-.rate > input {display: none;}
-.rate > label {float: right;color: #ddd}
-.rate > label:before {display: inline-block;font-size: 1rem;padding: .3rem .2rem;margin: 0;cursor: pointer;font-family: FontAwesome;content: "\f005 ";}
-.rate .half:before {content: "\f089 "; position: absolute;padding-right: 0;}
-.rate input:checked ~ label, 
-.rate label:hover,.rate label:hover ~ label { color: #f73c32 !important;  } 
-.rate input:checked + .rate label:hover,
-.rate input input:checked ~ label:hover,
-.rate input:checked ~ .rate label:hover ~ label,  
-.rate label:hover ~ input:checked ~ label { color: #f73c32 !important;  } 
-</style>
+<link rel="stylesheet" href="../css/reviewWriteRating.css" type="text/css">
 </head>
 <body>
 	<h2>리뷰작성</h2>
