@@ -104,8 +104,11 @@ public class BoradwriteController implements CommonControllerInterface {
 						
 						//aws에 이미지 저장
 						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+"_"+imgCount+".jpg", uploadFile);
-						imgPath += "b_"+board.getBoard_id()+"_"+imgCount+".jpg";
-						
+						if(imgCount==1) {
+							imgPath += "b_"+board.getBoard_id()+"_"+imgCount+".jpg";
+						} else {
+							imgPath += ",b_"+board.getBoard_id()+"_"+imgCount+".jpg";
+						}
 						//이미지이름이 DB에 저장
 						board.setPictures(imgPath);
 						imgCount++;

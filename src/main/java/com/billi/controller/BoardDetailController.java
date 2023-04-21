@@ -15,12 +15,28 @@ public class BoardDetailController implements CommonControllerInterface {
 		String method=(String) data.get("method");
 		String page="boarddetail.jsp";
 		HttpServletRequest request =(HttpServletRequest)data.get("request");
+		System.out.println(method);
 		if(method.equals("GET")) {
 			int id = Integer.parseInt(request.getParameter("num"));
 
 			BoardsService service = new BoardsService();
 			BoardsVO board = service.selectById(id);
+			System.out.println("-------------------");
+			System.out.println(board);
 			request.setAttribute("board", board);
+			
+			//이미지 여러장 배열 처리
+			System.out.println( board.getPictures());
+			if(board.getPictures()==null) {
+				request.setAttribute("images", null);
+			}
+			else {
+//				String[] images = board.getPictures().split(",");
+//				System.out.println(board.getPictures());
+//				System.out.println(images.toString());
+//				request.setAttribute("images", images);
+			}
+			
 
 		} else {
 //			//수정
