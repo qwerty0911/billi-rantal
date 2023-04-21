@@ -1,12 +1,15 @@
 package com.billi.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
+import com.billi.model.ReviewsService;
 import com.billi.vo.BoardsVO;
+import com.billi.vo.ReviewsVO;
 
 public class BoardDetailController implements CommonControllerInterface {
 
@@ -21,7 +24,17 @@ public class BoardDetailController implements CommonControllerInterface {
 			BoardsService service = new BoardsService();
 			BoardsVO board = service.selectById(id);
 			request.setAttribute("board", board);
-
+			
+			ReviewsService reviewservice = new ReviewsService();
+			List<ReviewsVO> boardreviewlist = reviewservice.boardReview(id);
+			request.setAttribute("boardreviewlist", boardreviewlist);
+			
+			int reviewcount = reviewservice.countReview(id);
+			request.setAttribute("reviewcount", reviewcount);
+			System.out.println("reviewcount : " + reviewcount);
+			
+			double ratingavg = reviewservice.avgRating(id);
+			request.setAttribute("ratingavg", ratingavg);
 		} else {
 //			//수정
 //			BoardsVO  board = makeBoard(request);
