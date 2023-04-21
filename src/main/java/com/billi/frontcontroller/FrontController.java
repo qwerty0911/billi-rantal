@@ -18,8 +18,10 @@ import com.billi.controller.BoradwriteController;
 import com.billi.controller.ChattingController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.MypageController;
+import com.billi.controller.RentalConfirmController;
 import com.billi.controller.RentalController;
 import com.billi.controller.SignUpController;
+import com.billi.controller.returnConfirmController;
 
 /*
  * Servlet implementation class FrontController
@@ -48,7 +50,7 @@ public class FrontController extends HttpServlet {
 		case "/auth/signUp.do":
 			controller = new SignUpController();
 			break;
-		case "/rental/rentalRegist.do":
+		case "/rental/rentalRegist.do": //예약 등록
 			controller = new RentalController();
 			break;
 		case "/board/boardwrite.do": //게시글 작성
@@ -98,6 +100,13 @@ public class FrontController extends HttpServlet {
 			controller = new ReviewdeleteController();
 			break;
 		
+		case "/user/rentalconfirm.do": //렌탈 확정
+			controller = new RentalConfirmController();
+			break;
+			
+		case "/user/returnconfirm.do": //반납 확정
+			controller = new returnConfirmController();
+			break;
 //		case "/emp/empList.do":
 //			controller = new EmpListController();
 //			break;
