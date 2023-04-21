@@ -26,6 +26,7 @@
 				<td><a href="../board/boarddetail.do?num=${borrow.board_id}"> ${borrow.board_title}</a></td>
 				<td>${borrow.rental_date}</td>
 				<td>${borrow.exp_date}</td>
+				<td><input type="button" onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}'" value="리뷰작성"></td>
 			</tr>
 		</c:forEach>
 		</tbody>

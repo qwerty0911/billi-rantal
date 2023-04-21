@@ -12,6 +12,8 @@ import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
 
+
+
 public class BoardAjaxController implements CommonControllerInterface {
 
 	@Override

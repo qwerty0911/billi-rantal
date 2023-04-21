@@ -91,7 +91,9 @@ public class FrontController extends HttpServlet {
 		case "/user/myrental.do": //내가 빌린 내역 호출
 			controller = new MyrentalController();
 			break;
-		
+		case "/user/reviewwrite.do": //리뷰 작성
+			controller = new ReviewwriteController();
+			break;
 		
 //		case "/emp/empList.do":
 //			controller = new EmpListController();

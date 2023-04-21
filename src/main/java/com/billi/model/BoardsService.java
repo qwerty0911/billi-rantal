@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.billi.vo.BoardsVO;
+import com.billi.vo.MembersVO;
 
 public class BoardsService {
 	BoardsDAO dao = new BoardsDAO();
@@ -46,5 +47,10 @@ public class BoardsService {
 	//board_id의 가장 큰 값 가져와서 board_id 설정
 	public int setBoardSeq() {
 		return dao.setBoardSeq();
+	}
+	
+	//유저와 가까운 위치의 리스트 생성
+	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
+		return dao.selectCloseDistance(member, distance);
 	}
 }

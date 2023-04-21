@@ -35,8 +35,10 @@ public class SignUpController implements CommonControllerInterface {
 		String pw = request.getParameter("pw");
 		String mem_name = request.getParameter("mem_name");
 		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
+		String address = request.getParameter("formattedAddress");
 		String nickname = request.getParameter("nickname");
+		float latitude = Float.parseFloat(request.getParameter("latitude"));
+		float longitude = Float.parseFloat(request.getParameter("longitude"));
 		
 		MembersVO members = new MembersVO();
 		members.setMem_id(mem_id);
@@ -45,6 +47,8 @@ public class SignUpController implements CommonControllerInterface {
 		members.setPhone(phone);
 		members.setAddress(address);
 		members.setNickname(nickname);
+		members.setLatitude(latitude);
+		members.setLongitude(longitude);
 		
 		return members;
 	}

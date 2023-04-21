@@ -28,7 +28,7 @@
 				},
 				error:function(message){
 					alert(message);
-					console.lof(message);
+					console.log(message);
 				}
 			});
 		});

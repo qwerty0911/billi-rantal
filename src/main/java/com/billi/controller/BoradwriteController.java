@@ -18,8 +18,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.AccessControlList;
-import com.amazonaws.services.s3.model.CreateBucketRequest;
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
@@ -101,7 +99,7 @@ public class BoradwriteController implements CommonControllerInterface {
 						
 						String fileName = fileItem.getName().substring(idx + 1);
 						File uploadFile = new File(currentDirPath + "\\" + fileName);
-						
+						fileItem.write(uploadFile);
 						//aws에 이미지 저장
 						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+"_"+imgCount+".jpg", uploadFile);
 						if(imgCount==1) {
