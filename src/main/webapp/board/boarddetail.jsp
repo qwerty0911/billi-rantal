@@ -62,36 +62,23 @@
 			</tr>
 		</table>
 <button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
-<%@ include file="../util/rentalCalenderBody.jsp" %>
+<form action="../rental/rentalRegist.do" method="post">
+<p>start Date: <input type="text" name="rental_date" readOnly class="calander" id="startDate" ></p>
+<p>end Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
+<input type="text" name="board_id" value="${board.board_id}">
+<input type="text" name="board_writer" value="${board.board_writer}">
+<input type="hidden" id="myInput" name="insurance_fee" value="0">
+<input type="submit" value = "대여신청">
+</form>
 <script src="../js/slide.js"></script>
-<hr>
-<h2>후기 (${reviewcount})</h2>
-<h2>평균평점 : ${ratingavg}</h2><br> 
-	<div class="rate">
-        <span style="width: ${(ratingavg/5)*100}%"></span>
-    </div>
-	<hr>
-	
-		<c:forEach items="${boardreviewlist}" var="review">
-			<p>작성자 : ${review.review_writer}</p>
-			<p>작성일 : ${review.review_date}</p>
-			<p>평점 : ${review.rating}</p>
-			<p>내용 : ${review.review_content}</p>
-			<hr>
-		</c:forEach>
-
 
 <p>보험상품 (빌리케어?)</p>
 <p>보험에 가입하면 물건을 파손/분실해도 배상금을 내지 않아도 된다!</p>
 <p>보험에 가입하시겠습니까? &nbsp;+ <fmt:formatNumber value="${board.price*0.1}" pattern="#,###"/>원</p> 
 예 <input type="radio" id="insuranceOn" name="insurancecheck" value="y" onclick="updateInputValue(this)">
-아니오 <input type="radio" id="insuranceOff" name="insurancecheck" value="n" onclick="updateInputValue(this)"><br> 
-<input type="hidden" id="myInput" value="">
+아니오 <input type="radio" id="insuranceOff" name="insurancecheck" value="n" onclick="updateInputValue(this)" checked="checked"><br> 
 <span id="myInput2">총 가격 : <fmt:formatNumber value="${board.price}" pattern="#,###"/>원</span>
-
-
 <p>(보험료는 물건 가격의 n%(현재는 10%로 설정)이며 체크하면 보험료가 가격에 포함됩니다.)</p>
-
 <hr>
 
 <h2>후기 (${reviewcount})</h2>
@@ -115,11 +102,13 @@
 	    var inputValue2 = document.getElementById("myInput2");
 	    var fmtpriceY = "<fmt:formatNumber value="${board.price*1.1}" pattern="#,###"/>";
 	    var fmtpriceN = "<fmt:formatNumber value="${board.price}" pattern="#,###"/>";
+	    var insurance_fee_y = ${board.price*0.1}
+	    var insurance_fee_n = 0
 	    if (radioBtn.value === "y") {
-	      inputValue.value = fmtpriceY;
+	      inputValue.value = insurance_fee_y;
 	      inputValue2.innerHTML= "총 가격 : " + fmtpriceY + "원";
 	    } else {
-	      inputValue.value = fmtpriceN;
+	      inputValue.value = insurance_fee_n;
 	      inputValue2.innerHTML= "총 가격 : " + fmtpriceN + "원";
 	    }
 	  }

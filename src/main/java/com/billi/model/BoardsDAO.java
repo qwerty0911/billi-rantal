@@ -196,6 +196,7 @@ public class BoardsDAO {
 					select *
 					from boards
 					where board_writer = ?
+					order by board_date desc
 					""";
 			List<BoardsVO> boardlist = new ArrayList<>();
 			conn = OracleUtil.getConnection();

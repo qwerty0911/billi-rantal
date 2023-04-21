@@ -28,6 +28,7 @@ public class RentalDAO {
 				select *
 				from boards join rental using (board_id)
 				where owner = ?
+				order by rental_date desc
 				""";
 		List<Board_RentalVO> rentallist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
@@ -54,6 +55,7 @@ public class RentalDAO {
 				select *
 				from boards join rental using (board_id)
 				where nickname = ?
+				order by rental_date desc
 				""";
 		List<Board_RentalVO> rentallist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
@@ -97,8 +99,8 @@ public class RentalDAO {
 
 	public int registRental(RentalVO rentalvo) {
 		int result = 0;
-		String sql = "insert into rental(rental_code,nickname,RENTAL_DATE,EXP_DATE,BOARD_ID,owner)"
-				+ " values(rental_id_seq.nextval,? ,?, ?, ?, ?)";
+		String sql = "insert into rental(rental_code,nickname,RENTAL_DATE,EXP_DATE,BOARD_ID,owner, insurance_fee)"
+				+ " values(rental_id_seq.nextval,? ,?, ?, ?, ?, ?)";
 		//
 		conn = OracleUtil.getConnection();
 		try {
@@ -108,6 +110,7 @@ public class RentalDAO {
 			pst.setDate(3, rentalvo.getExp_date());
 			pst.setInt(4, rentalvo.getBoard_id());
 			pst.setString(5, rentalvo.getOwner_nick());
+			pst.setInt(6, rentalvo.getInsurance_fee());
 			result = pst.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

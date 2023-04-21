@@ -15,7 +15,6 @@
 		<thead>
 			<tr>
 				<th>글제목</th>
-				<th>리뷰아이디(임시용)</th>
 				<th>리뷰내용</th>
 				<th>평점</th>
 				<th>작성일</th>
@@ -26,7 +25,6 @@
 		<c:forEach items="${reviewlist}" var="review">
 			<tr>
 				<td> <a href="../board/boarddetail.do?num=${review.board_id}">${review.board_title}</a></td>
-				<td>${review.review_id}</td>
 				<td>${review.review_content}</td>
 				<td>${review.rating} <div class="rate"><span style="width: ${(review.rating/5)*100}%"></span></div> </td>
 				<td>${review.review_date}</td>
