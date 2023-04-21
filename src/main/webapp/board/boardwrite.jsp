@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1>글 작성</h1>
-	<form method="post" action="<%=request.getContextPath() %>/board/boardwrite.do">
+	<form method="post" action="<%=request.getContextPath() %>/board/boardwrite.do" enctype="multipart/form-data" >
 		<table>
 			<tr>
 				<td>제목</td>
@@ -24,7 +24,7 @@
 			</tr>
 			<tr>
 				<td>가격</td>
-				<td><input type="number" name="price" required="required"
+				<td><input type="text" name="price" required="required"
 					placeholder="가격을 입력해주세요"></td>
 			</tr>
 			<tr>

@@ -98,18 +98,19 @@ public class BoardsDAO {
 	public int boardInsert(BoardsVO board) {
 		String sql="""
 				insert into boards(board_id, board_title,board_contents,board_writer,board_date,price,pictures,address,category)
-				values(seq_board.nextval, ?, ?, ?, sysdate, ?, ?, ?, ?)
+				values(?, ?, ?, ?, sysdate, ?, ?, ?, ?)
 				""";
 		conn=OracleUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, board.getBoard_title());
-			pst.setString(2, board.getBoard_contents());
-			pst.setString(3,board.getBoard_writer());
-			pst.setInt(4, board.getPrice());
-			pst.setString(5, board.getPictures());
-			pst.setString(6,  board.getAddress());
-			pst.setString(7, board.getCategory());
+			pst.setInt(1, board.getBoard_id());
+			pst.setString(2, board.getBoard_title());
+			pst.setString(3, board.getBoard_contents());
+			pst.setString(4,board.getBoard_writer());
+			pst.setInt(5, board.getPrice());
+			pst.setString(6, board.getPictures());
+			pst.setString(7,  board.getAddress());
+			pst.setString(8, board.getCategory());
 			resultCount = pst.executeUpdate(); //DML문장 실행한다. 영향 받은 건수 return
 			
 		} catch (SQLException e) {
@@ -368,6 +369,30 @@ public class BoardsDAO {
 		} finally {
 			OracleUtil.dbDisconnect(rs, st, conn);
 		}
+	}
+	
+	//board_id의 가장 큰 값 가져와서 board_id 설정
+	public int setBoardSeq() {
+		String sql="""
+				select max(board_id) seq
+				from boards 
+				""";
+		int seq = 0;
+		conn = OracleUtil.getConnection();
+		try {
+			st=conn.createStatement();
+			rs=st.executeQuery(sql);
+			
+			while(rs.next()) {
+				seq=rs.getInt("seq");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return ++seq;
 	}
 	
 	//카테고리 이름 변환

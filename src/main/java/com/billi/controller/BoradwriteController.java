@@ -1,12 +1,10 @@
 package com.billi.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,12 +12,18 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.billi.frontcontroller.CommonControllerInterface;
 import com.billi.model.BoardsService;
 import com.billi.vo.BoardsVO;
 
 public class BoradwriteController implements CommonControllerInterface {
-
+	
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		String method = (String)data.get("method");
@@ -32,35 +36,88 @@ public class BoradwriteController implements CommonControllerInterface {
 			BoardsService service = new BoardsService();
 			request.setAttribute("clist", service.selectCategory());
 		}else { //글 작성 후 저장
-			BoardsVO board = makeBoard(request);
+			BoardsVO board=makeBoard(request);
+			
 			BoardsService service = new BoardsService();
 			int result = service.boardInsert(board);
-			page="redirect:boardlist.do?pageNum=1&category=all";
+			page="redirect:boarddetail.do?num="+board.getBoard_id();
 		}
 		return page;
 	}
 	
 	private BoardsVO makeBoard(HttpServletRequest request) throws UnsupportedEncodingException {
-		//board_id, board_date: 자동 입력
-		String board_title= request.getParameter("board_title");
-		String board_contents= request.getParameter("board_contents");
-		String board_writer=  request.getParameter("board_writer");
-		int price= Integer.parseInt(request.getParameter("price"));
-		String pictures= request.getParameter("pictures"); //나중에..
-		String address= request.getParameter("address");
-		String category= request.getParameter("category_id");
+		BoardsVO board = new BoardsVO(0);
 		
-		BoardsVO board = new BoardsVO();
-		board.setAddress(address);
-		board.setBoard_contents(board_contents);
-		board.setBoard_title(board_title);
-		board.setBoard_writer(board_writer);
-		board.setCategory(category);
-		board.setPictures(pictures);
-		board.setPrice(price);
+		//aws s3 연결
+		String accesskey="AKIA4IJQX4ZU6A3PDOXA";
+		String secretKey="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";
 		
-		System.out.println(board);
+		AWSCredentials credentials= new BasicAWSCredentials(accesskey, secretKey);
+		
+		//aws에 요청할 client 객체 생성
+		AmazonS3 s3Client = AmazonS3ClientBuilder
+				.standard()
+				.withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(Regions.AP_NORTHEAST_2)
+				.build();
+		
+		//이미지 경로
+		String encoding = "utf-8";
+		String currentPath = request.getServletContext().getRealPath("/uploadImg");
+		System.out.println(currentPath);
+		
+		File currentDirPath = new File(currentPath);
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setRepository(currentDirPath);
+		factory.setSizeThreshold(1024 * 1024);
+
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		
+		String imgPath=""; //DB에 저장할 이미지 경로
+		int imgCount=1; //img개수
+		try {
+			List items = upload.parseRequest(request);
+			for (int i = 0; i < items.size(); i++) {
+				FileItem fileItem = (FileItem) items.get(i);
+
+				if (fileItem.isFormField()) {
+					System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
+					String colName=fileItem.getFieldName();
+					String colValue=fileItem.getString(encoding);
+					if(colName.equals("board_title")) board.setBoard_title(colValue);
+					if(colName.equals("board_contents")) board.setBoard_contents(colValue);
+					if(colName.equals("board_writer")) board.setBoard_writer(colValue);
+					if(colName.equals("price")) board.setPrice(Integer.parseInt(colValue));
+					if(colName.equals("address")) board.setAddress(colValue);
+					if(colName.equals("category_id")) board.setCategory(colValue);
+				} else {
+					if (fileItem.getSize() > 0) {
+						int idx = fileItem.getName().lastIndexOf("\\");
+						if (idx == -1) {
+							idx = fileItem.getName().lastIndexOf("/");
+						}
+						
+						String fileName = fileItem.getName().substring(idx + 1);
+						File uploadFile = new File(currentDirPath + "\\" + fileName);
+						fileItem.write(uploadFile);
+						//aws에 이미지 저장
+						s3Client.putObject("billi-boards-img", "board/b_"+board.getBoard_id()+"_"+imgCount+".jpg", uploadFile);
+						if(imgCount==1) {
+							imgPath += "b_"+board.getBoard_id()+"_"+imgCount+".jpg";
+						} else {
+							imgPath += ",b_"+board.getBoard_id()+"_"+imgCount+".jpg";
+						}
+						//이미지이름을 DB에 저장
+						board.setPictures(imgPath);
+						imgCount++;
+						
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("board: " +board);
 		return board;
 	}
-
 }

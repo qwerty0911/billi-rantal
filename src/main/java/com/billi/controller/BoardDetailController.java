@@ -25,6 +25,16 @@ public class BoardDetailController implements CommonControllerInterface {
 			BoardsVO board = service.selectById(id);
 			request.setAttribute("board", board);
 			
+			//이미지 여러장 배열 처리
+			System.out.println( board.getPictures());
+			if(board.getPictures()==null) {
+				request.setAttribute("images", null);
+			}
+			else {
+				String[] images = board.getPictures().split(",");
+				request.setAttribute("images", images);
+			}
+			
 			ReviewsService reviewservice = new ReviewsService();
 			List<ReviewsVO> boardreviewlist = reviewservice.boardReview(id);
 			request.setAttribute("boardreviewlist", boardreviewlist);
@@ -35,6 +45,7 @@ public class BoardDetailController implements CommonControllerInterface {
 			
 			double ratingavg = reviewservice.avgRating(id);
 			request.setAttribute("ratingavg", ratingavg);
+			
 		} else {
 //			//수정
 //			BoardsVO  board = makeBoard(request);

@@ -30,6 +30,7 @@ public class BoardsService {
 		return dao.selectById(board_id);
 	}
 	
+	//내가 쓴 글 조회
 	public List<BoardsVO> selectByWriter(String board_writer) {
 		return dao.selectByWriter(board_writer);
 	}
@@ -42,6 +43,11 @@ public class BoardsService {
 	//페이지번호에 따른 게시물 출력
 	public void printBoard(int page, HttpServletRequest request, String categoryParam) {
 		dao.printBoard(page, request, categoryParam);
+	}
+
+	//board_id의 가장 큰 값 가져와서 board_id 설정
+	public int setBoardSeq() {
+		return dao.setBoardSeq();
 	}
 	
 	//유저와 가까운 위치의 리스트 생성
