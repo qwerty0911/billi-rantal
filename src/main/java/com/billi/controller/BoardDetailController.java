@@ -21,7 +21,6 @@ public class BoardDetailController implements CommonControllerInterface {
 
 			BoardsService service = new BoardsService();
 			BoardsVO board = service.selectById(id);
-			System.out.println("-------------------");
 			System.out.println(board);
 			request.setAttribute("board", board);
 			
@@ -31,10 +30,8 @@ public class BoardDetailController implements CommonControllerInterface {
 				request.setAttribute("images", null);
 			}
 			else {
-//				String[] images = board.getPictures().split(",");
-//				System.out.println(board.getPictures());
-//				System.out.println(images.toString());
-//				request.setAttribute("images", images);
+				String[] images = board.getPictures().split(",");
+				request.setAttribute("images", images);
 			}
 			
 
