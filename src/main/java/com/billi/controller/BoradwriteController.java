@@ -107,7 +107,7 @@ public class BoradwriteController implements CommonControllerInterface {
 						} else {
 							imgPath += ",b_"+board.getBoard_id()+"_"+imgCount+".jpg";
 						}
-						//이미지이름이 DB에 저장
+						//이미지이름을 DB에 저장
 						board.setPictures(imgPath);
 						imgCount++;
 						
