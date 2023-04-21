@@ -40,7 +40,7 @@ public class BoradwriteController implements CommonControllerInterface {
 			
 			BoardsService service = new BoardsService();
 			int result = service.boardInsert(board);
-			page="redirect:boardlist.do?pageNum=1&category=all";
+			page="redirect:boarddetail.do?num="+board.getBoard_id();
 		}
 		return page;
 	}
