@@ -8,6 +8,7 @@
 <title>대여 리스트</title>
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 	<h1>대여 리스트</h1>
 	<h2>빌린 내역</h2>
 		<table>

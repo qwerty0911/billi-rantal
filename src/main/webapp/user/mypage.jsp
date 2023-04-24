@@ -10,6 +10,7 @@
 <title>마이페이지</title>
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 	<h1>마이페이지</h1>
 	<button onclick="location.href='../auth/membersDetail.do'">회원정보 확인 및 수정</button> <br>
 	<button id="btnLogout">로그아웃</button> <br>

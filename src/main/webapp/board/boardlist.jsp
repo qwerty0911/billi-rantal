@@ -18,9 +18,27 @@
 				var arr = datas.boardlist;
 				var output="<ul>";
 				$.each(arr, function(index, item){
-					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
+					/* output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`; */
+					output+=`
+						<div class="col-lg-3 col-md-4 col-sm-6">
+						<div class="card" style="width: 18rem;">
+				  			<img src="..." class="card-img-top" alt="...">
+				  			<div class="card-body">
+				    		<h5 class="card-title">${"${item['board_title']}"}</h5>
+				    		<p class="card-text">내용</p>
+				  		</div>
+				  		<ul class="list-group list-group-flush">
+				    		<li class="list-group-item">${"${item['address']}"}</li>
+				    		<li class="list-group-item">${"${item['price']}"}&#8361;/day</li>
+				  		</ul>
+				  			<div class="card-body">
+				    			<a href='boarddetail.do?num=${"${item['board_id']}"}' class="card-link btn btn-primary">자세히</a>
+				  			</div>
+						</div>
+						</div>
+					`
 				});
-				$("#list").html(output+"</ul>");
+				$("#list").html(output);
 				
 			},
 			error:function(message){
@@ -31,12 +49,15 @@
 </script>
 </head>
 <body>
-<h1>board</h1>
+<%@ include file="/navbar/navbar.jsp"%>
 
 <h2>${category }</h2>
-<div id="list">
-
+<div class="container">
+  <div class="row" id="list">
+    
+  </div>
 </div>
+
 <ul>
 ${pagelist}
 </ul>

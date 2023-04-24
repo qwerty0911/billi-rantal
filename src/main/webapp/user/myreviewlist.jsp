@@ -10,6 +10,7 @@
 <title>내가 쓴 후기</title>
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 	<h1>내가 쓴 후기</h1>
 	<table>
 		<thead>
