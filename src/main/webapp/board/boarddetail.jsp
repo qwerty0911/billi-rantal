@@ -18,6 +18,7 @@
 
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 <c:if test="${images!=null}">
 	<div class="slideshow-container">
 		<c:forEach items="${images}" var="image" varStatus="status">

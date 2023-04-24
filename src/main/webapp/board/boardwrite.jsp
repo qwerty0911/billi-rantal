@@ -10,41 +10,42 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>글 작성</h1>
+<%@ include file="/navbar/navbar.jsp"%>
+<div  class="p-3 m-0 border-0 bd-example">
+<h1>글 작성</h1>
 	<form method="post" action="<%=request.getContextPath() %>/board/boardwrite.do" enctype="multipart/form-data" >
-		<table>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="board_title" required="required"
-					placeholder="제목을 입력해주세요" autofocus="autofocus"></td>
-			</tr>
-			<tr>
-				<td>글 내용</td>
-				<td><textarea name="board_contents"></textarea></td>
-			</tr>
-			<tr>
-				<td>가격</td>
-				<td><input type="text" name="price" required="required"
-					placeholder="가격을 입력해주세요"></td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td><select id="category_id" name="category_id">
-						<c:forEach items="${clist}" var="category" varStatus="status">
-							<option value="${category}">${category}</option>
-						</c:forEach>
-				</select></td>
-			</tr>
-			<tr>
-			<td>사진</td>
-			<td><input type="file" name="file" multiple>
-			</td>
-			</tr>
-		</table>
+		<div class="mb-3">
+		  <label for="titleInput" class="form-label">제목</label>
+		  <input type="text" class="form-control" id="titleInput" name="board_title" placeholder="제목을 입력하세요">
+		</div>
+		<div class="mb-3">
+		  <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+		  <textarea class="form-control" id="exampleFormControlTextarea1" name="board_contents" rows="3"></textarea>
+		</div>
+		<div class="mb-3">
+		  <label for="priceInput" class="form-label">가격</label>
+		  <input type="number" class="form-control" name="price" id="priceInput" >
+		</div>
+		
+		<div class="form-floating">
+		<select class="form-select" id="category_id" name="category_id" aria-label="Floating label select example">
+			<c:forEach items="${clist}" var="category" varStatus="status">
+			<option value="${category}">${category}</option>
+			</c:forEach>
+		</select>
+		<label for="floatingSelect">카테고리</label>
+		</div>
+		
+		<div class="mb-3">
+			<label for="formFile" class="form-label">사진</label>
+			<input class="form-control" type="file" name="file" id="formFile">
+		</div>
 		<input type="hidden" name="board_writer" value="${loginUser.nickname}"/>
 		<input type="hidden" name="address" value="${loginUser.address}"/>
-		<button id="btnWriteBoard">작성</button>
+		<button id="btnWriteBoard" class="btn btn-primary">작성</button>
 
 	</form>
+</div>
+	
 </body>
 </html>
