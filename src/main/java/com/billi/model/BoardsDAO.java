@@ -228,9 +228,11 @@ public class BoardsDAO {
 			
 			for(int i=paging[0];i<=paging[1];i++) {
 				if(i==page)
-					strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
+					strList.append("<li class='page-item active' aria-current='page'><span class='page-link'>"+i+"</span></li>");
+					//strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
 				else
-					strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
+					strList.append("<li class='page-item'><a class='page-link' href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a></li>");
+					//strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
 			}
 
 		} catch (SQLException e) {
