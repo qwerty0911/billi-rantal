@@ -4,13 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
 <title>SignUp Page</title>
 <link rel="stylesheet" href="../css/googleMap.css" type="text/css">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script src="../googleMapAPI/googleMap.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
+
 </head>
 
 <script>
@@ -26,17 +29,18 @@ $(function () {
 				//alert(responseData); //변수이름은 내가 정하는 것 (순서는 정해져 있음)
 				var message = responseData==1?"이미 존재하는 아이디입니다.":"사용 가능한 아이디입니다.";
 				/* $("#idMessage").text(message); */
-				${"#toast"}.append(`
-						<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-						  <div class="d-flex">
-						    <div class="toast-body">
-						      Hello, world! This is a toast message.
-						    </div>
-						    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-						  </div>
-						</div>
-						`);
 				if(responseData==1) {
+					$("#form").prepend(`
+							<div class="toast align-items-center fade show" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+							    <div class="toast-body">
+							      이미 존재하는 아이디입니다.
+							    </div>
+							    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+							  </div>
+							</div>
+							`)
+					
 					$("#mem_id").val("");
 					$("#mem_id").focus();
 				}					
@@ -56,8 +60,18 @@ $(function () {
 			success:function(responseData){
 				//alert(responseData); //변수이름은 내가 정하는 것 (순서는 정해져 있음)
 				var message = responseData==1?"이미 존재하는 닉네임입니다.":"사용 가능한 닉네임입니다.";
-				$("#nicknameMessage").text(message);
 				if(responseData==1) {
+					$("#form").prepend(`
+							<div class="toast align-items-center fade show" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+							    <div class="toast-body">
+							      이미 존재하는 닉네임입니다.
+							    </div>
+							    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+							  </div>
+							</div>
+							`)
+					
 					$("#nickname").val("");
 					$("#nickname").focus();
 				}					
@@ -72,16 +86,12 @@ $(function () {
 </script>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
+
+
 <div class="container mx-auto">
 <h1>회원가입</h1>
+<form action="../auth/signUp.do" method="post" id=form>
 
-<div id ="toast">
-<p></p>
-</div>
-
-
-
-<form action="../auth/signUp.do" method="post">
 <div class="row">
 	<div class="col-sm-6">
 		<table>
@@ -135,19 +145,15 @@ $(function () {
 	</table>
 	
 	</div>
-<div class="col-sm-6">
-	<div id="map" ></div>
-</div>
- </div>
 	
+	<div class="col-sm-6">
+		<div id="map" ></div>
+	</div>
+
+ </div>
 	<input type="submit" class="btn btn-primary" value="회원가입">
 </form>
 </div>
-	
-		
-		
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0S8EfdDKR8QDgHXcR08Jel6_UJdGa198&callback=initMap&v=weekly" defer></script>
-		
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0S8EfdDKR8QDgHXcR08Jel6_UJdGa198&callback=initMap&v=weekly" defer></script>
 </body>
 </html>

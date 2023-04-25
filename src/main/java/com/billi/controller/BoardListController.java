@@ -35,7 +35,7 @@ public class BoardListController implements CommonControllerInterface {
 	private String convertCategory(String cateNum) {
 		String category="";
 		switch(cateNum) {
-		case "toy": category="유아동/완구"; break;
+		case "toy": category="유아/완구"; break;
 		case "digital": category="디지털/가전"; break;
 		case "sports": category="레저/스포츠"; break;
 		case "life": category="주방/생활용품"; break;
