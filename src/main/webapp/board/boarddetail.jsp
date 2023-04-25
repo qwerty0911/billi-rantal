@@ -68,7 +68,7 @@
 <p>end Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
 <input type="text" name="board_id" value="${board.board_id}">
 <input type="text" name="board_writer" value="${board.board_writer}">
-<input type="hidden" id="myInput" name="insurance_fee" value="0">
+<input type="text" id="myInput" name="insurance_fee" value="0">
 <input type="submit" value = "대여신청">
 </form>
 <script src="../js/slide.js"></script>
