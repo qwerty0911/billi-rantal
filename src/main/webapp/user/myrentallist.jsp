@@ -250,20 +250,20 @@
 			var insurance_code = $(event.relatedTarget).data('insurance_code');			
 			var charge_date = $(event.relatedTarget).data('charge_date');
 			var charge_type = $(event.relatedTarget).data('charge_type');
-			var picture = $(event.relatedTarget).data('picture');
+			var url = $(event.relatedTarget).data('picture');
 			var charge_content = $(event.relatedTarget).data('charge_content');
 			var nickname = $(event.relatedTarget).data('nickname');
 			var owner = $(event.relatedTarget).data('owner');
 			var rental_date = $(event.relatedTarget).data('rental_date');
 			var exp_date = $(event.relatedTarget).data('exp_date');
 			
-			
+			var picture = $('<img>', { 'src' : 'https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/insurance/'+picture});
 			
 			$("#rental_code2").text(rentalcode);
 			$("#insurance_code").text(insurance_code);
 			$("#charge_date").text(charge_date);
 			$("#charge_type").text(charge_type);
-			$("#picture").text(picture);
+			$("#picture").apend(picture);
 			$("#charge_content").text(charge_content);
 			$("#nickname").text(nickname);
 			$("#owner").text(owner);
