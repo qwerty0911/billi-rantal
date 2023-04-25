@@ -20,7 +20,7 @@
 		</div>
 		<div class="mb-3">
 		  <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-		  <textarea class="form-control" id="exampleFormControlTextarea1" name="board_contents" rows="3"></textarea>
+		  <textarea class="form-control" id="exampleFormControlTextarea1" name="board_contents" rows="12"></textarea>
 		</div>
 		<div class="mb-3">
 		  <label for="priceInput" class="form-label">가격</label>
