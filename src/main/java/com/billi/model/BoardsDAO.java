@@ -28,7 +28,7 @@ public class BoardsDAO {
 	CallableStatement cst; //SP지원
 	public static final int PAGEPERLIST = 8;
 	
-	//가까운 물건만 리스트 
+	//가까운 물건만 리스트
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		String sql="""
 				select BOARD_ID,
@@ -197,6 +197,7 @@ public class BoardsDAO {
 					select *
 					from boards
 					where board_writer = ?
+					order by board_date desc
 					""";
 			List<BoardsVO> boardlist = new ArrayList<>();
 			conn = OracleUtil.getConnection();

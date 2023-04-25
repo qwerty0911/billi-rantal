@@ -6,51 +6,59 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <title>회원정보 확인 및 수정</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
-	<h1>회원정보 확인 및 수정</h1>
-	<form action="../auth/membersDetail.do" method="post">
-		<table> 
-			<tr>
-				<td>아이디</td>
-				<td> <span>${loginUser.mem_id}</span> </td>
-				<td> <input type="hidden" name="mem_id" value="${loginUser.mem_id}"> </td>
-			</tr>
-			
-			<tr>
-				<td>비밀번호</td>
-				<td> <input type="text" name="pw" value="${loginUser.pw}"> </td>
-			</tr>
-			
-			<tr>
-				<td>이름</td>
-				<td> <input type="text" name="mem_name" value="${loginUser.mem_name}"> </td>
-			</tr>
-			
-			<tr>
-				<td>전화번호</td>
-				<td> <input type="text" name="phone" value="${loginUser.phone}"> </td>
-			</tr>
-			
-			<tr>
-				<td>주소</td>
-				<td> <input type="text" name="address" value="${loginUser.address}"> </td>
-			</tr>
-			
-			<tr>
-				<td>닉네임</td>
-				<td> <input type="text" name="nickname" value="${loginUser.nickname}" id="nickname"> </td>
-				<td> <input type="button" id="nicknameDupCheck" value="중복체크"> </td>
-					<td> <span id="nicknameMessage"></span> </td>
-			</tr>			
-			
-			<tr style="text-align: center;">
-				<td colspan="2"> <input type="submit" value="회원정보수정"> </td>
-			</tr>
-			
-		</table>
-	</form>
+<%@ include file="/navbar/navbar.jsp"%>
+<h1>회원정보 확인 및 수정</h1>
+<form action="../auth/membersDetail.do" method="post">
+  <div class="mb-3 row">
+   <label for="staticId" class="col-sm-2 col-form-label">ID</label>
+   <div class="col-sm-10">
+     <input type="text" readonly name="mem_id" class="form-control-plaintext" id="staticId" value="${loginUser.mem_id}">
+   </div>
+ </div>
+ 
+ <div class="mb-3 row">
+   <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+   <div class="col-sm-10">
+     <input type="password" class="form-control" id="inputPassword" name="pw" value="${loginUser.pw}">
+   </div>
+ </div>
+ 
+ <div class="mb-3 row">
+   <label for="inputName" class="col-sm-2 col-form-label">이름</label>
+   <div class="col-sm-10">
+     <input type="text" class="form-control" id="inputName" name="mem_name" value="${loginUser.mem_name}">
+   </div>
+ </div>
+ 
+ <div class="mb-3 row">
+   <label for="inputphone" class="col-sm-2 col-form-label">전화번호</label>
+   <div class="col-sm-10">
+     <input type="text" class="form-control" id="inputphone" name="phone" value="${loginUser.phone}">
+   </div>
+ </div>
+ 
+ <div class="mb-3 row">
+   <label for="inputaddress" class="col-sm-2 col-form-label">주소</label>
+   <div class="col-sm-10">
+     <input type="text" class="form-control" readOnly id="inputaddress" name="address" value="${loginUser.address}">
+   </div>
+ </div>
+ 
+ <div class="mb-3 row">
+   <label for="inputnickname" class="col-sm-2 col-form-label">닉네임</label>
+   <div class="col-sm-10">
+     <input type="text" class="form-control" id="inputnickname" name="nickname" value="${loginUser.nickname}">
+   </div>
+ </div>
+<input type="button" id="nicknameDupCheck" value="중복체크">
+<span id="nicknameMessage"></span>
+<input type="submit" class = "btn btn-primary" value="회원정보수정">
+</form>
 </body>
 <script>
 $(function () {

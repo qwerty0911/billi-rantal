@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.billi.dbutil.OracleUtil;
+import com.billi.vo.Board_RentalVO;
 import com.billi.vo.BoardsVO;
 import com.billi.vo.MembersVO;
 import com.billi.vo.ReviewsVO;
@@ -22,6 +23,28 @@ public class ReviewsDAO {
 	ResultSet rs;
 	int resultCount; //insert,update,delete 건수
 	CallableStatement cst;
+	
+	//한건의 리뷰 삭제하기
+		public int reviewDelete(int review_id) {
+			System.out.println(review_id);
+			String sql ="""
+					delete from reviews
+					where review_id = ?						
+					""";
+			conn = OracleUtil.getConnection();	
+			try {
+				pst = conn.prepareStatement(sql);					
+				pst.setInt(1, review_id);	
+				resultCount =  pst.executeUpdate();
+			} catch (SQLException e) {
+				resultCount = -1;
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(null, pst, conn);
+			}
+			System.out.println("딜리트 결과 : " + resultCount);
+			return resultCount;
+		}
 	
 	//게시글의 평균 별점 불러오기
 		public double avgRating(int board_id) {
@@ -124,20 +147,21 @@ public class ReviewsDAO {
 		}
 	
 	//내가 쓴 후기
-	public List<ReviewsVO> myReview(String review_writer) {
+	public List<Board_RentalVO> myReview(String review_writer) {
 		String sql ="""
 				select *
-				from reviews
+				from reviews join boards using (board_id)
 				where review_writer = ?
+				order by review_date desc
 				""";
-		List<ReviewsVO> reviewlist = new ArrayList<>();
+		List<Board_RentalVO> reviewlist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, review_writer);
 			rs = pst.executeQuery();
 			while(rs.next()) {
-				ReviewsVO review = makeReview(rs);
+				Board_RentalVO review = makeBoard_Rental(rs);
 				reviewlist.add(review);
 			}
 		} catch (SQLException e) {
@@ -148,7 +172,6 @@ public class ReviewsDAO {
 		}
 		return reviewlist;
 	}
-
 	private ReviewsVO makeReview(ResultSet rs) throws SQLException {
 		ReviewsVO review = new ReviewsVO();
 		review.setReview_id(rs.getInt("review_id"));
@@ -157,6 +180,26 @@ public class ReviewsDAO {
 		review.setReview_date(rs.getDate("review_date"));
 		review.setRating(rs.getDouble("rating"));
 		review.setBoard_id(rs.getInt("board_id"));
+		return review;
+	}
+	private Board_RentalVO makeBoard_Rental(ResultSet rs) throws SQLException {
+		Board_RentalVO review = new Board_RentalVO();
+		review.setReview_id(rs.getInt("review_id"));
+		review.setReview_content(rs.getString("review_content"));
+		review.setReview_writer(rs.getString("review_writer"));
+		review.setReview_date(rs.getDate("review_date"));
+		review.setRating(rs.getDouble("rating"));
+		review.setBoard_id(rs.getInt("board_id"));
+		
+		review.setBoard_title(rs.getString("board_title"));
+		review.setBoard_contents(rs.getString("board_contents"));
+		review.setBoard_writer(rs.getString("board_writer"));
+		review.setBoard_date(rs.getDate("board_date"));
+		review.setPrice(rs.getInt("price"));
+		review.setPictures(rs.getString("pictures"));
+		review.setAddress(rs.getString("address"));
+		review.setCategory(rs.getString("category"));
+		
 		return review;
 	}
 	

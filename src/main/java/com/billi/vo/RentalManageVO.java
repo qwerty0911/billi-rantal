@@ -1,24 +1,17 @@
 package com.billi.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
-public class RentalVO {
+public class RentalManageVO {
 	
-	int rental_code;
-	String nickname;
-	Date rental_date;   
-	Date exp_date;
-	int board_id;
-	String owner_nick;
-	private int insurance_fee;
+	private int rental_code;
 }
