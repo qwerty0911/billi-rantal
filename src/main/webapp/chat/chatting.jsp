@@ -28,6 +28,7 @@
 	<div id="_chatbox">
 		<fieldset>
 			<div id="messageWindow">
+				<!-- 이전 채팅 기록 가져오기 -->
 				<c:forEach var="item" items="${chatHistory}">
 					<c:if test="${item.sender_name eq  username }">
 						<p class='chat_content'>나 : ${item.chat_contents}</p>

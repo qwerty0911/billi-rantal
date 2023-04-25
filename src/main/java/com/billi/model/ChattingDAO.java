@@ -1,9 +1,5 @@
 package com.billi.model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,17 +10,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.billi.dbutil.OracleUtil;
 import com.billi.vo.ChatRoomVO;
 import com.billi.vo.ChatVO;
@@ -62,7 +47,7 @@ public class ChattingDAO {
 		}
 		return result;
 	}
-	
+
 	// 채팅방 가져오기
 	public ChatRoomVO findRoom(int board_id, String buyer) {
 		String sql = """
@@ -121,8 +106,8 @@ public class ChattingDAO {
 		Timestamp createdDate = Timestamp.valueOf(LocalDateTime.now());
 
 		String sql = """
-				insert into chatroom(room_id,seller,buyer,board_id, board_title)
-				values(seq_chatroom.nextval,?,?,?,?)
+				insert into chatroom(room_id,seller,buyer,board_id, board_title, update_time)
+				values(seq_chatroom.nextval,?,?,?,?,?)
 				""";
 		conn = OracleUtil.getConnection();
 		try {
@@ -131,7 +116,8 @@ public class ChattingDAO {
 			pst.setString(2, chatRoom.getBuyer());
 			pst.setInt(3, chatRoom.getBoard_id());
 			pst.setString(4, chatRoom.getBoard_title());
-			//pst.setTimestamp(5, createdDate);
+			pst.setTimestamp(5, chatRoom.getUpdate_time());
+			// pst.setTimestamp(5, createdDate);
 			resultCount = pst.executeUpdate(); // DML문장 실행한다. 영향 받은 건수 return
 
 		} catch (SQLException e) {
@@ -143,7 +129,7 @@ public class ChattingDAO {
 		}
 		// return resultCount;
 	}
-	
+
 	// 채팅내용 저장
 	public void addChat(ChatVO chat) {
 		Timestamp createdDate = Timestamp.valueOf(LocalDateTime.now());
@@ -169,13 +155,14 @@ public class ChattingDAO {
 		}
 		// return resultCount;
 	}
-	
+
 	// 내 채팅방 목록 가져오기
 	public List<ChatRoomVO> findRoomList(String nickname) {
 		String sql = """
-				select * 
-				from chatroom 
+				select *
+				from chatroom
 				where buyer=? or seller=?
+				order by update_time desc
 				""";
 		conn = OracleUtil.getConnection();
 		List<ChatRoomVO> chatroomlist = new ArrayList<>();
@@ -206,7 +193,7 @@ public class ChattingDAO {
 		chatroom.setBoard_title(rs.getString("board_title"));
 		return chatroom;
 	}
-	
+
 	public ChatVO makeChat(ResultSet rs) throws SQLException {
 		ChatVO chat = new ChatVO();
 		chat.setRoom_id(rs.getInt("room_id"));

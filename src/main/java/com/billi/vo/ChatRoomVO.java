@@ -1,5 +1,7 @@
 package com.billi.vo;
 
+import java.sql.Timestamp;
+
 import com.billi.model.ChattingService;
 
 import lombok.AllArgsConstructor;
@@ -19,4 +21,5 @@ public class ChatRoomVO {
 	private String board_title;
 	private String seller; //게시자 nickname
 	private String buyer; //대여자 nickname
+	private Timestamp update_time; //트리거 이용 업데이트
 }

@@ -110,9 +110,12 @@ public class FrontController extends HttpServlet {
 		case "/user/returnconfirm.do": //반납 확정
 			controller = new returnConfirmController();
 			break;
+<<<<<<< HEAD
 		case "/user/insurancecharge.do": //보험금 청구 신청
 			controller = new InsurancechargeController();
 			break;
+=======
+>>>>>>> 0af4bfb1b9f8b0f0275adf1272bf71b04d35335b
 
 		default:
 			break;
