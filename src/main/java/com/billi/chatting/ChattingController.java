@@ -1,5 +1,6 @@
 package com.billi.chatting;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ public class ChattingController implements CommonControllerInterface {
 			chatRoom.setSeller(seller);
 			chatRoom.setBoard_id(board);
 			chatRoom.setBoard_title(bService.TitleById(board));
+			chatRoom.setUpdate_time(new Timestamp(System.currentTimeMillis()));
 			
 			//채팅방 있는지 확인 있으면 내용 불러오기
 			if (service.countByChatId(chatRoom.getBoard_id(), chatRoom.getBuyer()) > 0) {

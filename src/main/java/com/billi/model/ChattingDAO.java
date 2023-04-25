@@ -121,8 +121,8 @@ public class ChattingDAO {
 		Timestamp createdDate = Timestamp.valueOf(LocalDateTime.now());
 
 		String sql = """
-				insert into chatroom(room_id,seller,buyer,board_id, board_title)
-				values(seq_chatroom.nextval,?,?,?,?)
+				insert into chatroom(room_id,seller,buyer,board_id, board_title, update_time)
+				values(seq_chatroom.nextval,?,?,?,?,?)
 				""";
 		conn = OracleUtil.getConnection();
 		try {
@@ -131,6 +131,7 @@ public class ChattingDAO {
 			pst.setString(2, chatRoom.getBuyer());
 			pst.setInt(3, chatRoom.getBoard_id());
 			pst.setString(4, chatRoom.getBoard_title());
+			pst.setTimestamp(5, chatRoom.getUpdate_time());
 			//pst.setTimestamp(5, createdDate);
 			resultCount = pst.executeUpdate(); // DML문장 실행한다. 영향 받은 건수 return
 
@@ -176,6 +177,7 @@ public class ChattingDAO {
 				select * 
 				from chatroom 
 				where buyer=? or seller=?
+				order by update_time desc
 				""";
 		conn = OracleUtil.getConnection();
 		List<ChatRoomVO> chatroomlist = new ArrayList<>();
