@@ -19,7 +19,7 @@ import com.billi.vo.MembersVO;
 /**
  * Servlet Filter implementation class LoginCheckFilter
  */
-@WebFilter({"/board/boardwrite.do", "/user/mypage.do","/rental/rentalRegist.do"})
+@WebFilter({"/board/boardwrite.do", "/user/mypage.do","/rental/rentalRegist.do", "/chat/chat.do", "/chat/chatlist.do"})
 public class LoginCheckFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

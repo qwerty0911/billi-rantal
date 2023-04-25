@@ -27,27 +27,8 @@ public class OracleUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return conn;
 	}
-	
-	/*
-	public static Connection getConnection() {
-		Connection conn = null;
-		String url="jdbc:oracle:thin:@localhost:1521:xe";
-		String userid = "hr" ; String password = "hr";
-		
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url,userid,password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return conn;
-	}
-	*/
 	
 	public static void dbDisconnect(ResultSet rs, Statement st, Connection conn) {
 		try {
@@ -59,7 +40,3 @@ public class OracleUtil {
 		}
 	}
 }
-
-/*
- * 
- */

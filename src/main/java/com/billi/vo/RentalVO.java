@@ -20,4 +20,5 @@ public class RentalVO {
 	Date exp_date;
 	int board_id;
 	String owner_nick;
+	private int insurance_fee;
 }

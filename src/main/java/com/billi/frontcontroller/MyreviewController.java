@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.billi.model.ReviewsService;
+import com.billi.vo.Board_RentalVO;
 import com.billi.vo.MembersVO;
 import com.billi.vo.ReviewsVO;
 
@@ -21,7 +22,7 @@ public class MyreviewController implements CommonControllerInterface {
 		String user_nick = user_vo.getNickname();
 		
 		ReviewsService service = new ReviewsService();
-		List<ReviewsVO> reviewlist = service.myReview(user_nick);
+		List<Board_RentalVO> reviewlist = service.myReview(user_nick);
 		System.out.println(reviewlist);
 		System.out.println("user_vo : " + user_vo);
 		
