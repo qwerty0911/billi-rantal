@@ -192,7 +192,7 @@
 				</div>
 				
 				<div class="modal-body">
-					<form method="post" action="../user/insurancecharge.do">
+					<form method="post" action="../user/insurancecharge.do"  enctype="multipart/form-data">
 						<table>
 							<tr>
 								<td>청구유형</td>
@@ -256,14 +256,13 @@
 			var owner = $(event.relatedTarget).data('owner');
 			var rental_date = $(event.relatedTarget).data('rental_date');
 			var exp_date = $(event.relatedTarget).data('exp_date');
-			
-			var picture = $('<img>', { 'src' : 'https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/insurance/'+picture});
-			
+			var picture = "https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/insurance/"+url;
+			console.log("${picture}");
+			$('#picture').html("<img src="+picture+">");
 			$("#rental_code2").text(rentalcode);
 			$("#insurance_code").text(insurance_code);
 			$("#charge_date").text(charge_date);
 			$("#charge_type").text(charge_type);
-			$("#picture").apend(picture);
 			$("#charge_content").text(charge_content);
 			$("#nickname").text(nickname);
 			$("#owner").text(owner);
