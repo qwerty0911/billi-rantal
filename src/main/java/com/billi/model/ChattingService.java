@@ -1,9 +1,6 @@
 package com.billi.model;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.billi.vo.ChatRoomVO;
 import com.billi.vo.ChatVO;

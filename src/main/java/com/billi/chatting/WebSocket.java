@@ -24,6 +24,7 @@ import com.billi.vo.ChatVO;
 public class WebSocket {
 
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
+
 	// 웹 소켓 연결시 호출
 	@OnOpen
 	public void onOpen(Session session) {
@@ -35,8 +36,8 @@ public class WebSocket {
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
 		System.out.println("~" + message);
-		
-		//메시지 DB에 저장
+
+		// 메시지 DB에 저장
 		ChattingService service = new ChattingService();
 		ChatVO chat = new ChatVO();
 		String[] msg = message.split("\\|");
@@ -44,7 +45,7 @@ public class WebSocket {
 		chat.setSender_name(msg[1]);
 		chat.setChat_contents(msg[3]);
 		service.addChat(chat);
-		
+
 		synchronized (clients) {
 			for (Session client : clients) {
 				if (!client.equals(session)) {
@@ -59,6 +60,7 @@ public class WebSocket {
 	public void onClose(Session session) {
 		clients.remove(session);
 	}
+
 	@OnError
 	public void handleError(Throwable t) {
 		t.printStackTrace();

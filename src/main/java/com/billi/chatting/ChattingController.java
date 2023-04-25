@@ -17,46 +17,46 @@ public class ChattingController implements CommonControllerInterface {
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
-		String method = (String)data.get("method");
-		//String page = "/chatting.jsp";
+		String method = (String) data.get("method");
+		// String page = "/chatting.jsp";
 		String page = "/chat/chatting.jsp";
-		
-		if(method.equals("GET")) {
-			String seller=request.getParameter("seller");
-			String buyer=request.getParameter("buyer");
-			int board=Integer.parseInt(request.getParameter("board"));
-			
-			//채팅룸
+
+		if (method.equals("GET")) {
+			String seller = request.getParameter("seller");
+			String buyer = request.getParameter("buyer");
+			int board = Integer.parseInt(request.getParameter("board"));
+
+			// 채팅룸
 			ChattingService service = new ChattingService();
 			BoardsService bService = new BoardsService();
 			ChatRoomVO chatRoom = new ChatRoomVO();
-			
+
 			chatRoom.setBuyer(buyer);
 			chatRoom.setSeller(seller);
 			chatRoom.setBoard_id(board);
 			chatRoom.setBoard_title(bService.TitleById(board));
 			chatRoom.setUpdate_time(new Timestamp(System.currentTimeMillis()));
-			
-			//채팅방 있는지 확인 있으면 내용 불러오기
+
+			// 채팅방 있는지 확인 있으면 내용 불러오기
 			if (service.countByChatId(chatRoom.getBoard_id(), chatRoom.getBuyer()) > 0) {
-	            //get ChatRoomInfo
+				// get ChatRoomInfo
 				chatRoom = service.findRoom(chatRoom.getBoard_id(), chatRoom.getBuyer());
-	            //load existing chat history
-	            List<ChatVO> chatHistory = service.findChatById(chatRoom.getRoom_id());
-	            System.out.println("history"+chatHistory);
-	            request.setAttribute("chatHistory", chatHistory);
-	            
-	        } else {
-	            //chatRoom 생성            
-	        	service.addChatRoom(chatRoom); 
-	        	chatRoom = service.findRoom(chatRoom.getBoard_id(), chatRoom.getBuyer());
-	        	request.setAttribute("chatHistory", null);
-	        }
-            //채팅방 정보 전달
+				// load existing chat history
+				List<ChatVO> chatHistory = service.findChatById(chatRoom.getRoom_id());
+				System.out.println("history" + chatHistory);
+				request.setAttribute("chatHistory", chatHistory);
+
+			} else {
+				// chatRoom 생성
+				service.addChatRoom(chatRoom);
+				chatRoom = service.findRoom(chatRoom.getBoard_id(), chatRoom.getBuyer());
+				request.setAttribute("chatHistory", null);
+			}
+			// 채팅방 정보 전달
 			request.setAttribute("chatRoom", chatRoom);
-		}else { 
+		} else {
 		}
-		
+
 		return page;
 	}
 
