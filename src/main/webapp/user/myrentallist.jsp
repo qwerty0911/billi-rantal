@@ -15,6 +15,7 @@
   src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 	<h1>대여 리스트</h1>
 	<h2>빌린 내역</h2>
 		<table>

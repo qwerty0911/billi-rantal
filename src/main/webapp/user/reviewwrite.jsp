@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="../css/reviewWriteRating.css" type="text/css">
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 	<h2>리뷰작성</h2>
 	<form action="../user/reviewwrite.do" method="post">
 		<p>${loginUser.nickname}</p>
