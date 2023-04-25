@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.billi.dbutil.OracleUtil;
 import com.billi.util.DateUtil;
 import com.billi.vo.BoardsVO;
+import com.billi.vo.ChatVO;
 import com.billi.vo.MembersVO;
 
 public class BoardsDAO {
@@ -229,9 +230,11 @@ public class BoardsDAO {
 			
 			for(int i=paging[0];i<=paging[1];i++) {
 				if(i==page)
-					strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
+					strList.append("<li class='page-item active' aria-current='page'><span class='page-link'>"+i+"</span></li>");
+					//strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
 				else
-					strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
+					strList.append("<li class='page-item'><a class='page-link' href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a></li>");
+					//strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
 			}
 
 		} catch (SQLException e) {
@@ -394,6 +397,33 @@ public class BoardsDAO {
 			OracleUtil.dbDisconnect(rs, st, conn);
 		}
 		return ++seq;
+	}
+	
+	//board_id로 board_title 가져오기
+	public String TitleById(int board_id) {
+		String sql="""
+				select board_title
+				from boards
+				where board_id=?
+				""";
+		conn = OracleUtil.getConnection();
+		String title="";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1,board_id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				title=rs.getString("board_title");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			resultCount = -1;
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(null, pst, conn);
+		}
+		return title;
 	}
 	
 	//카테고리 이름 변환

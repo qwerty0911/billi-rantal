@@ -33,4 +33,12 @@ public class Board_RentalVO {
 	private String review_writer;
 	private Date review_date;
 	private double rating;
+	
+	private int insurance_fee;
+	
+	private int insurance_code;
+	private Date charge_date;
+	private String charge_type;
+	private String picture;
+	private String charge_content;
 }

@@ -26,7 +26,8 @@ public class RentalDAO {
 	public List<Board_RentalVO> myLentList(String nickname) {
 		String sql ="""
 				select *
-				from boards join rental using (board_id)
+				from boards join rental on (boards.board_id = rental.board_id)
+                left outer join insurance on(rental.rental_code = insurance.rental_code)
 				where owner = ?
 				order by rental_date desc
 				""";
@@ -38,6 +39,12 @@ public class RentalDAO {
 			rs = pst.executeQuery();
 			while(rs.next()) {
 				Board_RentalVO rental = makeRental(rs);
+				rental.setInsurance_fee(rs.getInt("insurance_fee"));
+				rental.setInsurance_code(rs.getInt("insurance_code"));
+				rental.setCharge_date(rs.getDate("charge_date"));
+				rental.setCharge_type(rs.getString("charge_type"));
+				rental.setPicture(rs.getString("picture"));
+				rental.setCharge_content(rs.getString("charge_content"));
 				rentallist.add(rental);
 			}
 		} catch (SQLException e) {

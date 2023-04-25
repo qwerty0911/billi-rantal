@@ -18,6 +18,7 @@
 
 </head>
 <body>
+<%@ include file="/navbar/navbar.jsp"%>
 <c:if test="${images!=null}">
 	<div class="slideshow-container">
 		<c:forEach items="${images}" var="image" varStatus="status">
@@ -61,7 +62,7 @@
 				<td name="주소">${board.address}</td>
 			</tr>
 		</table>
-<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
+<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do?board=${board.board_id}&buyer=${loginUser.nickname }&seller=${board.board_writer }'">채팅</button>
 <form action="../rental/rentalRegist.do" method="post">
 <p>start Date: <input type="text" name="rental_date" readOnly class="calander" id="startDate" ></p>
 <p>end Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>

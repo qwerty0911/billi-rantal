@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
- <link rel="stylesheet" href="../css/login.css" type="text/css">
+<!--  <link rel="stylesheet" href="../css/login.css" type="text/css"> -->
 
 <!DOCTYPE html>
 <html>
@@ -15,37 +15,30 @@ var message = "${sessionScope.message}";
 	
 	}
 </script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <c:set var="message" value="" scope="session"></c:set>
 </head>
 
 <body>
-<div id="form-container">
-      <div id="form-inner-container">
-        <!-- Sign up form -->
-        <div id="sign-up-container">
-          <h3>로그인</h3>
-          <form action="../auth/loginCheck.do" method="post">
-            <label for="mem_id">아이디</label>
-            <input type="text" name="mem_id" id="mem_id" placeholder="아이디">
+<%@ include file="/navbar/navbar.jsp"%>
 
-            <label for="password">비밀번호</label>
-            <input type="password" name="pw" id="pw" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+<div class="container">
+<h1>로그인</h1>
+<form action="<%=request.getContextPath()%>/auth/loginCheck.do" method="post" >
+	<div class="mb-3">
+	  <label for="inputId" class="form-label">id</label>
+	  <input type="text" class="form-control" id="inputId" name="mem_id">
+	</div>
+	
+	<label for="inputPassword" class="form-label">Password</label>
+	<input type="password" id="inputPassword" name="pw" class="form-control" aria-labelledby="passwordHelpBlock">
+		
+	
+	<button id="btnWriteBoard" class="btn btn-primary">로그인</button>
 
-            <div id="form-controls">
-              <button type="submit">로그인하기</button>
-              <br>
-              <button type="button" onclick="location.href='../auth/signUp.do'">회원가입</button>
-            </div>
-            
-            <input type="checkbox" name="terms" id="terms">
-            <label for="terms">I agree to the 
-            <a href="#" class="termsLink">Terms of service</a>
-            and <a href="#" class="termsLink">Privacy Policy</a>.
-            </label>
-          </form>
-        </div>
+</form>
+</div>
+
 </body>
-
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-  <script type="text/JavaScript" src="./my-script.js"></script>
 </html>
