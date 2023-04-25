@@ -18,6 +18,7 @@
 				var arr = datas.boardlist;
 				var output="<ul>";
 				$.each(arr, function(index, item){
+					<%--output+="<li><a href='boarddetail.do?num="+"${"+"${item['board_id']}"+"}"+"'>"+"게시글"+"</a></li>";--%>
 					output+=`<li><a href='boarddetail.do?num=${"${item['board_id']}"}'>${"${item['board_title']}"} >> ${"${item['address']}"} >> ${"${item['price']}"}</a></li>`;
 				});
 				$("#list").html(output+"</ul>");

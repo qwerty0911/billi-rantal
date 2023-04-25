@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.billi.dbutil.OracleUtil;
 import com.billi.util.DateUtil;
 import com.billi.vo.BoardsVO;
+import com.billi.vo.ChatVO;
 import com.billi.vo.MembersVO;
 
 public class BoardsDAO {
@@ -393,6 +394,33 @@ public class BoardsDAO {
 			OracleUtil.dbDisconnect(rs, st, conn);
 		}
 		return ++seq;
+	}
+	
+	//board_id로 board_title 가져오기
+	public String TitleById(int board_id) {
+		String sql="""
+				select board_title
+				from boards
+				where board_id=?
+				""";
+		conn = OracleUtil.getConnection();
+		String title="";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1,board_id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				title=rs.getString("board_title");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			resultCount = -1;
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(null, pst, conn);
+		}
+		return title;
 	}
 	
 	//카테고리 이름 변환

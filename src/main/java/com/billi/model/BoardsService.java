@@ -50,6 +50,11 @@ public class BoardsService {
 		return dao.setBoardSeq();
 	}
 	
+	//board_id로 board_title 가져오기
+	public String TitleById(int board_id) {
+		return dao.TitleById(board_id);
+	}
+	
 	//유저와 가까운 위치의 리스트 생성
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		return dao.selectCloseDistance(member, distance);

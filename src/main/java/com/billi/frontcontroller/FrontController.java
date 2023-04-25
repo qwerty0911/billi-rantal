@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.billi.chatting.ChattingController;
+import com.billi.chatting.ChattingListController;
 import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoardListController;
 import com.billi.controller.BoradwriteController;
-import com.billi.controller.ChattingController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.MypageController;
 import com.billi.controller.RentalController;
@@ -75,10 +76,13 @@ public class FrontController extends HttpServlet {
 		case "/auth/logout.do":
 			controller = new LogoutController();
 			break;
-			
+		case "/chat/chatlist.do": //채팅 목록
+			controller=new ChattingListController();
+			break;
 		case "/chat/chat.do": //채팅페이지 호출
 			controller = new ChattingController();
 			break;
+			
 		case "/user/myboardlist.do": //내가 쓴 글 호출
 			controller = new SelectbynicknameController();
 			break;
@@ -94,22 +98,6 @@ public class FrontController extends HttpServlet {
 		case "/user/reviewwrite.do": //리뷰 작성
 			controller = new ReviewwriteController();
 			break;
-		
-//		case "/emp/empList.do":
-//			controller = new EmpListController();
-//			break;
-//		case "/emp/empDetail.do":
-//			controller = new EmpDetailController();
-//			break;
-//		case "/emp/empInsert.do":
-//			controller = new EmpInsertController();
-//			break;
-//		case "/emp/empDelete.do":
-//			controller = new EmpDeleteController();
-//			break;
-//		case "/auth/emailDupCheck.do":
-//			controller = new EmailDupCheckController();
-//			break;
 
 		default:
 			break;

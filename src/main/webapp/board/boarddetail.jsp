@@ -61,7 +61,7 @@
 				<td name="주소">${board.address}</td>
 			</tr>
 		</table>
-<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do'" >채팅</button>
+<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do?board=${board.board_id}&buyer=${loginUser.nickname }&seller=${board.board_writer }'">채팅</button>
 <%@ include file="../util/rentalCalenderBody.jsp" %>
 <script src="../js/slide.js"></script>
 <hr>
