@@ -1,7 +1,6 @@
 package com.billi.dbutil;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,27 +27,8 @@ public class OracleUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return conn;
 	}
-	
-	/*
-	public static Connection getConnection() {
-		Connection conn = null;
-		String url="jdbc:oracle:thin:@192.168.0.100:1521:xe";
-		String userid = "aaa" ; String password = "1234";
-		
-		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection(url,userid,password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return conn;
-	}*/
-	
 	
 	public static void dbDisconnect(ResultSet rs, Statement st, Connection conn) {
 		try {
@@ -60,7 +40,3 @@ public class OracleUtil {
 		}
 	}
 }
-
-/*
- * 
- */
