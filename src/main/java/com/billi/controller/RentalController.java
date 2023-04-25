@@ -61,12 +61,15 @@ public class RentalController implements CommonControllerInterface {
 		String owner_nick = request.getParameter("board_writer"); 
 		//System.out.println("board_id==>"+request.getParameter("board_id"));
 		
+		int insurance_fee = Integer.parseInt(request.getParameter("insurance_fee"));
+		
 		RentalVO vo = new RentalVO();
 		vo.setNickname(user_nick);
 		vo.setRental_date(rental_date);
 		vo.setExp_date(exp_date);
 		vo.setBoard_id(board_id);
 		vo.setOwner_nick(owner_nick);
+		vo.setInsurance_fee(insurance_fee);
 		
 		return vo;
 	}
