@@ -27,6 +27,7 @@ public class BoardsVO {
 	private String category;
 	private float latitude;
 	private float longitude;
+	private int board_hits;
 	
 	//orcle sequence 사용안하고 board_id 값 넣기 위함
 	public BoardsVO(int board_id) {

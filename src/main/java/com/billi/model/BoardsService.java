@@ -59,4 +59,9 @@ public class BoardsService {
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		return dao.selectCloseDistance(member, distance);
 	}
+
+	//게시글 조회수 업데이트
+	public void updateHits(int board_id) {
+		dao.updateHits(board_id);
+	}
 }

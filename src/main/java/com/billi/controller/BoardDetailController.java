@@ -35,6 +35,9 @@ public class BoardDetailController implements CommonControllerInterface {
 				request.setAttribute("images", images);
 			}
 			
+			//게시글 조회수 없데이트
+			service.updateHits(id);
+			
 			ReviewsService reviewservice = new ReviewsService();
 			List<ReviewsVO> boardreviewlist = reviewservice.boardReview(id);
 			request.setAttribute("boardreviewlist", boardreviewlist);
@@ -46,13 +49,6 @@ public class BoardDetailController implements CommonControllerInterface {
 			double ratingavg = reviewservice.avgRating(id);
 			request.setAttribute("ratingavg", ratingavg);
 			
-		} else {
-//			//수정
-//			BoardsVO  board = makeBoard(request);
-//			BoardsService service = new BoardsService();
-//			String message = service.boardUpdate( board);
-//
-//			page="redirect:boarddetail.do";
 		}
 		return page;
 	}

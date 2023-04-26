@@ -414,6 +414,27 @@ public class BoardsDAO {
 
 		return startEnd;
 	}
+
+	//게시글 조회수 업데이트
+	public void updateHits(int board_id) {
+		String sql="""
+				update boards set board_hits = board_hits+1 where board_id=?
+				""";
+		conn=OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1,board_id);
+			pst.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			resultCount=-1;
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(null, pst, conn);
+		}
+		//return resultCount;
+	}
 	
 	//board_id의 가장 큰 값 가져와서 board_id 설정
 	public int setBoardSeq() {
