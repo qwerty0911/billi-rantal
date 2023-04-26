@@ -64,4 +64,14 @@ public class BoardsService {
 	public void updateHits(int board_id) {
 		dao.updateHits(board_id);
 	}
+	
+	//조회수 높은 4개 게시물 가져오기
+	public List<BoardsVO> getHitsList() {
+		return dao.getHitsList();
+	}
+	
+	//최근 4개 게시물 가져오기
+	public List<BoardsVO> getLatestList() {
+		return dao.getLatestList();
+	}
 }

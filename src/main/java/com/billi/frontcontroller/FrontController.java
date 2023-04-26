@@ -17,6 +17,7 @@ import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoardListController;
 import com.billi.controller.BoradwriteController;
+import com.billi.controller.HomeController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.MypageController;
 import com.billi.controller.RentalConfirmController;
@@ -44,6 +45,10 @@ public class FrontController extends HttpServlet {
 		System.out.println("servletPath : " + request.getServletPath());
 
 		switch (path) {
+		
+		case "/home.do":
+			controller= new HomeController();
+			break;
 		
 		case "/auth/loginCheck.do":
 			controller = new LoginCheckController();

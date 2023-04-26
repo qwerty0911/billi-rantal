@@ -342,8 +342,6 @@ public class BoardsDAO {
 	public int[] countPage(int page, String categoryParam, int local, MembersVO loginUser, String search) throws Exception {
 		//카테고리와 동네 선택에 따라 동적 sql 작성
 		String category = convertCategory(categoryParam);
-		System.out.println(category);
-		System.out.println(category);
 		String sql = """
 				select count(*) count 
 				from boards
@@ -380,7 +378,6 @@ public class BoardsDAO {
 		}
 		int totalContent=0;
 		int totalPage = 0;
-		System.out.println(sql);
 		conn = OracleUtil.getConnection();
 		try {
 			st=conn.createStatement();
@@ -434,6 +431,87 @@ public class BoardsDAO {
 			OracleUtil.dbDisconnect(null, pst, conn);
 		}
 		//return resultCount;
+	}
+	
+	//조회수 높은 4개 게시물 가져오기
+	public List<BoardsVO> getHitsList() {
+		String sql="""
+				SELECT BOARD_ID,BOARD_TITLE,BOARD_CONTENTS,BOARD_WRITER,BOARD_DATE,
+				PRICE,PICTURES,ADDRESS,CATEGORY,latitude,longitude
+				FROM (SELECT BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY,
+					latitude,
+					longitude
+				       FROM boards
+				      ORDER BY board_hits DESC)
+				WHERE ROWNUM <= 4
+				""";
+		
+		List<BoardsVO> boardlist = new ArrayList<>();
+		conn = OracleUtil.getConnection();
+		try {
+			st=conn.createStatement();
+			rs=st.executeQuery(sql);
+			
+			while(rs.next()) {
+				BoardsVO board = makeBoard(rs);
+				boardlist.add(board);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return boardlist;
+	}
+	
+
+
+	public List<BoardsVO> getLatestList() {
+		String sql="""
+				SELECT BOARD_ID,BOARD_TITLE,BOARD_CONTENTS,BOARD_WRITER,BOARD_DATE,
+				PRICE,PICTURES,ADDRESS,CATEGORY,latitude,longitude
+				FROM (SELECT BOARD_ID,
+					BOARD_TITLE,
+					BOARD_CONTENTS,
+					BOARD_WRITER,
+					BOARD_DATE,
+					PRICE,
+					PICTURES,
+					ADDRESS,
+					CATEGORY,
+					latitude,
+					longitude
+				       FROM boards
+				      ORDER BY board_date DESC, board_id DESC)
+				WHERE ROWNUM <= 4
+				""";
+		
+		List<BoardsVO> boardlist = new ArrayList<>();
+		conn = OracleUtil.getConnection();
+		try {
+			st=conn.createStatement();
+			rs=st.executeQuery(sql);
+			
+			while(rs.next()) {
+				BoardsVO board = makeBoard(rs);
+				boardlist.add(board);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return boardlist;
 	}
 	
 	//board_id의 가장 큰 값 가져와서 board_id 설정

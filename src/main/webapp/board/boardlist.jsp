@@ -23,7 +23,7 @@
 				  			<img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/b_${"${item['board_id']}"}_1.jpg" class="card-img-top" height="180"
 				  				alt="이미지 대체 텍스트" onerror="this.onerror=null; this.src='https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'">
 				  			<div class="card-body">
-				    		<h5 class="card-title">${"${item['board_title']}"}</h5>
+				    		<h5 class="card-title">${"${item['board_title']}"}</h5
 				    		<p class="card-text">${"${item['board_contents']}"}</p>
 				  		</div>
 				  		<ul class="list-group list-group-flush">
