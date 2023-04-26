@@ -68,7 +68,7 @@
 <p>end Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
 <input type="text" name="board_id" value="${board.board_id}">
 <input type="text" name="board_writer" value="${board.board_writer}">
-<input type="text" id="myInput" name="insurance_fee" value="0">
+<input type="hidden" id="myInput" name="insurance_fee" value="0">
 <input type="submit" value = "대여신청">
 </form>
 <script src="../js/slide.js"></script>
@@ -80,6 +80,12 @@
 아니오 <input type="radio" id="insuranceOff" name="insurancecheck" value="n" onclick="updateInputValue(this)" checked="checked"><br> 
 <span id="myInput2">총 가격 : <fmt:formatNumber value="${board.price}" pattern="#,###"/>원</span>
 <p>(보험료는 물건 가격의 n%(현재는 10%로 설정)이며 체크하면 보험료가 가격에 포함됩니다.)</p>
+
+<c:if test="${loginUser.nickname==board.board_writer}">
+<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
+<button onclick="location.href='../board/boardupdate.do?board_id=${board.board_id}'">게시글 수정</button>
+</c:if>
+
 <hr>
 
 <h2>후기 (${reviewcount})</h2>
@@ -114,6 +120,13 @@
 	    }
 	  }
 	
+</script>
+<script>
+$(function () {
+	$(".btnDel").on("click", function () {
+		location.href = "../board/boarddelete.do?num=" + $(this).attr("data-del");
+	})
+});
 </script>
 </body>
 </html>
