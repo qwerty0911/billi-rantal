@@ -30,14 +30,14 @@
             대여하기
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all">전체</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all&local=0">전체</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy">유아용/완구</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital">가전/디지털</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports">레저/스포츠</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life">주방/생활용품</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby">취미/악기/게임</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior">가구/인테리어</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy&local=0">유아용/완구</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital&local=0">가전/디지털</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports&local=0">레저/스포츠</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life&local=0">주방/생활용품</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby&local=0">취미/악기/게임</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior&local=0">가구/인테리어</a></li>
           </ul>
         </li>
         <li class="nav-item">

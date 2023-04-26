@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.billi.dbutil.OracleUtil;
 import com.billi.util.DateUtil;
@@ -98,8 +99,8 @@ public class BoardsDAO {
 	//게시글 작성 및 저장
 	public int boardInsert(BoardsVO board) {
 		String sql="""
-				insert into boards(board_id, board_title,board_contents,board_writer,board_date,price,pictures,address,category)
-				values(?, ?, ?, ?, sysdate, ?, ?, ?, ?)
+				insert into boards(board_id, board_title,board_contents,board_writer,board_date,price,pictures,address,category,latitude,longitude)
+				values(?, ?, ?, ?, sysdate, ?, ?, ?, ?,?,?)
 				""";
 		conn=OracleUtil.getConnection();
 		try {
@@ -112,6 +113,8 @@ public class BoardsDAO {
 			pst.setString(6, board.getPictures());
 			pst.setString(7,  board.getAddress());
 			pst.setString(8, board.getCategory());
+			pst.setFloat(9, board.getLatitude());
+			pst.setFloat(10, board.getLongitude());
 			resultCount = pst.executeUpdate(); //DML문장 실행한다. 영향 받은 건수 return
 			
 		} catch (SQLException e) {
@@ -135,7 +138,9 @@ public class BoardsDAO {
 					PRICE,
 					PICTURES,
 					ADDRESS,
-					CATEGORY
+					CATEGORY,
+					LATITUDE,
+					LONGITUDE
 				from boards 
 				order by board_date desc, board_id desc
 				""";
@@ -169,7 +174,9 @@ public class BoardsDAO {
 					PRICE,
 					PICTURES,
 					ADDRESS,
-					CATEGORY
+					CATEGORY,
+					LATITUDE,
+					LONGITUDE
 				from boards 
 				where board_id=?
 				""";
@@ -192,48 +199,55 @@ public class BoardsDAO {
 	}
 	
 	//내가 쓴 글 조회
-		public List<BoardsVO> selectByWriter(String board_writer) {
-			String sql ="""
-					select *
-					from boards
-					where board_writer = ?
-					order by board_date desc
-					""";
-			List<BoardsVO> boardlist = new ArrayList<>();
-			conn = OracleUtil.getConnection();
-			try {
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, board_writer);
-				rs = pst.executeQuery();
-				while(rs.next()) {
-					BoardsVO board = makeBoard(rs);
-					boardlist.add(board);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				OracleUtil.dbDisconnect(rs, pst, conn);
+	public List<BoardsVO> selectByWriter(String board_writer) {
+		String sql ="""
+				select *
+				from boards
+				where board_writer = ?
+				order by board_date desc
+				""";
+		List<BoardsVO> boardlist = new ArrayList<>();
+		conn = OracleUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, board_writer);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				BoardsVO board = makeBoard(rs);
+				boardlist.add(board);
 			}
-			return boardlist;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, pst, conn);
 		}
+		return boardlist;
+	}
 		
 	/*게시판 목록 페이지 처리*/
 	//게시판 페이지번호 출력
-	public String readList(int page, HttpServletRequest request, String categoryParam) throws Exception {
+	public String printPageList(int page, HttpServletRequest request, String categoryParam, int local) throws Exception {
 		String listUrl="/billi/board/boardlist.do";
 		StringBuffer strList = new StringBuffer();
+		
+		//로그인 회원 정보
+		HttpSession session = request.getSession();
+		MembersVO loginUser = (MembersVO) session.getAttribute("loginUser");
 		try {
-
 			// 페이징 범위 산출
-			int[] paging = paging(page, categoryParam);
+			int[] paging = countPage(page, categoryParam, local, loginUser);
+			
+			if(paging==null) {
+				return null;
+			}
 			
 			for(int i=paging[0];i<=paging[1];i++) {
 				if(i==page)
 					strList.append("<li class='page-item active' aria-current='page'><span class='page-link'>"+i+"</span></li>");
 					//strList.append("<span style='color:orange; front-weight:bold;'>"+i+"</span>");
 				else
-					strList.append("<li class='page-item'><a class='page-link' href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a></li>");
+					strList.append("<li class='page-item'><a class='page-link' href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"&local="+local+"'>"+i+"</a></li>");
 					//strList.append("<a href='"+listUrl+"?pageNum="+i+"&category="+categoryParam+"'>"+i+"</a>");
 			}
 
@@ -246,29 +260,115 @@ public class BoardsDAO {
 
 		return strList.toString();
 	}
+	
 	//페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request, String category) {
-		if(category.equals("all")) printBoardAll(page,request);
-		else printBoardCategory(page, request, category);
-	}
-	//1. 페이지 개수 구하기
-	public int[] paging(int page, String categoryParam) throws Exception {
-		String sql="";
+	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local) {
+		conn = OracleUtil.getConnection();
+		HttpSession session = request.getSession();
+		
+		// 리스트 정보 가져오기
+		//카테고리와 동네 선택에 따라 동적 sql 작성
 		String category = convertCategory(categoryParam);
-		if(category.equals("all")) {
-			sql ="select count(*) count from boards";
-		} else {
-			sql ="select count(*) count from boards where category=?";
+		String condition="";
+		
+		//동네 보기 선택
+		if(local==1) {
+			MembersVO loginUser = (MembersVO) session.getAttribute("loginUser");
+			float latitude = loginUser.getLatitude();
+			float longitude= loginUser.getLongitude();
+			float latitudeNear=latitude-0.003f;
+			float latitudeFar=latitude+0.003f;
+			float longitudeNear=longitude-0.003f;
+			float longitudeFar=longitude+0.003f;
+			condition+="and LATITUDE between "
+					+latitudeNear
+					+" and "
+					+latitudeFar
+					+" and LONGITUDE between "
+					+longitudeNear
+					+" and "
+					+longitudeFar;
+		}
+		//카테고리 선택
+		if(!category.equals("all")) {
+			condition+="and category = '"+category+"'";
+		}
+		String sql = """
+				select * from
+				(select ROWNUM as rnum, A.* from
+				(select * from boards
+				where 1=1"""
+				+condition
+				+
+				"""
+				order by board_date desc, board_id desc)A ) 
+				where rnum >= ? and rnum <= ?
+				""";
+		try {
+			pst = conn.prepareStatement(sql);
+			// 요청된 페이지에 따른 게시물 범위 지정
+			int startPage = (page - 1) * PAGEPERLIST + 1; // 시작 게시물
+			int endPage = startPage + PAGEPERLIST - 1; // 끝 게시물
+			pst.setInt(1, startPage);
+			pst.setInt(2, endPage);
+			rs = pst.executeQuery();
+			
+			// 결과를 ArrayList에 추가
+			ArrayList<BoardsVO> list = new ArrayList<>(); // 리스트 정보 담아줄 객체
+			while (rs.next()) {
+				BoardsVO board = new BoardsVO();
+				board=makeBoard(rs);
+				list.add(board);
+			}
+			
+			request.setAttribute("boardlist", list); // 리스트 전달
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+	}
+	
+	//1. 페이지 개수 구하기
+	public int[] countPage(int page, String categoryParam, int local, MembersVO loginUser) throws Exception {
+		//카테고리와 동네 선택에 따라 동적 sql 작성
+		String category = convertCategory(categoryParam);
+		System.out.println(category);
+		System.out.println(category);
+		String sql = """
+				select count(*) count 
+				from boards
+				where 1=1
+				""";
+		//동네 선택
+		if(local==1) {
+			float latitude = loginUser.getLatitude();
+			float longitude= loginUser.getLongitude();
+			float latitudeNear=latitude-0.003f;
+			float latitudeFar=latitude+0.003f;
+			float longitudeNear=longitude-0.003f;
+			float longitudeFar=longitude+0.003f;
+			sql+=" and LATITUDE between "
+					+latitudeNear
+					+" and "
+					+latitudeFar
+					+" and LONGITUDE between "
+					+longitudeNear
+					+" and "
+					+longitudeFar;
+		}
+		//카테고리 선택
+		if(!category.equals("all")) {
+			sql+=" and category = '"+category+"'";
 		}
 		int totalContent=0;
 		int totalPage = 0;
+		System.out.println(sql);
 		conn = OracleUtil.getConnection();
 		try {
-			pst = conn.prepareStatement(sql);
-			if(category.equals("all")!=true) {
-				pst.setString(1, category);
-			}
-			rs = pst.executeQuery();
+			st=conn.createStatement();
+			rs=st.executeQuery(sql);
 			
 			while(rs.next()) {
 				totalContent = rs.getInt("count");
@@ -297,82 +397,6 @@ public class BoardsDAO {
 		startEnd[1] = endPage;
 
 		return startEnd;
-	}
-	
-	//카테고리 상관 없이 전체 게시글 조회
-	public void printBoardAll(int page, HttpServletRequest request) {
-		conn = OracleUtil.getConnection();
-		// 리스트 정보 가져오기
-			String query = """
-					select * from
-					(select ROWNUM as rnum, A.* from
-					(select * from boards
-					order by board_date desc, board_id desc)A ) 
-					where rnum >= ? and rnum <= ?
-					""";
-		try {
-			pst = conn.prepareStatement(query);
-			// 요청된 페이지에 따른 게시물 범위 지정
-			int startPage = (page - 1) * PAGEPERLIST + 1; // 시작 게시물
-			int endPage = startPage + PAGEPERLIST - 1; // 끝 게시물
-			pst.setInt(1, startPage);
-			pst.setInt(2, endPage);
-			rs = pst.executeQuery();
-			
-			// 결과를 ArrayList에 추가
-			ArrayList<BoardsVO> list = new ArrayList<>(); // 리스트 정보 담아줄 객체
-			while (rs.next()) {
-				BoardsVO board = new BoardsVO();
-				board=makeBoard(rs);
-				list.add(board);
-			}
-			request.setAttribute("boardlist", list); // 리스트 전달
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			OracleUtil.dbDisconnect(rs, st, conn);
-		}
-	}
-	
-	//카테고리별 게시글 조회
-	public void printBoardCategory(int page, HttpServletRequest request, String categoryParam) {
-		conn = OracleUtil.getConnection();
-		// 리스트 정보 가져오기
-		//카테고리별 출력
-		String category = convertCategory(categoryParam);
-		String query = """
-				select * from
-				(select ROWNUM as rnum, A.* from
-				(select * from boards
-				where category=?
-				order by board_date desc, board_id desc)A ) 
-				where rnum >= ? and rnum <= ?
-				""";
-		try {
-			pst = conn.prepareStatement(query);
-			// 요청된 페이지에 따른 게시물 범위 지정
-			int startPage = (page - 1) * PAGEPERLIST + 1; // 시작 게시물
-			int endPage = startPage + PAGEPERLIST - 1; // 끝 게시물
-			pst.setString(1, category);
-			pst.setInt(2, startPage);
-			pst.setInt(3, endPage);
-			rs = pst.executeQuery();
-			
-			// 결과를 ArrayList에 추가
-			ArrayList<BoardsVO> list = new ArrayList<>(); // 리스트 정보 담아줄 객체
-			while (rs.next()) {
-				BoardsVO board = new BoardsVO();
-				board=makeBoard(rs);
-				list.add(board);
-			}
-			request.setAttribute("boardlist", list); // 리스트 전달
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			OracleUtil.dbDisconnect(rs, st, conn);
-		}
 	}
 	
 	//board_id의 가장 큰 값 가져와서 board_id 설정
@@ -452,6 +476,8 @@ public class BoardsDAO {
 		board.setCategory(rs.getString("category"));
 		board.setPictures(rs.getString("pictures"));
 		board.setPrice(rs.getInt("price"));
+		board.setLatitude(rs.getFloat("latitude"));
+		board.setLongitude(rs.getFloat("longitude"));
 
 		return board;
 	}

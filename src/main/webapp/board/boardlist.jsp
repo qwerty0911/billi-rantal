@@ -9,7 +9,7 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
-			data:{"pageNum":${param.pageNum}, "category":"${param.category}"},
+			data:{"pageNum":${param.pageNum}, "category":"${param.category}", "local":${param.local}},
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -53,6 +53,9 @@
   
     <div class="container">
     <h2>${category }</h2>
+    <c:if test="${loginUser.nickname ne null }">
+    	<button onclick="location.href='<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=${param.category}&local=1'" class="btn btn-primary ">동네 보기</button>
+    </c:if>
     <div class="d-flex justify-content-end">
 	    <button onclick="location.href='<%=request.getContextPath() %>/board/boardwrite.do'" class="btn btn-primary ">글 작성</button>
     </div>
