@@ -227,7 +227,7 @@ public class BoardsDAO {
 		
 	/*게시판 목록 페이지 처리*/
 	//게시판 페이지번호 출력
-	public String printPageList(int page, HttpServletRequest request, String categoryParam, int local) throws Exception {
+	public String printPageList(int page, HttpServletRequest request, String categoryParam, int local, String search) throws Exception {
 		String listUrl="/billi/board/boardlist.do";
 		StringBuffer strList = new StringBuffer();
 		
@@ -236,7 +236,7 @@ public class BoardsDAO {
 		MembersVO loginUser = (MembersVO) session.getAttribute("loginUser");
 		try {
 			// 페이징 범위 산출
-			int[] paging = countPage(page, categoryParam, local, loginUser);
+			int[] paging = countPage(page, categoryParam, local, loginUser, search);
 			
 			if(paging==null) {
 				return null;
@@ -262,7 +262,7 @@ public class BoardsDAO {
 	}
 	
 	//페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local) {
+	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local, String search) {
 		conn = OracleUtil.getConnection();
 		HttpSession session = request.getSession();
 		
@@ -292,6 +292,14 @@ public class BoardsDAO {
 		//카테고리 선택
 		if(!category.equals("all")) {
 			condition+="and category = '"+category+"'";
+		}
+		//검색 시
+		if(search != null) {
+			condition+=" and (board_title like '%"
+					+search
+					+"%' or board_contents like '%"
+					+search
+					+"%')";
 		}
 		String sql = """
 				select * from
@@ -331,7 +339,7 @@ public class BoardsDAO {
 	}
 	
 	//1. 페이지 개수 구하기
-	public int[] countPage(int page, String categoryParam, int local, MembersVO loginUser) throws Exception {
+	public int[] countPage(int page, String categoryParam, int local, MembersVO loginUser, String search) throws Exception {
 		//카테고리와 동네 선택에 따라 동적 sql 작성
 		String category = convertCategory(categoryParam);
 		System.out.println(category);
@@ -361,6 +369,14 @@ public class BoardsDAO {
 		//카테고리 선택
 		if(!category.equals("all")) {
 			sql+=" and category = '"+category+"'";
+		}
+		//검색 시
+		if(search != null) {
+			sql+="and (board_title like '%"
+					+search
+					+"%' or board_contents like '%"
+					+search
+					+"%')";
 		}
 		int totalContent=0;
 		int totalPage = 0;

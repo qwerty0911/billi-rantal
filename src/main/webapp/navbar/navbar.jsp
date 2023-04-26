@@ -44,6 +44,13 @@
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
+       <form class="d-flex" method="get" action="<%=request.getContextPath()%>/board/boardlist.do">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <input type="hidden" name="pageNum" value=1>
+        <input type="hidden" name="category" value="all">
+        <input type="hidden" name="local" value=0>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
       <div class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <c:if test="${loginUser!=null}">

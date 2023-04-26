@@ -36,13 +36,13 @@ public class BoardsService {
 	}
 	
 	//게시판 페이지번호 출력
-	public String printPageList(int page, HttpServletRequest request, String category, int local) throws Exception {
-		return dao.printPageList(page, request, category, local);
+	public String printPageList(int page, HttpServletRequest request, String category, int local, String search) throws Exception {
+		return dao.printPageList(page, request, category, local, search);
 	}
 	
 	//페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local) {
-		dao.printBoard(page, request, categoryParam, local);
+	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local, String search) {
+		dao.printBoard(page, request, categoryParam, local, search);
 	}
 
 	//board_id의 가장 큰 값 가져와서 board_id 설정
