@@ -31,7 +31,6 @@ public class BoardListController implements CommonControllerInterface {
 			//카테고리 출력
 			category=convertCategory(category);
 			request.setAttribute("category", category);
-			System.out.println("search:"+search);
 			if(search==null) request.setAttribute("category", category);
 			else if(search.equals(""))request.setAttribute("category", category);
 			else request.setAttribute("category", "\""+search+"\"로 검색한 결과");

@@ -27,7 +27,6 @@ public class BoardAjaxController implements CommonControllerInterface {
 		String category = request.getParameter("category");
 		int local = Integer.parseInt(request.getParameter("local"));
 		String search = request.getParameter("search");
-		System.out.println(search);
 		//페이지번호에 해당하는 게시글 목록 보여주기
 		service.printBoard(currentPage, request, category, local, search);
 		List<BoardsVO> boardlist = (List<BoardsVO>) request.getAttribute("boardlist");
