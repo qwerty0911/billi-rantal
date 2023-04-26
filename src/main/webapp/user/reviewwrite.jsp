@@ -31,6 +31,7 @@
 		<textarea name="review_content" id="review_content" placeholder="내용을 입력해주세요" required="required"></textarea>
 		<input type="hidden" name="review_writer" id="review_writer" value="${loginUser.nickname}">
 		<input type="hidden" name="board_id" id="board_id" value="${param.num}">
+		<input type="hidden" name="rentalconfirm_code" id="rentalconfirm_code" value="${param.rental_code}">
 		<input type="submit" id="reviewwritebtn" value="후기 작성" onclick="location.href='../board/boarddetail.do?num=${param.num}'">
 		
 	</form>

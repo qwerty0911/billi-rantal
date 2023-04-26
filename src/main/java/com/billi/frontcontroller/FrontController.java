@@ -118,6 +118,13 @@ public class FrontController extends HttpServlet {
 		case "/user/insurancecharge.do": //보험금 청구 신청
 			controller = new InsurancechargeController();
 			break;
+		case "/board/boarddelete.do": //게시글 삭제
+			controller = new BoarddeleteController();
+			break;
+		case "/board/boardupdate.do": //게시글 수정
+			controller = new BoardupdateController();
+			break;
+			
 
 		default:
 			break;

@@ -29,6 +29,83 @@ public class BoardsDAO {
 	CallableStatement cst; //SP지원
 	public static final int PAGEPERLIST = 8;
 	
+	//내가 쓴 게시글 불러오기 (makeboard 함수에 좌표열들 추가해야 되는지? 일단 보류함)
+	public BoardsVO selectByBoardid(int board_id) {
+		String sql ="select * from boards where board_id = " + board_id;
+		BoardsVO board = null;
+		conn = OracleUtil.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while(rs.next()) {
+				board = makeBoard(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(rs, st, conn);
+		}
+		return board;
+	}
+	
+	//게시글 수정하기
+		public int boardUpdate(BoardsVO board) {
+			String sql ="""
+					update boards
+					set
+					board_title = ?,
+					board_contents = ?,
+					category = ?,
+					price = ?,
+					pictures = ?
+					where board_id = ?
+					""";
+			conn = OracleUtil.getConnection();
+			
+			try {
+				pst = conn.prepareStatement(sql);
+				
+				pst.setString(1, board.getBoard_title());
+				pst.setString(2, board.getBoard_contents());
+				pst.setString(3, board.getCategory());
+				pst.setInt(4, board.getPrice());
+				pst.setString(5, board.getPictures());
+				pst.setInt(6, board.getBoard_id());
+							
+				resultCount =  pst.executeUpdate();
+				System.out.println(resultCount);
+				
+			} catch (SQLException e) {
+				resultCount = -1;
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(null, pst, conn);
+			}
+			System.out.println("글 수정 결과 : " + resultCount);
+			return resultCount;
+		}
+	
+	//게시글 삭제하기
+	public int boardDelete(int board_id) {
+		String sql ="""
+				delete from boards
+				where board_id = ?					
+				""";
+		conn = OracleUtil.getConnection();	
+		try {
+			pst = conn.prepareStatement(sql);					
+			pst.setInt(1, board_id);	
+			resultCount =  pst.executeUpdate();
+		} catch (SQLException e) {
+			resultCount = -1;
+			e.printStackTrace();
+		} finally {
+			OracleUtil.dbDisconnect(null, pst, conn);
+		}
+		System.out.println("딜리트 결과 : " + resultCount);
+		return resultCount;
+	}
+	
 	//가까운 물건만 리스트
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		String sql="""
@@ -585,7 +662,7 @@ public class BoardsDAO {
 		board.setAddress(rs.getString("address"));
 		board.setBoard_contents(rs.getString("board_contents"));
 		board.setBoard_id(rs.getInt("board_id"));
-		board.setBoard_title(rs.getString("board_title"));
+		board.setBoard_title(rs.getString("board_title")); 
 		board.setBoard_writer(rs.getString("board_writer"));
 		board.setBoard_date(rs.getDate("board_date"));
 		board.setCategory(rs.getString("category"));

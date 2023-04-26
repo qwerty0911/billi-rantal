@@ -59,10 +59,14 @@ public class RentalDAO {
 	//빌린 아이템
 	public List<Board_RentalVO> myRental(String nickname) {
 		String sql ="""
-				select *
-				from boards join rental using (board_id)
+				select RENTAL_CONFIRM.* ,boards.*, rental.*, 
+					  (select count(*) 
+					   from reviews aa 
+					   where aa.board_id = board_id and aa.rentalconfirm_code = rental.rental_code) review_count
+				from RENTAL_CONFIRM join rental on (RENTAL_CONFIRM.rental_code = rental.rental_code)
+					                join boards on (rental.board_id =boards.board_id) 
 				where nickname = ?
-				order by rental_date desc
+				order by rental.rental_code desc
 				""";
 		List<Board_RentalVO> rentallist = new ArrayList<>();
 		conn = OracleUtil.getConnection();
@@ -72,6 +76,7 @@ public class RentalDAO {
 			rs = pst.executeQuery();
 			while(rs.next()) {
 				Board_RentalVO rental = makeRental(rs);
+				rental.setReview_count(rs.getInt("review_count"));
 				rentallist.add(rental);
 			}
 		} catch (SQLException e) {

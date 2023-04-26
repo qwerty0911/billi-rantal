@@ -24,6 +24,33 @@ public class ReviewsDAO {
 	int resultCount; //insert,update,delete 건수
 	CallableStatement cst;
 	
+	//내가 쓴 리뷰 개수
+		public int myReviewCount(int rentalconfirm_code, String review_writer) {
+			String sql ="""
+					select count(*) count
+					from reviews
+					where review_writer = ?
+					and rentalconfirm_code = ?
+					""";
+			int myReviewCount = 0;
+			conn = OracleUtil.getConnection();
+			try {
+				pst = conn.prepareStatement(sql);
+				pst.setInt(1, rentalconfirm_code);
+				pst.setString(2, review_writer);
+				rs = pst.executeQuery();
+				while(rs.next()) {
+				myReviewCount = rs.getInt("count");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				OracleUtil.dbDisconnect(rs, pst, conn);
+			}
+			return myReviewCount;
+		}
+	
 	//한건의 리뷰 삭제하기
 		public int reviewDelete(int review_id) {
 			System.out.println(review_id);
@@ -124,7 +151,7 @@ public class ReviewsDAO {
 	//리뷰작성
 		public int reviewWrite(ReviewsVO reviews) {
 			String sql = """
-					insert into reviews values (review_id_sequence.nextval, ?, ?, sysdate, ?, ?)
+					insert into reviews values (review_id_sequence.nextval, ?, ?, sysdate, ?, ?, ?)
 					""";
 			conn = OracleUtil.getConnection();
 			
@@ -134,7 +161,8 @@ public class ReviewsDAO {
 				pst.setString(1, reviews.getReview_content());
 				pst.setString(2, reviews.getReview_writer());
 				pst.setDouble(3, reviews.getRating());
-				pst.setInt(4, reviews.getBoard_id());		
+				pst.setInt(4, reviews.getBoard_id());
+				pst.setInt(5, reviews.getRentalconfirm_code());
 				
 				resultCount = pst.executeUpdate();
 			} catch (SQLException e) {

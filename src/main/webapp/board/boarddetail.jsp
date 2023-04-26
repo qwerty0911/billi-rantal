@@ -82,8 +82,8 @@
 <p>(보험료는 물건 가격의 n%(현재는 10%로 설정)이며 체크하면 보험료가 가격에 포함됩니다.)</p>
 
 <c:if test="${loginUser.nickname==board.board_writer}">
-<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
 <button onclick="location.href='../board/boardupdate.do?board_id=${board.board_id}'">게시글 수정</button>
+<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
 </c:if>
 
 <hr>
