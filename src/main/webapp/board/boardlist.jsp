@@ -24,7 +24,7 @@
 				  				alt="이미지 대체 텍스트" onerror="this.onerror=null; this.src='https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'">
 				  			<div class="card-body">
 				    		<h5 class="card-title">${"${item['board_title']}"}</h5>
-				    		<p class="card-text">${"${item['board_contents']}"}</p>
+				    		
 				  		</div>
 				  		<ul class="list-group list-group-flush">
 				    		<li class="list-group-item">${"${item['address']}"}</li>
@@ -34,6 +34,7 @@
 				  			</div>
 						</div>
 					`
+
 				});
 				$("#list").prepend(output);
 				

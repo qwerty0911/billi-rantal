@@ -10,6 +10,23 @@ import com.billi.vo.MembersVO;
 public class BoardsService {
 	BoardsDAO dao = new BoardsDAO();
 	
+	//내가 쓴 게시글 불러오기
+	public BoardsVO selectByBoardid(int board_id) {
+		return dao.selectByBoardid(board_id);
+	}
+	
+	//게시글 수정하기
+	public String boardUpdate(BoardsVO board) {
+		int result = dao.boardUpdate(board);
+		return result>0?"수정성공":"수정실패";
+	}
+	
+	//게시글 삭제하기
+	public String boardDelete(int board_id) {
+		int result = dao.boardDelete(board_id);
+		return result >0?"삭제성공":"삭제실패";
+	}
+	
 	//카테고리 불러오기
 	public List<String> selectCategory() {
 		return dao.selectCategory();

@@ -24,7 +24,8 @@ public class ReviewwriteController implements CommonControllerInterface {
 			ReviewsService service = new ReviewsService();
 			int result = service.reviewWrite(reviews);
 			String path = request.getContextPath();
-			
+			System.out.println("리뷰작성 result " + result);
+			request.setAttribute("result", result);
 			page = "redirect:"+ path + "/board/boarddetail.do?num=" + request.getParameter("board_id");
 		}
 		return page;
@@ -35,12 +36,14 @@ public class ReviewwriteController implements CommonControllerInterface {
 		String review_writer = request.getParameter("review_writer");
 		double rating = Double.parseDouble(request.getParameter("rating"));
 		int board_id = Integer.parseInt(request.getParameter("board_id"));
+		int rentalconfirm_code = Integer.parseInt(request.getParameter("rentalconfirm_code"));
 		
 		ReviewsVO reviews = new ReviewsVO();
 		reviews.setReview_content(review_content);
 		reviews.setReview_writer(review_writer);
 		reviews.setRating(rating);
 		reviews.setBoard_id(board_id);
+		reviews.setRentalconfirm_code(rentalconfirm_code);
 		
 		return reviews;
 	}

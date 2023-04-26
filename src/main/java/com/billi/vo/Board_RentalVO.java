@@ -41,4 +41,6 @@ public class Board_RentalVO {
 	private String charge_type;
 	private String picture;
 	private String charge_content;
+	
+	private int review_count;
 }

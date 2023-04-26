@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.billi.model.RentalManageService;
 import com.billi.model.RentalService;
+import com.billi.model.ReviewsService;
 import com.billi.vo.Board_RentalVO;
 import com.billi.vo.MembersVO;
 import com.billi.vo.RentalManageVO;
@@ -37,6 +38,10 @@ public class MyrentalController implements CommonControllerInterface {
 		
 		request.setAttribute("rentalConfirmList", rentalConfirmList);
 		request.setAttribute("returnConfirmList", returnConfirmList);
+		
+		
+		//ReviewsService reviewservice = new ReviewsService(); int myReviewCount =
+		//reviewservice.myReviewCount(0, user_nick);
 		
 		return "myrentallist.jsp";
 	}
