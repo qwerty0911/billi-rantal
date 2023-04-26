@@ -12,8 +12,6 @@
 <body>
 
 	<h1>게시글 수정 </h1>
-	<p>${board}</p>
-	<p>${clist}</p>
 	<form action="../board/boardupdate.do" method="post">
 	<label for="board_title">제목</label>
 	<input type="text" name="board_title" id="board_title" value="${board.board_title}"><br>

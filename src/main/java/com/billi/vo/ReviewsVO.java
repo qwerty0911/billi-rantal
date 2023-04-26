@@ -18,4 +18,5 @@ public class ReviewsVO {
 	private Date review_date;
 	private double rating;
 	private int board_id;
+	private int rentalconfirm_code;
 }
