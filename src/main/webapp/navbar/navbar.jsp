@@ -56,7 +56,7 @@
         <c:if test="${loginUser!=null}">
 		  <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ${loginUser.mem_name}
+            ${loginUser.nickname}
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/myboardlist.do">내가 쓴 글</a></li>

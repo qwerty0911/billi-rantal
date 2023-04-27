@@ -65,7 +65,7 @@
 			</tr>
 			<tr>
 				<td> <!-- name="내용"> -->
-				<p class="fst-normal">${board.board_contents}</p></td>
+				<p class="fst-normal"><pre>${board.board_contents}</pre></p></td>
 			</tr>
 			<tr>
 				<td ><!-- name="금액"> -->
