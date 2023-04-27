@@ -17,6 +17,7 @@ import com.billi.controller.BoardAjaxController;
 import com.billi.controller.BoardDetailController;
 import com.billi.controller.BoardListController;
 import com.billi.controller.BoradwriteController;
+import com.billi.controller.HomeController;
 import com.billi.controller.LoginCheckController;
 import com.billi.controller.MypageController;
 import com.billi.controller.RentalConfirmController;
@@ -45,6 +46,10 @@ public class FrontController extends HttpServlet {
 		System.out.println("servletPath : " + request.getServletPath());
 
 		switch (path) {
+		
+		case "/home.do":
+			controller= new HomeController();
+			break;
 		
 		case "/auth/loginCheck.do":
 			controller = new LoginCheckController();
@@ -114,11 +119,17 @@ public class FrontController extends HttpServlet {
 		case "/user/insurancecharge.do": //보험금 청구 신청
 			controller = new InsurancechargeController();
 			break;
-		
 		case "/user/rentalreject.do":  //대여 예약 거절
 			controller = new RentalRejectController();
 			break;
+		case "/board/boarddelete.do": //게시글 삭제
+			controller = new BoarddeleteController();
+			break;
+		case "/board/boardupdate.do": //게시글 수정
+			controller = new BoardupdateController();
+			break;
 			
+
 		default:
 			break;
 		}

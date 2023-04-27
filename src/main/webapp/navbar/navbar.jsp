@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary billicolor">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Billi rental</a>
+    <a class="navbar-brand" href="#"><img src="<%=request.getContextPath() %>/images/logo.png" width="100px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,20 +30,27 @@
             대여하기
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all">전체</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all&local=0">전체</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy">유아용/완구</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital">가전/디지털</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports">레저/스포츠</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life">주방/생활용품</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby">취미/악기/게임</a></li>
-            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior">가구/인테리어</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy&local=0">유아용/완구</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital&local=0">가전/디지털</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports&local=0">레저/스포츠</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life&local=0">주방/생활용품</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby&local=0">취미/악기/게임</a></li>
+            <li><a class="dropdown-item" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior&local=0">가구/인테리어</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
+       <form class="d-flex" method="get" action="<%=request.getContextPath()%>/board/boardlist.do">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <input type="hidden" name="pageNum" value=1>
+        <input type="hidden" name="category" value="all">
+        <input type="hidden" name="local" value=0>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
       <div class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <c:if test="${loginUser!=null}">

@@ -114,6 +114,8 @@ public class MembersDAO {
 				user.setPhone(rs.getString("phone"));
 				user.setAddress(rs.getString("address"));						
 				user.setNickname(rs.getString("nickname"));
+				user.setLongitude(rs.getFloat("longitude"));
+				user.setLatitude(rs.getFloat("latitude"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

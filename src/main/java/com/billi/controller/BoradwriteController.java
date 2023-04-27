@@ -90,6 +90,8 @@ public class BoradwriteController implements CommonControllerInterface {
 					if(colName.equals("price")) board.setPrice(Integer.parseInt(colValue));
 					if(colName.equals("address")) board.setAddress(colValue);
 					if(colName.equals("category_id")) board.setCategory(colValue);
+					if(colName.equals("longitude")) board.setLongitude(Float.parseFloat(colValue));
+					if(colName.equals("latitude")) board.setLatitude(Float.parseFloat(colValue));
 				} else {
 					if (fileItem.getSize() > 0) {
 						int idx = fileItem.getName().lastIndexOf("\\");

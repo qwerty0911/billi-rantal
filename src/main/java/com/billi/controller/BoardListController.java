@@ -18,15 +18,22 @@ public class BoardListController implements CommonControllerInterface {
 			//페이지번호 출력
 			int currentPage = Integer.parseInt(request.getParameter("pageNum"));
 			String category = request.getParameter("category");
+			int local = Integer.parseInt(request.getParameter("local"));
+			String search = request.getParameter("search");
 
 			BoardsService service = new BoardsService();
-			String pagelist = service.readList(currentPage,request, category);
+			String pagelist = service.printPageList(currentPage,request, category, local, search);
+			if(pagelist==null) {
+				return page;
+			}
 			request.setAttribute("pagelist", pagelist);
 			
 			//카테고리 출력
 			category=convertCategory(category);
 			request.setAttribute("category", category);
-
+			if(search==null) request.setAttribute("category", category);
+			else if(search.equals(""))request.setAttribute("category", category);
+			else request.setAttribute("category", "\""+search+"\"로 검색한 결과");
 		}
 		return page;
 	}

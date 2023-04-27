@@ -9,7 +9,7 @@
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
-			data:{"pageNum":${param.pageNum}, "category":"${param.category}"},
+			data:{"pageNum":${param.pageNum}, "category":"${param.category}", "local":${param.local}, "search":"${param.search}"},
 			method:"get",
 			success:function(responseData){
 				console.log(responseData);
@@ -33,6 +33,7 @@
 				  			</div>
 						</div>
 					`
+
 				});
 				$("#list").prepend(output);
 				
@@ -47,15 +48,14 @@
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
 
-
- <body>
-  
     <div class="container">
     <h2>${category }</h2>
+    <c:if test="${loginUser.nickname ne null }">
+    	<button onclick="location.href='<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=${param.category}&local=1&search=${param.search}'" class="btn btn-primary ">동네 보기</button>
+    </c:if>
     <div class="d-flex justify-content-end">
 	    <button onclick="location.href='<%=request.getContextPath() %>/board/boardwrite.do'" class="btn btn-primary ">글 작성</button>
     </div>
-    
      
       <div class="row row-cols-4" id="list">
 			
@@ -68,13 +68,6 @@
 		</nav>
 		
 	  </div>
-		
-      
     </div>
-  </body>
-
-
-
-
 </body>
 </html>

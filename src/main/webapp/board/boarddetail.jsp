@@ -118,6 +118,37 @@
 		  예약하기
 		</button>
 				
+<button id="btnchat" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do?board=${board.board_id}&buyer=${loginUser.nickname }&seller=${board.board_writer }'">채팅</button>
+<form action="../rental/rentalRegist.do" method="post">
+<p>start Date: <input type="text" name="rental_date" readOnly class="calander" id="startDate" ></p>
+<p>end Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
+<input type="text" name="board_id" value="${board.board_id}">
+<input type="text" name="board_writer" value="${board.board_writer}">
+<input type="hidden" id="myInput" name="insurance_fee" value="0">
+<input type="submit" value = "대여신청">
+</form>
+<script src="../js/slide.js"></script>
+
+<p>보험상품 (빌리케어?)</p>
+<p>보험에 가입하면 물건을 파손/분실해도 배상금을 내지 않아도 된다!</p>
+<p>보험에 가입하시겠습니까? &nbsp;+ <fmt:formatNumber value="${board.price*0.1}" pattern="#,###"/>원</p> 
+예 <input type="radio" id="insuranceOn" name="insurancecheck" value="y" onclick="updateInputValue(this)">
+아니오 <input type="radio" id="insuranceOff" name="insurancecheck" value="n" onclick="updateInputValue(this)" checked="checked"><br> 
+<span id="myInput2">총 가격 : <fmt:formatNumber value="${board.price}" pattern="#,###"/>원</span>
+<p>(보험료는 물건 가격의 n%(현재는 10%로 설정)이며 체크하면 보험료가 가격에 포함됩니다.)</p>
+
+<c:if test="${loginUser.nickname==board.board_writer}">
+<button onclick="location.href='../board/boardupdate.do?board_id=${board.board_id}'">게시글 수정</button>
+<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
+</c:if>
+
+<hr>
+
+<h2>후기 (${reviewcount})</h2>
+<h2>평균평점 : ${ratingavg}</h2><br> 
+	<div class="rate">
+        <span style="width: ${(ratingavg/5)*100}%"></span>
+
     </div>
   </div>
 </div>
@@ -161,6 +192,12 @@
 	  }
 	
 </script>
-
+<script>
+$(function () {
+	$(".btnDel").on("click", function () {
+		location.href = "../board/boarddelete.do?num=" + $(this).attr("data-del");
+	})
+});
+</script>
 </body>
 </html>

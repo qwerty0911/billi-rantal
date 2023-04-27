@@ -38,10 +38,12 @@
 		
 		<div class="mb-3">
 			<label for="formFile" class="form-label">사진</label>
-			<input class="form-control" type="file" name="file" id="formFile">
+			<input class="form-control" type="file" name="file" id="formFile" multiple>
 		</div>
 		<input type="hidden" name="board_writer" value="${loginUser.nickname}"/>
 		<input type="hidden" name="address" value="${loginUser.address}"/>
+		<input type="hidden" name="latitude" value="${loginUser.latitude}"/>
+		<input type="hidden" name="longitude" value="${loginUser.longitude}"/>
 		<button id="btnWriteBoard" class="btn btn-primary">작성</button>
 
 	</form>

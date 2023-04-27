@@ -10,6 +10,23 @@ import com.billi.vo.MembersVO;
 public class BoardsService {
 	BoardsDAO dao = new BoardsDAO();
 	
+	//내가 쓴 게시글 불러오기
+	public BoardsVO selectByBoardid(int board_id) {
+		return dao.selectByBoardid(board_id);
+	}
+	
+	//게시글 수정하기
+	public String boardUpdate(BoardsVO board) {
+		int result = dao.boardUpdate(board);
+		return result>0?"수정성공":"수정실패";
+	}
+	
+	//게시글 삭제하기
+	public String boardDelete(int board_id) {
+		int result = dao.boardDelete(board_id);
+		return result >0?"삭제성공":"삭제실패";
+	}
+	
 	//카테고리 불러오기
 	public List<String> selectCategory() {
 		return dao.selectCategory();
@@ -36,13 +53,13 @@ public class BoardsService {
 	}
 	
 	//게시판 페이지번호 출력
-	public String readList(int page, HttpServletRequest request, String category) throws Exception {
-		return dao.readList(page, request, category);
+	public String printPageList(int page, HttpServletRequest request, String category, int local, String search) throws Exception {
+		return dao.printPageList(page, request, category, local, search);
 	}
 	
 	//페이지번호에 따른 게시물 출력
-	public void printBoard(int page, HttpServletRequest request, String categoryParam) {
-		dao.printBoard(page, request, categoryParam);
+	public void printBoard(int page, HttpServletRequest request, String categoryParam, int local, String search) {
+		dao.printBoard(page, request, categoryParam, local, search);
 	}
 
 	//board_id의 가장 큰 값 가져와서 board_id 설정
@@ -58,5 +75,20 @@ public class BoardsService {
 	//유저와 가까운 위치의 리스트 생성
 	public List<BoardsVO> selectCloseDistance(MembersVO member,float distance) {
 		return dao.selectCloseDistance(member, distance);
+	}
+
+	//게시글 조회수 업데이트
+	public void updateHits(int board_id) {
+		dao.updateHits(board_id);
+	}
+	
+	//조회수 높은 4개 게시물 가져오기
+	public List<BoardsVO> getHitsList() {
+		return dao.getHitsList();
+	}
+	
+	//최근 4개 게시물 가져오기
+	public List<BoardsVO> getLatestList() {
+		return dao.getLatestList();
 	}
 }

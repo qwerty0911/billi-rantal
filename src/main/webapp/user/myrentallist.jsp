@@ -13,6 +13,16 @@
 </script>
 <script
   src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+function hideButton2() {
+	  var button = document.getElementById("review_write_btn");
+	  button.style.display = "none";
+	}
+function hideButton() {
+	  var button = document.getElementById("myButton");
+	  button.style.display = "none";
+	}
+</script>
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
@@ -37,7 +47,17 @@
 				<td><a href="../board/boarddetail.do?num=${borrow.board_id}"> ${borrow.board_title}</a></td>
 				<td>${borrow.rental_date}</td>
 				<td>${borrow.exp_date}</td>
+
 				<td><input type="button" onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}'" value="리뷰작성" class="btn btn-primary btn-sm"></td>
+
+				<td>
+				    <c:if test="${borrow.review_count==0}">
+				   	 <input type="button" 
+						    onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}&rental_code=${borrow.rental_code}'"
+						    value="리뷰작성">						  				 
+				    </c:if>
+					
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
@@ -203,7 +223,7 @@
 				</div>
 				
 				<div class="modal-body">
-					<form method="post" action="../user/insurancecharge.do">
+					<form method="post" action="../user/insurancecharge.do"  enctype="multipart/form-data">
 						<table>
 							<tr>
 								<td>청구유형</td>
@@ -261,20 +281,19 @@
 			var insurance_code = $(event.relatedTarget).data('insurance_code');
 			var charge_date = $(event.relatedTarget).data('charge_date');
 			var charge_type = $(event.relatedTarget).data('charge_type');
-			var picture = $(event.relatedTarget).data('picture');
+			var url = $(event.relatedTarget).data('picture');
 			var charge_content = $(event.relatedTarget).data('charge_content');
 			var nickname = $(event.relatedTarget).data('nickname');
 			var owner = $(event.relatedTarget).data('owner');
 			var rental_date = $(event.relatedTarget).data('rental_date');
 			var exp_date = $(event.relatedTarget).data('exp_date');
-			
-			
-			
+			var picture = "https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/insurance/"+url;
+			console.log("${picture}");
+			$('#picture').html("<img src="+picture+">");
 			$("#rental_code2").text(rentalcode);
 			$("#insurance_code").text(insurance_code);
 			$("#charge_date").text(charge_date);
 			$("#charge_type").text(charge_type);
-			$("#picture").text(picture);
 			$("#charge_content").text(charge_content);
 			$("#nickname").text(nickname);
 			$("#owner").text(owner);
