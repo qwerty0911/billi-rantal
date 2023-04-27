@@ -22,6 +22,7 @@ import com.billi.controller.LoginCheckController;
 import com.billi.controller.MypageController;
 import com.billi.controller.RentalConfirmController;
 import com.billi.controller.RentalController;
+import com.billi.controller.RentalRejectController;
 import com.billi.controller.SignUpController;
 import com.billi.controller.returnConfirmController;
 
@@ -117,6 +118,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/user/insurancecharge.do": //보험금 청구 신청
 			controller = new InsurancechargeController();
+			break;
+		case "/user/rentalreject.do":  //대여 예약 거절
+			controller = new RentalRejectController();
 			break;
 		case "/board/boarddelete.do": //게시글 삭제
 			controller = new BoarddeleteController();

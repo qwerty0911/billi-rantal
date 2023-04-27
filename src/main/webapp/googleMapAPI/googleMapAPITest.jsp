@@ -9,6 +9,7 @@
 <html>
   <head>
     <title>Geocoding Service</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script>
       /**
@@ -127,6 +128,74 @@
 
       window.initMap = initMap;
     </script>
+    <script>
+$(function () {
+	
+	$("#idDupCheck").on("click", function () {
+		//페이지 이동없이 서버에 요청을 보내고 응답 받기 : ajax
+		//method 생략하면 get 방식 method:"get" 이렇게 써도 됨
+		$.ajax({
+			url:"idDupCheck.do",
+			data:{"mem_id":$("#mem_id").val()},
+			success:function(responseData){
+				//alert(responseData); //변수이름은 내가 정하는 것 (순서는 정해져 있음)
+				var message = responseData==1?"이미 존재하는 아이디입니다.":"사용 가능한 아이디입니다.";
+				/* $("#idMessage").text(message); */
+				if(responseData==1) {
+					$("#form").prepend(`
+							<div class="toast align-items-center fade show" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+							    <div class="toast-body">
+							      이미 존재하는 아이디입니다.
+							    </div>
+							    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+							  </div>
+							</div>
+							`)
+					
+					$("#mem_id").val("");
+					$("#mem_id").focus();
+				}					
+																				
+			},
+			error:function(message){
+				alert(message);
+			}
+		});
+	})
+	$("#nicknameDupCheck").on("click", function () {
+		//페이지 이동없이 서버에 요청을 보내고 응답 받기 : ajax
+		//method 생략하면 get 방식 method:"get" 이렇게 써도 됨
+		$.ajax({
+			url:"nicknameDupCheck.do",
+			data:{"nickname":$("#nickname").val()},
+			success:function(responseData){
+				//alert(responseData); //변수이름은 내가 정하는 것 (순서는 정해져 있음)
+				var message = responseData==1?"이미 존재하는 닉네임입니다.":"사용 가능한 닉네임입니다.";
+				if(responseData==1) {
+					$("#form").prepend(`
+							<div class="toast align-items-center fade show" role="alert" aria-live="assertive" aria-atomic="true">
+							  <div class="d-flex">
+							    <div class="toast-body">
+							      이미 존재하는 닉네임입니다.
+							    </div>
+							    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+							  </div>
+							</div>
+							`)
+					
+					$("#nickname").val("");
+					$("#nickname").focus();
+				}					
+																				
+			},
+			error:function(message){
+				alert(message);
+			}
+		});
+	})
+});
+</script>
     <style>
       /**
        * @license
@@ -138,8 +207,8 @@
        * that contains the map. 
        */
       #map {
-        height: 50%;
-        width: 50%;
+        height: 100%;
+        width: 100%;
       }
 
       /* Optional: Makes the sample page fill the window. */
@@ -226,15 +295,53 @@
     </style>
   </head>
   <body>
-    <div id="map" ></div>
-    <div id="here"></div>
+  <%@ include file="/navbar/navbar.jsp"%>
+  <div class="container mx-auto">
+	  <div class="row">
+		<div class="col" >
+		  <h1>회원가입</h1>
+		  <form action="../auth/signUp.do" method="post" id=form>
+			  <div class="mb-3">
+			  <label for="mem_id" class="form-label">아이디</label>
+			  <input type="text" name="mem_id" class="form-control" id="mem_id" placeholder="" required="required" >
+			  <input type="button" id="idDupCheck" value="중복체크">
+			</div>
+			<div class="mb-3">
+			  <label for="mem_pw" class="form-label">비밀번호</label>
+			  <input type="password" name="pw" class="form-control" id="mem_pw" placeholder="" required="required" >
+			</div>
+			<div class="mb-3">
+			  <label for="mem_name" class="form-label">이름</label>
+			  <input type="text" name="mem_name" class="form-control" id="mem_name" placeholder="홍길동" required="required" >
+			</div>
+			<div class="mb-3">
+			  <label for="phone" class="form-label">전화번호</label>
+			  <input type="text" name="phone" class="form-control" id="phone" placeholder="010-0000-1111" required="required" >
+			</div>
+			<div class="mb-3">
+			  <label for="nickname" class="form-label">닉네임</label>
+			  <input type="text" name="nickname" class="form-control" id="nickname" required="required" >
+			  <input type="button" id="nicknameDupCheck" value="중복체크"> 
+			</div>
+			<div>
+			
+			<div class="mb-3">
+			  <label for="formattedAddress" class="form-label">주소</label>
+			  <input type="text" readOnly id="formattedAddress" name="formattedAddress" class="form-control" required="required" >
+			</div>
+			<input type="text" value="" name="latitude" id="myInputLat" >
+			<input type="text" value="" name="longitude" id="myInputLng" >
+			</div>
+		  </form>
+		</div>
+	  <div class="col" >
+		<p>위치 선택</p>
+		<div id="map" ></div>
+		</div>
+	  </div>
+ </div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0S8EfdDKR8QDgHXcR08Jel6_UJdGa198&callback=initMap&v=weekly" defer></script>
-      <form>
-      <input type="text" value="" name="lat" id="myInputLat" readonly>
-      <input type="text" value="" name="lng" id="myInputLng" readonly>
-      
-      
-      </form>
+
   </body>
 </html>

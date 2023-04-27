@@ -30,9 +30,9 @@
 			<tr>
 				<td> <a href="../board/boarddetail.do?num=${review.board_id}">${review.board_title}</a></td>
 				<td>${review.review_content}</td>
-				<td>${review.rating} <div class="rate"><span style="width: ${(review.rating/5)*100}%"></span></div> </td>
+				<td><div class="rate"><span style="width: ${(review.rating/5)*100}%"></span></div> </td>
 				<td>${review.review_date}</td>
-				<td><button class="btnDel" data-del="${review.review_id}">삭제</button></td>
+				<td><button class="btn btn-danger btn-sm" data-del="${review.review_id}">삭제</button></td>
 			</tr>
 		</c:forEach>
 		</tbody>

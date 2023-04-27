@@ -17,6 +17,8 @@
 .impress{ color:red;}
 .whisper{ color: green;}
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<!-- 로그인한 상태일 경우와 비로그인 상태일 경우의 chat_id설정 -->
@@ -25,9 +27,9 @@
 		<input type="hidden" value='${username}' id='chat_id' />
 	</c:if>
 	<!-- 채팅창 -->
-	<div id="_chatbox">
+	<div id="_chatbox" >
 		<fieldset>
-			<div id="messageWindow">
+			<div id="messageWindow" >
 				<!-- 이전 채팅 기록 가져오기 -->
 				<c:forEach var="item" items="${chatHistory}">
 					<c:if test="${item.sender_name eq  username }">
