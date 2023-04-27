@@ -29,7 +29,7 @@ public class LogoutController implements CommonControllerInterface {
 		
 		request.getSession(false).invalidate();
 		
-		return "responseBody:";
+		return "/";
 	}
 
 }

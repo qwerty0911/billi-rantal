@@ -114,4 +114,23 @@ public class RentalManageDAO {
 		
 		return confirmedReturnList;
 	}
+
+	public int rejectRental(int rental_code) {
+		
+		String sql ="delete from rental where rental_code = ? ";
+		conn = OracleUtil.getConnection();
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, rental_code);
+			resultCount = pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			OracleUtil.dbDisconnect(null, pst, conn);
+		}
+		
+		return resultCount;
+	}
 }

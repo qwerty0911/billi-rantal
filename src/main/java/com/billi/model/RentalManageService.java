@@ -22,4 +22,8 @@ public class RentalManageService {
 	public List<Integer> confirmedReturnList(String nickName){
 		return dao.confirmedReturnList(nickName);
 	}
+	
+	public int rejectRental(int rental_code) {
+		return dao.rejectRental(rental_code);
+	}
 }
