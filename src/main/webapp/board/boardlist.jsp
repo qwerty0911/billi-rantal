@@ -27,7 +27,7 @@
 				  		    </div>
 				  		    <ul class="list-group list-group-flush">
 				    		  <li class="list-group-item">${"${item['address']}"}</li>
-				    		  <li class="list-group-item">${"${item['price']}"}&#8361;/day</li>
+				    		  <li class="list-group-item">&#8361; ${"${item['price']}"} / day</li>
 				  		    </ul>
 				  			<div class="card-body">
 				  			</div>
