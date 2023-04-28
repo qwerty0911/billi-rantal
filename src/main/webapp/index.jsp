@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>billi</title>
+<link rel="stylesheet" type="text/css" href="css/tabletextoverflow.css">
 <style>
 .col{width:100%;}
 p {
@@ -103,7 +104,7 @@ color:black;
 		<thead>
 			<tr>
 				<th>글제목</th>
-				<th>작성일</th>
+				<th></th>
 			</tr>
 		</thead>
 		
@@ -111,8 +112,8 @@ color:black;
 		
 			<c:forEach items="${hitsList}" var="hit">
 			<tr>
-			<th><a href="<%=request.getContextPath()%>/board/boarddetail.do?num=${hit.board_id}">${hit.board_title}</a></th>
-			<th>${hit.board_date}</th>
+			<td><a href="board/boarddetail.do?num=${hit.board_id}"  class="text-nowrap">${hit.board_title}</a></td>
+			<td  class="fw-lighter">${hit.board_date}</td>
 			</tr>
 			
 	        </c:forEach>
@@ -129,7 +130,7 @@ color:black;
 		<thead>
 			<tr>
 				<th>글제목</th>
-				<th>작성일</th>
+				<th></th>
 			</tr>
 		</thead>
 		
@@ -137,9 +138,8 @@ color:black;
 		
 			<c:forEach items="${latestList}" var="latest">
 			<tr>
-			<th><a href="<%=request.getContextPath()%>/board/boarddetail.do?num=${latest.board_id}">${latest.board_title}</a></th>
-			<th>${latest.board_date}</th>
-			</tr>
+			<td><a href="board/boarddetail.do?num=${latest.board_id}" class="text-nowrap">${latest.board_title}</a></td>
+			<td  class="fw-lighter">${latest.board_date}</td>
 			
 	        </c:forEach>
 		</tbody>
