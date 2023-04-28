@@ -7,7 +7,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html style="background-color:#F2F7F8">
 <head>
 <meta charset="UTF-8">
 <title>Billi chat</title>
@@ -43,10 +43,13 @@
 				</c:forEach>
 			</div>
 			<br /> 
+			<div class="row m-2 fixed-bottom ">
+		      <div class="col-11"><input id="inputMessage" type="text" class="form-control float-start" onkeyup="enterkey()" /></div>
+		      <div class="col-1"><input type="submit" value="send" onclick="send()" class="btn float-end" style="color:white; background-color:#424952"/></div>
+		    </div>
 			
-			
-			<input id="inputMessage" type="text" class="form-control float-start" onkeyup="enterkey()" />
-			<input type="submit" value="send" onclick="send()" class="btn btn-primary float-end" />
+			<!-- <input id="inputMessage" type="text" class="form-control float-start" onkeyup="enterkey()" />
+			<input type="submit" value="send" onclick="send()" class="btn btn-primary float-end" /> -->
 		</fieldset>
 	</div>
 </body>

@@ -6,9 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Billi chat</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
 <script>
 function changeChat(element){
 		var buyerElem = element.querySelector('.buyer');
@@ -34,7 +32,7 @@ p{ color:white;
 <%@ include file="/navbar/navbar.jsp"%>
 <h1><%-- ${loginUser.nickname }님의 채팅방 --%>&nbsp; </h1>
 <input type="hidden" id="chattingUser" value="${loginUser.nickname }">
-<div class="row rounded border" style="height:80%">
+<div class="row rounded border mx-5" style="height:80%">
   <div class="col-4 h-100 py-5 ps-5 rounded" style="background-color: #364048;">
 	  <div class="container border rounded h-100 py-3" style="background-color: #424954; overflow:auto">
 		<div>
