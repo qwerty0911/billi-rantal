@@ -7,12 +7,14 @@
 <link rel="stylesheet" href="../css/boardAvgRating.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
+
 <title>내가 쓴 후기</title>
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
 <div class= "mx-auto mt-5 p-2" style="width: 80%;">
 <h1>내가 쓴 후기</h1>
+
 	<table class="table table-striped ">
 		<thead>
 			<tr>

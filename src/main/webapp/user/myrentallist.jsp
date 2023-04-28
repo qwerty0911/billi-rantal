@@ -285,7 +285,7 @@ function hideButton() {
 			var exp_date = $(event.relatedTarget).data('exp_date');
 			var picture = "https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/insurance/"+url;
 			console.log("${picture}");
-			$('#picture').html("<img src="+picture+">");
+			$('#picture').html("<img src="+picture+" width='300px'>");
 			$("#rental_code2").text(rentalcode);
 			$("#insurance_code").text(insurance_code);
 			$("#charge_date").text(charge_date);

@@ -25,16 +25,11 @@ public class RentalController implements CommonControllerInterface {
 			
 			
 		}else { 
-			//post
 			//렌탈정보 레코드 추가
-			
 			RentalVO vo = makeRentalVO(request);
 			RentalService rentalService = new RentalService();
 			rentalService.registRental(vo);
 			
-			
-			//String message = empService.updateEmp(emp);
-			//page = "redirect:empList.do";
 			page = "/";
 
 		}

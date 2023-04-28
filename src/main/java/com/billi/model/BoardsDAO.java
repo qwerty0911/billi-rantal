@@ -357,14 +357,15 @@ public class BoardsDAO {
 			float latitudeFar=latitude+0.003f;
 			float longitudeNear=longitude-0.003f;
 			float longitudeFar=longitude+0.003f;
-			condition+="and LATITUDE between "
+			condition+="and (LATITUDE between "
 					+latitudeNear
 					+" and "
 					+latitudeFar
-					+" and LONGITUDE between "
+					+" or LONGITUDE between "
 					+longitudeNear
 					+" and "
-					+longitudeFar;
+					+longitudeFar
+					+")";
 		}
 		//카테고리 선택
 		if(!category.equals("all")) {
@@ -432,14 +433,15 @@ public class BoardsDAO {
 			float latitudeFar=latitude+0.003f;
 			float longitudeNear=longitude-0.003f;
 			float longitudeFar=longitude+0.003f;
-			sql+=" and LATITUDE between "
+			sql+=" and (LATITUDE between "
 					+latitudeNear
 					+" and "
 					+latitudeFar
-					+" and LONGITUDE between "
+					+" or LONGITUDE between "
 					+longitudeNear
 					+" and "
-					+longitudeFar;
+					+longitudeFar
+					+")";
 		}
 		//카테고리 선택
 		if(!category.equals("all")) {

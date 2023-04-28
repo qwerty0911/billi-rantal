@@ -72,7 +72,7 @@ String current_date = today.format(formatter);
 			</tr>
 			<tr>
 				<td> <!-- name="내용"> -->
-				<p class="fst-normal">${board.board_contents}</p></td>
+				<p class="fst-normal"><pre>${board.board_contents}</pre></p></td>
 			</tr>
 			<tr>
 				<td ><!-- name="금액"> -->
@@ -100,15 +100,17 @@ String current_date = today.format(formatter);
 			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			      </div>
 			      <div class="modal-body">
-					<p>start Date: <input type="date" name="rental_date" id="startDate" min="<%= current_date %>"></p>
-					<p>end &nbsp;Date: <input type="date" name = "exp_date" id="expireDate" min="<%= current_date %>"></p>
-					<p>보험상품 (빌리케어?)</p>
-					<p>보험에 가입하면 물건을 파손/분실해도 배상금을 내지 않아도 된다!</p>
-					<p>보험에 가입하시겠습니까? &nbsp;+ <fmt:formatNumber value="${board.price*0.1}" pattern="#,###"/>원</p> 
+
+					<p>start Date: <input type="text" name="rental_date" readOnly class="calander" id="startDate" ></p>
+					<p>end &nbsp;Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
+					<p>빌리케어</p>
+					<p>빌리케어에 가입하면 고장 및 파손은 수리비의 최대 70%까지, 도난 및 분실은 피해액의 최대 50%까지 보상이 가능합니다.</p>
+					<p>빌리케어에 가입하시겠습니까? &nbsp;+ <fmt:formatNumber value="${board.price*0.1}" pattern="#,###"/>원</p> 
+
 					예 <input type="radio" id="insuranceOn" name="insurancecheck" value="y" onclick="updateInputValue(this)">
 					아니오 <input type="radio" id="insuranceOff" name="insurancecheck" value="n" onclick="updateInputValue(this)" checked="checked"><br> 
+					<p>(보험료는 물건 가격의 10%이며 체크하면 보험료가 가격에 포함됩니다.)</p>
 					<span id="myInput2">총 가격 : <fmt:formatNumber value="${board.price}" pattern="#,###"/>원</span>
-					<p>(보험료는 물건 가격의 n%(현재는 10%로 설정)이며 체크하면 보험료가 가격에 포함됩니다.)</p>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -130,14 +132,24 @@ String current_date = today.format(formatter);
 	<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
 </c:if>
 
+
+<hr>
+
+<h2>리뷰 (${reviewcount})</h2>
+<h2>평균평점 : ${ratingavg}</h2><br> 
+	<div class="rate">
+        <span style="width: ${(ratingavg/5)*100}%"></span>
+
+    </div>
   </div>
  </div>
 </div>
 <div class="container bd-example-border-utils m-5 mx-auto">
 </div>
 
-  <div class="container bd-example-border-utils m-5 mx-auto">
-	<h2>후기 (${reviewcount})</h2>
+  <div class="container m-5">
+	<h2>리뷰 (${reviewcount})</h2>
+
 	<p>평균평점</p>
 	<div class="rate">
 	    <span style="width: ${(ratingavg/5)*100}%"></span>
