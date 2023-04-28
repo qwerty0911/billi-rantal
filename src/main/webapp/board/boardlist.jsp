@@ -33,7 +33,6 @@
 				  			</div>
 						</div>
 					`
-
 				});
 				$("#list").prepend(output);
 				
