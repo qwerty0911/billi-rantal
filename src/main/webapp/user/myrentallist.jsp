@@ -240,23 +240,23 @@ min-width: 100px;
 					<form method="post" action="../user/insurancecharge.do"  enctype="multipart/form-data">
 						<table>
 							<tr>
-								<td>청구유형</td>
-								<td>
-								<select name="charge_type">
+							<td><label for="category" class="form-label">유형</label>
+								<select name="charge_type" class="form-select" id="category">
 								<option value="분실" value="분실">분실</option>
 								<option value="파손" value="파손">파손</option>
 								</select>
-								</td>
+							</td>
 							</tr>
 							<tr>
-								<td>사진</td>
-								<td><input type="file" name="picture"></td>
+								<td><label for="formFile" class="form-label">사진</label>
+								<input class="form-control" type="file" name="picture" id="formFile">
+								</td><!-- <input type="file" name="picture"> -->
 							</tr>
 							
 							<tr>
-								<td>신청사유</td>
 								<td>
-								<textarea name="charge_content" placeholder="내용을 입력해주세요" required="required"></textarea>
+								<label for="text_area_form" class="form-label">신청사유</label>
+								<textarea class = "form-control" name="charge_content" placeholder="내용을 입력해주세요" required="required" id="text_area_form"></textarea>
 								</td>
 							</tr>
 							
