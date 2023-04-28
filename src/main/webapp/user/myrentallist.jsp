@@ -22,7 +22,7 @@ function hideButton() {
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
-<div class="container-fluid mt-5 mx-1">
+<div class="container mt-5 mx-auto">
   <div class="row">
     <div class="col-5">
 	<h2>빌린 내역</h2>
@@ -44,11 +44,12 @@ function hideButton() {
 				<td>${borrow.rental_date}</td>
 				<td>${borrow.exp_date}</td>
 
-				<td><input type="button" onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}'" value="리뷰작성" class="btn btn-primary btn-sm"></td>
+				<%-- <td><input type="button" onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}'" value="리뷰작성" class="btn btn-primary btn-sm"></td> --%>
 
 				<td>
 				    <c:if test="${borrow.review_count==0}">
 				   	 <input type="button" 
+				   	 		class="btn btn-primary btn-sm"
 						    onclick="location.href='../user/reviewwrite.do?num=${borrow.board_id}&rental_code=${borrow.rental_code}'"
 						    value="리뷰작성">						  				 
 				    </c:if>
@@ -59,7 +60,7 @@ function hideButton() {
 		</tbody>
 	</table>
     </div>
-    <div class="col-6">
+    <div class="col-7">
       <h2>내 물건 관리</h2>		
 		<table class="table">
 		<thead>
@@ -111,7 +112,7 @@ function hideButton() {
 				<!-- 반납까지 마친상태 -->
 				<c:set var="selectedrental_code" value="${lent.rental_code}"/>
 				<c:if test="${rentalConfirmList.contains(selectedrental_code) and returnConfirmList.contains(selectedrental_code)}">
-				<button type="button" class="btn btn-secondary btn-sm" disabled>반납 완료</button>
+				<button type="button" class="btn btn-secondary btn-sm" disabled>반납완료</button>
 				</c:if>
 				</td>
 				

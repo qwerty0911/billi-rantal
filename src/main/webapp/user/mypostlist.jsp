@@ -28,8 +28,8 @@
 				<td><a href="../board/boarddetail.do?num=${writer.board_id}">${writer.board_title}</a></td>
 				<td>${writer.board_date}</td>
 				<td>
-				<button onclick="location.href='../board/boardupdate.do?board_id=${writer.board_id}'">수정</button>
-				<button class="btnDel" data-del="${writer.board_id}">삭제</button>
+				<button class="btn btn-warning btn-sm" onclick="location.href='../board/boardupdate.do?board_id=${writer.board_id}'">수정</button>
+				<button class="btnDel btn btn-danger btn-sm" data-del="${writer.board_id}">삭제</button>
 				</td>
 			</tr>
 		</c:forEach>

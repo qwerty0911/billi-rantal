@@ -25,6 +25,10 @@ public class membersDetailController implements CommonControllerInterface {
 			MembersVO members = makeMembers(request);
 			MembersService service = new MembersService();
 			String message = service.membersUpdate(members);
+			
+			request.getSession(false).invalidate();
+			
+			
 			page = "redirect:loginCheck.do";
 		}
 		return page;
