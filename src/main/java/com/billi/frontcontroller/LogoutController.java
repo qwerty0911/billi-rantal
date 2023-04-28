@@ -29,7 +29,8 @@ public class LogoutController implements CommonControllerInterface {
 		
 		request.getSession(false).invalidate();
 		
-		return "/";
+		String path = request.getContextPath();
+		return("redirect:"+ path + "/home.do");
 	}
 
 }
