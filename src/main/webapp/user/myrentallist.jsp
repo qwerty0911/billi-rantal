@@ -25,10 +25,21 @@ function hideButton() {
 	  button.style.display = "none";
 	}
 </script>
+<style>
+td {
+/* max-width: 100px;  */
+overflow: hidden; 
+text-overflow: ellipsis;
+max-width: 300px;
+}
+th{
+min-width: 100px;
+}
+</style>
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
-<div class="container mt-5 mx-auto">
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="col-5">
 	<h2>빌린 내역</h2>
@@ -46,7 +57,7 @@ function hideButton() {
 		
 		<c:forEach items="${borrowllist}" var="borrow">
 			<tr>
-				<td><a href="../board/boarddetail.do?num=${borrow.board_id}"> ${borrow.board_title}</a></td>
+				<td><a href="../board/boarddetail.do?num=${borrow.board_id}" class="text-nowrap"> ${borrow.board_title}</a></td>
 				<td>${borrow.rental_date}</td>
 				<td>${borrow.exp_date}</td>
 
@@ -86,7 +97,7 @@ function hideButton() {
 		<c:forEach items="${lentList}" var="lent">
 			<tr>
 			<td><p>${lent.nickname}</p></td>
-				<td><a href="../board/boarddetail.do?num=${lent.board_id}"> ${lent.board_title}</a></td>
+				<td><a href="../board/boarddetail.do?num=${lent.board_id}"  class="text-nowrap"> ${lent.board_title}</a></td>
 				<td>${lent.rental_date}</td>
 				<td>${lent.exp_date}</td>
 							

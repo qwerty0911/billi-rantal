@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+th{
+min-width: 80px;
+}
+
+td {
+/* max-width: 100px;  */
+overflow: hidden; 
+text-overflow: ellipsis;
+max-width: 300px;
+}

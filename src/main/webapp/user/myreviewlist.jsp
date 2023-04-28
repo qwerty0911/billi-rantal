@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../css/boardAvgRating.css" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <meta charset="UTF-8">
-
+<link rel="stylesheet" type="text/css" href="../css/tabletextoverflow.css">
 <title>내가 쓴 후기</title>
 </head>
 <body>
@@ -21,16 +21,16 @@
 				<th>글제목</th>
 				<th>리뷰내용</th>
 				<th>평점</th>
-				<th>작성일</th>
+				<th style="max-width:100px">작성일</th>
 			</tr>
 		</thead>
 		
 		<tbody>
 		<c:forEach items="${reviewlist}" var="review">
 			<tr>
-				<td> <a href="../board/boarddetail.do?num=${review.board_id}">${review.board_title}</a></td>
-				<td>${review.review_content}</td>
-				<td><div class="rate"><span style="width: ${(review.rating/5)*100}%"></span></div> </td>
+				<td class="text-nowrap" style="max-width:200px"> <a href="../board/boarddetail.do?num=${review.board_id}">${review.board_title}</a></td>
+				<td class="text-nowrap">${review.review_content}</td>
+				<td style="max-width:120px" ><div class="rate" ><span style="width: ${(review.rating/5)*100}%" ></span></div> </td>
 				<td>${review.review_date}</td>
 				<td><button class="btn btn-danger btn-sm" data-del="${review.review_id}">삭제</button></td>
 			</tr>
