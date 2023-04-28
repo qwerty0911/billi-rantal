@@ -16,7 +16,7 @@ public class BoarddeleteController implements CommonControllerInterface {
 		
 		BoardsService service = new BoardsService();
 		service.boardDelete(board_id);
-		return "redirect:boardlist.do?pageNum=1&category=all";
+		return "redirect:boardlist.do?pageNum=1&category=all&local=0";
 	}
 
 }
