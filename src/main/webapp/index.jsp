@@ -57,37 +57,37 @@ color:black;
   <div class="row p-3">
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/toy.png" class="mx-auto p-2   categoryimg">
+	  <img src="<%=request.getContextPath()%>/images/category_img/toy2.png" class="mx-auto p-2   categoryimg">
 	  <p class="text-center" style="text-decoration:none; color:black;">유아용/완구</p>
 	  </a>
 	</div>
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/digital.png" class="mx-auto p-2  categoryimg">
+	  <img src="<%=request.getContextPath()%>/images/category_img/digital2.png" class="mx-auto p-2  categoryimg">
 	  <p class="text-center" style="text-decoration:none; color:black;">가전/디지털</p>
 	  </a>
 	</div>
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/sports.png" class="mx-auto p-2  categoryimg">
+	  <img src="<%=request.getContextPath()%>/images/category_img/sports2.png" class="mx-auto p-2  categoryimg">
 	  <p class="text-center" style="text-decoration: none; color:black;">레저/스포츠</p>
 	  </a>
 	</div>
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/life.png" class="mx-auto p-2  categoryimg">
+	  <img src="<%=request.getContextPath()%>/images/category_img/life2.png" class="mx-auto p-2  categoryimg">
 	  <p class="text-center" style="text-decoration:none; color:black;">주방/생활용품</p>
 	  </a>
 	</div>
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/hobby.png" class="mx-auto p-2  categoryimg">
-	  <p class="text-center" style="text-decoration:none; color:black;">취미/악기/게임</p>
+	  <img src="<%=request.getContextPath()%>/images/category_img/hobby2.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration:none color:black;">취미/악기/게임</p>
 	  </a>
 	</div>
 	<div class="col text-center" >
 	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior&local=0">
-	  <img src="<%=request.getContextPath()%>/images/category_img/interior.png" class="mx-auto p-2  categoryimg">
+	  <img src="<%=request.getContextPath()%>/images/category_img/interior2.png" class="mx-auto p-2  categoryimg">
 	  <p class="text-center" style="text-decoration:none; color:black;">가구/인테리어</p>
 	  </a>
 	</div>
