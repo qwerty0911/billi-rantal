@@ -27,7 +27,7 @@
 	
 	<div class="mb-3">
 	  <label for="board_contents" class="form-label">내용</label>
-	  <textarea class="form-control" name="board_contents" id="board_contents" value="${board.board_contents}" rows="12"></textarea>
+	  <textarea class="form-control" name="board_contents" id="board_contents" rows="12">${board.board_contents}</textarea>
 	</div>
 	<%-- <label for="board_contents">내용</label>
 	<input type="text" name="board_contents" id="board_contents" value="${board.board_contents}"><br> --%>

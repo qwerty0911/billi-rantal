@@ -9,7 +9,7 @@
 <style>
 .col{width:100%;}
 p {
-text-decoration: none;
+text-decoration: none !important;
 }
 .categoryimg {
 width:150px;
@@ -19,8 +19,8 @@ height:150px;
 width:150px;
 height:150px;
 }
-th a {
-text-decoration:none;
+a {
+text-decoration:none !important; 
 color:black;
 }
 </style>
