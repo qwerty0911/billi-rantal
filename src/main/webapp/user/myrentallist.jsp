@@ -6,6 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+td a {
+text-decoration: none;
+color: black;
+}
+</style>
 <title>대여 리스트</title>
 <script
   src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
