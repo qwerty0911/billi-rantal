@@ -11,7 +11,7 @@
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
-<div  class="p-3 m-0 border-0 bd-example">
+<div class="container mt-5 mx-auto">
 <h1>글 작성</h1>
 	<form method="post" action="<%=request.getContextPath() %>/board/boardwrite.do" enctype="multipart/form-data" >
 		<div class="mb-3">

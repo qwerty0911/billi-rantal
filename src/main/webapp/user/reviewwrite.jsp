@@ -10,6 +10,7 @@
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
+<div class="container mx-auto mt-5 p-3 border rounded">
 	<h2>리뷰작성</h2>
 	<form action="../user/reviewwrite.do" method="post">
 		<p>${loginUser.nickname}</p>
@@ -28,13 +29,17 @@
     	<input type="radio" id="rating1" name="rating" value="0.5"><label class="half" for="rating1" title="0.5점"></label>
 		</fieldset>
 		<br>
-		<textarea name="review_content" id="review_content" placeholder="내용을 입력해주세요" required="required"></textarea>
+		<div class="mb-3">
+		  <label for="review_content" class="form-label">내용</label>
+		  <textarea class="form-control" name="review_content" id="review_content" placeholder="내용을 입력해주세요" rows="5" required></textarea>
+		</div>
+		<!-- <textarea name="review_content" id="review_content" placeholder="내용을 입력해주세요" required="required"></textarea> -->
 		<input type="hidden" name="review_writer" id="review_writer" value="${loginUser.nickname}">
 		<input type="hidden" name="board_id" id="board_id" value="${param.num}">
 		<input type="hidden" name="rentalconfirm_code" id="rentalconfirm_code" value="${param.rental_code}">
-		<input type="submit" id="reviewwritebtn" value="후기 작성" onclick="location.href='../board/boarddetail.do?num=${param.num}'">
+		<input class="btn btn-primary" type="submit" id="reviewwritebtn" value="후기 작성" onclick="location.href='../board/boarddetail.do?num=${param.num}'">
 		
 	</form>
-	
+</div>
 </body>
 </html>

@@ -50,8 +50,19 @@
     	    geocoder.geocode({ 'location': event.latLng }, function(results, status) {
 				if (status === 'OK') {
 					if (results[0]) {
-						var formattedAddress = results[0].formatted_address;
-						/* console.log("위도: " + latitude + ", 경도: " + longitude + ", 주소: " + formattedAddress); */
+						/* var formattedAddress = results[0].formatted_address; */
+						var addressComponents = results[0].address_components;
+				        var formattedAddress = "";
+				        /* for (var i = 0; i < addressComponents.length; i++) { */
+				        for (var i = addressComponents.length-1; i > 0; i--) {
+				          var types = addressComponents[i].types;
+				          if (types.includes('locality') || types.includes('sublocality')) {
+				            formattedAddress += addressComponents[i].long_name;
+				            if (i < addressComponents.length - 2) {
+				              formattedAddress += " ";
+				            }
+				          }
+				        }
 						myInputAddress.value = formattedAddress;
 						
 						
@@ -62,10 +73,7 @@
 					/* console.log('Geocoder failed due to: ' + status); */
 				}
 			});
-    	    
-    	    
-    	    
-    	  });
+    	});
         
         geocoder = new google.maps.Geocoder();
 
@@ -96,7 +104,7 @@
 
         instructionsElement.id = "instructions";
         instructionsElement.innerHTML =
-          "<strong>안내</strong>: 주소를 입력하고 확인버튼을 눌러주세요.";
+          "<strong>안내</strong>: 주소를 입력하고 검색버튼을 눌러주세요.";
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputText);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(submitButton);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(clearButton);
@@ -267,10 +275,10 @@ $(function () {
   </head>
   <body>
   <%@ include file="/navbar/navbar.jsp"%>
-  <div class="container mx-auto">
+  <div class="container mx-auto mt-3">
 	  <div class="row">
 		<div class="col" >
-		  <h1>회원가입</h1>
+		  <h1>정보 수정</h1>
 		  <form action="../auth/membersDetail.do" method="post" id=form>
 			  <div class="mb-3">
 			  <label for="mem_id" class="form-label">아이디</label>
@@ -298,12 +306,13 @@ $(function () {
 			
 			<div class="mb-3">
 			  <label for="formattedAddress" class="form-label">주소</label>
-			  <input type="text" class="form-control" readOnly id="inputaddress" name="address" value="${loginUser.address}">
+			  <input type="text" readOnly id="formattedAddress" name="address" class="form-control" required="required" value="${loginUser.address}">
+<%-- 			  <input type="text" class="form-control" readOnly id="inputaddress" name="address" value="${loginUser.address}"> --%>
 			</div>
 			<input type="hidden" value="" name="latitude" id="myInputLat" >
 			<input type="hidden" value="" name="longitude" id="myInputLng" >
 			</div>
-			<input type="submit" class="btn btn-primary" value="회원가입">
+			<input type="submit" class="btn btn-primary" value="회원 정보 수정">
 		  </form>
 		</div>
 	  <div class="col" >

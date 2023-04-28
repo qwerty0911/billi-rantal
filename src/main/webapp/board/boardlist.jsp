@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>boardList</title>
+<title>게시글 보기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 		$.ajax({
 			url:"boardlistAjax.do",
@@ -23,12 +23,12 @@
 				  			<img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/b_${"${item['board_id']}"}_1.jpg" class="card-img-top" height="180"
 				  				alt="이미지 대체 텍스트" onerror="this.onerror=null; this.src='https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png'">
 				  			<div class="card-body">
-				    		<h5 class="card-title">${"${item['board_title']}"}</h5>
-				  		</div>
-				  		<ul class="list-group list-group-flush">
-				    		<li class="list-group-item">${"${item['address']}"}</li>
-				    		<li class="list-group-item">${"${item['price']}"}&#8361;/day</li>
-				  		</ul>
+				    		  <h5 class="card-title">${"${item['board_title']}"}</h5>
+				  		    </div>
+				  		    <ul class="list-group list-group-flush">
+				    		  <li class="list-group-item">${"${item['address']}"}</li>
+				    		  <li class="list-group-item">${"${item['price']}"}&#8361;/day</li>
+				  		    </ul>
 				  			<div class="card-body">
 				  			</div>
 						</div>

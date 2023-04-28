@@ -10,12 +10,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Billi chat</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <style>
-.chat_content {color:blue;}
+.chat_content {color:white;}
 .impress{ color:red;}
 .whisper{ color: green;}
+.mySpan{background-color:#00E777}
+.opSpan{background-color:gray}
 </style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,20 +30,23 @@
 	</c:if>
 	<!-- 채팅창 -->
 	<div id="_chatbox" >
-		<fieldset>
+		<fieldset style="background-color:#F2F7F8">
 			<div id="messageWindow" >
 				<!-- 이전 채팅 기록 가져오기 -->
 				<c:forEach var="item" items="${chatHistory}">
 					<c:if test="${item.sender_name eq  username }">
-						<p class='chat_content'>나 : ${item.chat_contents}</p>
+					<p class='chat_content text-end  my-5 mx-3'><span class="border p-3 rounded-4 mySpan">${item.chat_contents}</span></p>
 					</c:if>
 					<c:if test="${item.sender_name ne username }">
-						<p class='chat_content'>${item.sender_name} : ${item.chat_contents}</p>
+						<p class='chat_content my-5 mx-3'><span class="border p-3 rounded-4 opSpan">${item.sender_name} : ${item.chat_contents}</span></p>
 					</c:if>
 				</c:forEach>
 			</div>
-			<br /> <input id="inputMessage" type="text" onkeyup="enterkey()" />
-			<input type="submit" value="send" onclick="send()" />
+			<br /> 
+			
+			
+			<input id="inputMessage" type="text" class="form-control float-start" onkeyup="enterkey()" />
+			<input type="submit" value="send" onclick="send()" class="btn btn-primary float-end" />
 		</fieldset>
 	</div>
 </body>
@@ -62,8 +67,8 @@
 		var originalMessage = $("#messageWindow").html();
 		
 		$("#messageWindow").html( originalMessage
-				+ "<p class='chat_content'>" + sender
-				+ " : " + content + "</p>");
+				+ "<p class='chat_content my-5 mx-3'><span class='border p-3 rounded-4 opSpan'>" + sender
+				+ " : " + content + "</span></p>");
 		 
 	}  
 	function onOpen(event) {
@@ -78,8 +83,8 @@
 	function send() {
 		var message = $("#inputMessage").val() ;
 		if (message != "") {
-			$("#messageWindow").html($("#messageWindow").html() + "<p class='chat_content'>나 : "
-							+ message + "</p>");
+			$("#messageWindow").html($("#messageWindow").html() + "<p class='chat_content text-end my-5 mx-3'><span class='border p-3 rounded-4 mySpan'>"
+							+ message + "</span></p>");
 		}
 		
 		if("${username}"=="${chatRoom.buyer}"){

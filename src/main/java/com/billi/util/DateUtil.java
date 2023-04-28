@@ -17,4 +17,16 @@ public class DateUtil {
 		}
 		return sqlDate;
 	}
+	public static Date convertToDate2(String sdate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date sqlDate = null;
+		try {
+			java.util.Date d = sdf.parse(sdate);
+			sqlDate = new Date(d.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sqlDate;
+	}
 }

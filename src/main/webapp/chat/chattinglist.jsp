@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Billi chat</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -25,13 +25,18 @@ function changeChat(element){
 
 
 </script>
+<style>
+p{ color:white;
+}
+</style>
 </head>
-<body class="bd-example-row" style="position: fixed;top: 0;right: 0;bottom: 0;left: 0; background-color:pink">
-<h1>${loginUser.nickname }님의 채팅방</h1>
+<body class="bd-example-row" style="position: fixed;top: 0;right: 0;bottom: 0;left: 0; background-color:white">
+<%@ include file="/navbar/navbar.jsp"%>
+<h1><%-- ${loginUser.nickname }님의 채팅방 --%>&nbsp; </h1>
 <input type="hidden" id="chattingUser" value="${loginUser.nickname }">
-<div class="row" style="height:80%">
-  <div class="col-4 h-100 p-5" style="background-color: #eee;">
-	  <div class="container border rounded h-100" style="background-color: white; overflow:auto">
+<div class="row rounded border" style="height:80%">
+  <div class="col-4 h-100 py-5 ps-5 rounded" style="background-color: #364048;">
+	  <div class="container border rounded h-100 py-3" style="background-color: #424954; overflow:auto">
 		<div>
 		<c:forEach var="item" items="${chattinglist}">
 		<div class="selectChat" onclick="changeChat(this)">
@@ -54,8 +59,8 @@ function changeChat(element){
 	  </div>
     
   </div>
-  <div class="col-8 h-100 p-5" style="background-color: #2f9;">
-    <iframe id="inlineFrameExample"
+  <div class="col-8 h-100 py-5 pe-5 rounded" style="background-color: #FFFFFF;">
+    <iframe id="inlineFrameExample" class="rounded border"
     title="Inline Frame Example"
     width="100%"
     height="100%">
