@@ -23,7 +23,13 @@ String current_date = today.format(formatter);
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%-- <p>${board} </p> --%>
 <link rel="stylesheet" href="../css/boardAvgRating.css" type="text/css">
-
+<style>
+pre {
+  font-family: sans-serif;
+  font-size: 16px;
+  /* 기타 스타일 속성 */
+}
+</style>
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
@@ -31,30 +37,55 @@ String current_date = today.format(formatter);
 <div class="container bd-example-border-utils mt-5">
   <div class="row p-3 border">
   <!-- 그림 -->
-    <div class="col border mx-2 p-3" >
+    <div class="col-4 border " >
 		<c:if test="${images!=null}">
+			<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-inner">
+				  <c:forEach items="${images}" var="image" varStatus="status">
+				    <div class="carousel-item active">
+				      <img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/${image}" style="height:400px" class="d-block w-100" alt="...">
+				    </div>
+				    <%-- <c:set var="dotCount" value="${status.count}"/> --%>
+				  </c:forEach>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+		</c:if>
+		
+		<%-- <c:if test="${images!=null}">
 		<div class="slideshow-container">
 			<c:forEach items="${images}" var="image" varStatus="status">
-		<div class="mySlides fade2">
-			<img class="main_slideImg" src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/${image}">
-			<div class="text">Caption Text</div>
-		</div>
-		<c:set var="dotCount" value="${status.count}"/>
-		</c:forEach>
+				<div class="mySlides" >
+					<img class="main_slideImg" src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/${image}">
+					<div class="text">Caption Text</div>
+				</div>
+				<c:set var="dotCount" value="${status.count}"/>
+			</c:forEach>
 		
 		<!-- <a class="prev" onclick="plusSlides(-1)">❮</a>
 		<a class="next"onclick="plusSlides(1)">❯</a> -->
 		</div>
+		
+		
 		<br>
 		<div style="text-align: center">
 		<c:forEach var="i" begin="1" end="${dotCount}">
 		<span class="dot" onclick="currentSlide(${i})"></span>
 		</c:forEach>
 		</div>
-		</c:if>
+		</c:if> --%>
+		
+		
     </div>
     
-    <div class="col border mx-2 p-3">
+    <div class="col-8 border p-3">
       <table>
 			<tr>
 				<td ><!-- name="제목"> -->
@@ -72,7 +103,8 @@ String current_date = today.format(formatter);
 			</tr>
 			<tr>
 				<td> <!-- name="내용"> -->
-				<p class="fst-normal"><pre>${board.board_contents}</pre></p></td>
+				<p class="fst-normal"><pre style="font-family: sans-serif;
+  										font-size: 16px;">${board.board_contents}</pre></td>
 			</tr>
 			<tr>
 				<td ><!-- name="금액"> -->
@@ -101,8 +133,8 @@ String current_date = today.format(formatter);
 			      </div>
 			      <div class="modal-body">
 
-					<p>start Date: <input type="text" name="rental_date" readOnly class="calander" id="startDate" ></p>
-					<p>end &nbsp;Date: <input type="text" name = "exp_date" readOnly class="calander" id="expireDate"></p>
+					<p>start Date: <input type="date" name="rental_date" id="startDate" min="<%= current_date %>"></p>
+					<p>end &nbsp;Date: <input type="date" name = "exp_date" id="expireDate" min="<%= current_date %>"></p>
 					<p>빌리케어</p>
 					<p>빌리케어에 가입하면 고장 및 파손은 수리비의 최대 70%까지, 도난 및 분실은 피해액의 최대 50%까지 보상이 가능합니다.</p>
 					<p>빌리케어에 가입하시겠습니까? &nbsp;+ <fmt:formatNumber value="${board.price*0.1}" pattern="#,###"/>원</p> 
@@ -121,33 +153,34 @@ String current_date = today.format(formatter);
 			</div>
 			
 		</form>
-		<button id="btnchat" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/chat/chat.do?board=${board.board_id}&buyer=${loginUser.nickname }&seller=${board.board_writer }'">채팅</button>
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-		  예약하기
+		
+		
+		<c:if test="${loginUser.nickname!=board.board_writer}">
+			<button id="btnchat" class="btn btn-primary " 
+			onclick="location.href='<%=request.getContextPath() %>/chat/chat.do?board=${board.board_id}&buyer=${loginUser.nickname }&seller=${board.board_writer }'">
+			채팅</button>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			  예약하기
 		</button>
+		</c:if>
+		
+		
 
-<c:if test="${loginUser.nickname==board.board_writer}">
-	<button onclick="location.href='../board/boardupdate.do?board_id=${board.board_id}'">게시글 수정</button>
-	<button class="btnDel" data-del="${board.board_id}">게시글 삭제</button>
-</c:if>
-
-
-<hr>
-
-<h2>리뷰 (${reviewcount})</h2>
-<h2>평균평점 : ${ratingavg}</h2><br> 
-	<div class="rate">
-        <span style="width: ${(ratingavg/5)*100}%"></span>
-
-    </div>
+		
+			
   </div>
  </div>
+ <div class="container m-5 ">
+	<c:if test="${loginUser.nickname==board.board_writer}">
+		<button class="btn btn-danger float-end me-4 btnDel" data-del="${board.board_id}">게시글 삭제</button>
+		<button class="btn btn-warning float-end me-1" onclick="location.href='../board/boardupdate.do?board_id=${board.board_id}'">게시글 수정</button>    
+	</c:if>
+ </div>
 </div>
-<div class="container bd-example-border-utils m-5 mx-auto">
+<div class="container bd-example-border-utils mt-5 ">
 </div>
 
-  <div class="container m-5">
+  <div class="container mx-auto">
 	<h2>리뷰 (${reviewcount})</h2>
 
 	<p>평균평점</p>
@@ -203,6 +236,20 @@ startDateInput.addEventListener("change", function() {
   selectedDate.setDate(selectedDate.getDate() + 1);
   var minDate = selectedDate.toISOString().split("T")[0];
   endDateInput.min = minDate;
+});
+
+var startDateInput = document.getElementById("startDate");
+var endDateInput = document.getElementById("expireDate");
+startDateInput.addEventListener("change", function() {
+  var selectedDate = new Date(startDateInput.value);
+  selectedDate.setDate(selectedDate.getDate() + 1);
+  var minDate = selectedDate.toISOString().split("T")[0];
+  endDateInput.min = minDate;
+});
+$(function () {
+	$(".btnDel").on("click", function () {
+		location.href = "../board/boarddelete.do?num=" + $(this).attr("data-del");
+	})
 });
 </script>
 </body>
