@@ -111,7 +111,7 @@ color:black;
 		
 			<c:forEach items="${hitsList}" var="hit">
 			<tr>
-			<th><a href="board/boarddetail.do?num=${hit.board_id}">${hit.board_title}</a></th>
+			<th><a href="<%=request.getContextPath()%>/board/boarddetail.do?num=${hit.board_id}">${hit.board_title}</a></th>
 			<th>${hit.board_date}</th>
 			</tr>
 			
@@ -137,7 +137,7 @@ color:black;
 		
 			<c:forEach items="${latestList}" var="latest">
 			<tr>
-			<th><a href="board/boarddetail.do?num=${latest.board_id}">${latest.board_title}</a></th>
+			<th><a href="<%=request.getContextPath()%>/board/boarddetail.do?num=${latest.board_id}">${latest.board_title}</a></th>
 			<th>${latest.board_date}</th>
 			</tr>
 			
