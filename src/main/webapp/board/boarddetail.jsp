@@ -117,7 +117,7 @@ pre {
 				<td ><!-- name="주소"> -->${board.address}</td>
 			</tr>
 		</table>
-		<form action="../rental/rentalRegist.do" method="post">
+		<form id="rental_modal">
 			
 			<input type="hidden" name="board_id" value="${board.board_id}">
 			<input type="hidden" name="board_writer" value="${board.board_writer}">
@@ -146,7 +146,7 @@ pre {
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-			        <input type="submit" class="btn btn-primary" value="예약하기">
+			        <input type="submit" class="btn btn-primary" value="예약하기" id="btn_register">
 			      </div>
 			    </div>
 			  </div>
@@ -223,6 +223,21 @@ pre {
 </script>
 <script>
 $(function () {
+	
+	$("#btn_register").on("click",function(e){
+		e.preventDefault();
+		var param=$("#rental_modal").serialize();
+		console.log(param);
+		$.ajax({
+			url: "../rental/rentalRegist.do?"+param,
+			method:"get",
+			success: function(){
+				$("#exampleModal").modal("hide");
+			}
+		});
+	});
+	
+	
 	$(".btnDel").on("click", function () {
 		location.href = "../board/boarddelete.do?num=" + $(this).attr("data-del");
 	})

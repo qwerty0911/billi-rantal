@@ -19,25 +19,22 @@ public class RentalController implements CommonControllerInterface {
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		String method = (String)data.get("method");
-		String page = "../board/boarddetail.jsp";
+		String page = "/home.do";
+		//int id=0;
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
-		
-		if(method.equals("GET")) {
+		//if(method.equals("GET")) {
 			
-			
-		}else { 
+		//}else { 
 			//렌탈정보 레코드 추가
 			RentalVO vo = makeRentalVO(request);
 			RentalService rentalService = new RentalService();
 			rentalService.registRental(vo);
-			
-			BoardsService boardService = new BoardsService();
-			BoardsVO board = boardService.selectByBoardid(vo.getBoard_id());
-			request.setAttribute("board", board);
-			page = "../board/boarddetail.jsp";
-
-		}
-		
+			//id=vo.getBoard_id();
+			//page = "/board/boarddetail.do";
+			page="responseBody:retal";
+		//}
+		//page = "/board/boarddetail.do";
+		//request.setAttribute("num", id);
 		return page;
 	}
 
