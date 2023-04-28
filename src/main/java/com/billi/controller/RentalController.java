@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.billi.frontcontroller.CommonControllerInterface;
+import com.billi.model.BoardsService;
 import com.billi.model.RentalService;
 import com.billi.util.DateUtil;
 import com.billi.vo.BoardsVO;
@@ -18,7 +19,7 @@ public class RentalController implements CommonControllerInterface {
 	@Override
 	public String excute(Map<String, Object> data) throws Exception {
 		String method = (String)data.get("method");
-		String page = "/";
+		String page = "../board/boarddetail.jsp";
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		
 		if(method.equals("GET")) {
@@ -30,7 +31,10 @@ public class RentalController implements CommonControllerInterface {
 			RentalService rentalService = new RentalService();
 			rentalService.registRental(vo);
 			
-			page = "/";
+			BoardsService boardService = new BoardsService();
+			BoardsVO board = boardService.selectByBoardid(vo.getBoard_id());
+			request.setAttribute("board", board);
+			page = "../board/boarddetail.jsp";
 
 		}
 		
