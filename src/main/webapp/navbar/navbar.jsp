@@ -60,7 +60,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/myboardlist.do">내가 쓴 글</a></li>
-              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/myreview.do">내가 쓴 후기</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/myreview.do">내가 쓴 리뷰</a></li>
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/myrental.do">렌탈 관리</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/auth/membersDetail.do">회원 정보 수정</a></li>
