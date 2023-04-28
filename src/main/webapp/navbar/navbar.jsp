@@ -1,27 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
-</head>
-<body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary billicolor">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="<%=request.getContextPath() %>/images/logo.png" width="100px"></a>
+    <a class="navbar-brand" href="<%=request.getContextPath()%>/home.do"><img src="<%=request.getContextPath()%>/images/logo.png" width="100px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>">Home</a>
-        </li>
         <li class="nav-item">
           <%-- <a class="nav-link" href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all">대여하기</a> --%>
         </li>
@@ -41,7 +33,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/chat/chatlist.do">채팅하기</a>
         </li>
       </ul>
        <form class="d-flex" method="get" action="<%=request.getContextPath()%>/board/boardlist.do">
@@ -92,5 +84,3 @@
     </div>
   </div>
 </nav>
-</body>
-</html>

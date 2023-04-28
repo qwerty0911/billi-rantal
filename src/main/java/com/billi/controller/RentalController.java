@@ -47,8 +47,8 @@ public class RentalController implements CommonControllerInterface {
 		System.out.println("request"+request);
 		
 		//날짜
-		Date rental_date = DateUtil.convertToDate(request.getParameter("rental_date"));
-		Date exp_date = DateUtil.convertToDate(request.getParameter("exp_date"));
+		Date rental_date = DateUtil.convertToDate2(request.getParameter("rental_date"));
+		Date exp_date = DateUtil.convertToDate2(request.getParameter("exp_date"));
 		
 		//user nickname
 		HttpSession session = request.getSession();

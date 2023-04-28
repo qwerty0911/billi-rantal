@@ -5,37 +5,148 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>billi</title>
+<style>
+.col{width:100%;}
+p {
+text-decoration: none;
+}
+.categoryimg {
+width:150px;
+height:150px;
+}
+.hitImg{
+width:150px;
+height:150px;
+}
+a {
+text-decoration:none;
+color:black;
+}
+</style>
 </head>
 
 
-<%@ include file="/navbar/navbar.jsp"%>
 
 <body>
-<h1>main page</h1>
-<button onclick="location.href='<%=request.getContextPath() %>/auth/loginCheck.do'">로그인</button>
-<button onclick="location.href='<%=request.getContextPath() %>/auth/signUp.do'">회원가입</button>
-<button onclick="location.href='<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=all'">게시판 목록</button>
-<button onclick="location.href='<%=request.getContextPath() %>/user/mypage.do'">마이페이지</button>
-<button onclick="location.href='<%=request.getContextPath() %>/chat/chatlist.do'">채팅 목록</button>
 
-<hr>
-<h2>인기 게시물</h2>
-<div id="hits">
-<ul>
-<c:forEach items="${hitsList}" var="hit">
-	<li><a href="board/boarddetail.do?num=${hit.board_id}"><img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/b_${hit.board_id}_1.jpg"></a></li>
-</c:forEach>
-</ul>
+<%@ include file="/navbar/navbar.jsp"%>
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="<%=request.getContextPath()%>/images/home1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath()%>/images/home2.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="<%=request.getContextPath()%>/images/home3.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
 
-<hr>
+<div class="container-fluid" >
+  <div class="row p-3">
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=toy&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/toy.png" class="mx-auto p-2   categoryimg">
+	  <p class="text-center" style="text-decoration:none; color:black;">유아용/완구</p>
+	  </a>
+	</div>
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=digital&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/digital.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration:none; color:black;">가전/디지털</p>
+	  </a>
+	</div>
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=sports&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/sports.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration: none; color:black;">레저/스포츠</p>
+	  </a>
+	</div>
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=life&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/life.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration:none; color:black;">주방/생활용품</p>
+	  </a>
+	</div>
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=hobby&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/hobby.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration:none; color:black;">취미/악기/게임</p>
+	  </a>
+	</div>
+	<div class="col text-center" >
+	  <a href="<%=request.getContextPath() %>/board/boardlist.do?pageNum=1&category=interior&local=0">
+	  <img src="<%=request.getContextPath()%>/images/category_img/interior.png" class="mx-auto p-2  categoryimg">
+	  <p class="text-center" style="text-decoration:none; color:black;">가구/인테리어</p>
+	  </a>
+	</div>
+  </div>
+</div>
 
-<h2>최근 게시물</h2>
-<div id="latest">
-<c:forEach items="${latestList}" var="latest">
-	<li><a href="board/boarddetail.do?num=${latest.board_id}"><img src="https://billi-boards-img.s3.ap-northeast-2.amazonaws.com/board/b_${latest.board_id}_1.jpg"></a></li>
-</c:forEach>
+<div class="container-fluid" >
+  <div class="row p-3 ">
+	<div class="col border  mx-5 p-3" >
+	  <h2>최근 게시물</h2>
+	  <div id="hits">
+	    <table class="table">
+		<thead>
+			<tr>
+				<th>글제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		
+			<c:forEach items="${hitsList}" var="hit">
+			<tr>
+			<th><a href="board/boarddetail.do?num=${hit.board_id}">${hit.board_title}</a></th>
+			<th>${hit.board_date}</th>
+			</tr>
+			
+	        </c:forEach>
+		</tbody>
+		</table>
+	  </div>
+	</div>
+    
+    
+    <div class="col border mx-5 p-3" >
+	  <h2>최근 게시물</h2>
+	  <div id="hits">
+	    <table class="table">
+		<thead>
+			<tr>
+				<th>글제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		
+			<c:forEach items="${latestList}" var="latest">
+			<tr>
+			<th><a href="board/boarddetail.do?num=${latest.board_id}">${latest.board_title}</a></th>
+			<th>${latest.board_date}</th>
+			</tr>
+			
+	        </c:forEach>
+		</tbody>
+		</table>
+	  </div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

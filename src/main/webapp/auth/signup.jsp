@@ -76,7 +76,7 @@
     	    
     	    
     	    
-    	  });
+    	});
         
         geocoder = new google.maps.Geocoder();
 
@@ -114,7 +114,7 @@
         map.controls[google.maps.ControlPosition.LEFT_TOP].push(
           instructionsElement
         );
-        map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv);
+        /* map.controls[google.maps.ControlPosition.LEFT_TOP].push(responseDiv); */
         marker = new google.maps.Marker({
           map,
         });
@@ -305,7 +305,7 @@ $(function () {
   </head>
   <body>
   <%@ include file="/navbar/navbar.jsp"%>
-  <div class="container mx-auto">
+  <div class="container mx-auto mt-3">
 	  <div class="row">
 		<div class="col" >
 		  <h1>회원가입</h1>

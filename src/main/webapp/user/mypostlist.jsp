@@ -5,14 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-RpydOy+vXP/22Mv/0QXOah/Bzq3GqNSZJhWWefmT1mE0xU6JmU6v4mi4X+g6lJlW0s4sHwMgDChsk+EhHUUvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-rz5Z5xnwrgCJnif1RyF/AokM75aqf+DXeQbTVXhmqBN1qJACqAHufPk1Sj6AbOUU6Pds2WnpyU6Fou4zNLsUHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>내가 쓴 글</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
 <%@ include file="/navbar/navbar.jsp"%>
-<div class= "mx-auto p-2" style="width: 80%;">
+<div class= "mx-auto mt-5 p-2" style="width: 80%;">
 	<h1>내가 쓴 글</h1>
 	<table class="table table-striped">
 		<thead>
