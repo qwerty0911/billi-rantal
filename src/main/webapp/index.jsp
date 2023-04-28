@@ -97,7 +97,7 @@ color:black;
 <div class="container-fluid" >
   <div class="row p-3 ">
 	<div class="col border  mx-5 p-3" >
-	  <h2>최근 게시물</h2>
+	  <h2>인기 게시물</h2>
 	  <div id="hits">
 	    <table class="table">
 		<thead>
