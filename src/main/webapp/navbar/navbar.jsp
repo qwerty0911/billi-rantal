@@ -41,7 +41,7 @@
         <input type="hidden" name="pageNum" value=1>
         <input type="hidden" name="category" value="all">
         <input type="hidden" name="local" value=0>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
       <div class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
